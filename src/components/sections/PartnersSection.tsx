@@ -1,0 +1,69 @@
+import { Sprout, Globe, Wheat, Trees, Sun, ShieldCheck } from 'lucide-react'
+
+export function PartnersSection() {
+  const partners = [
+    {
+      name: 'TerraCrest Agri',
+      icon: Sprout,
+      category: 'Crop Enterprise',
+    },
+    {
+      name: 'AeroHarvest Global',
+      icon: Globe,
+      category: 'Fleet Operations',
+    },
+    {
+      name: 'BioFlora Farms',
+      icon: Wheat,
+      category: 'Organic Orchards',
+    },
+    {
+      name: 'Verdant Valley Co.',
+      icon: Trees,
+      category: 'Commercial Vineyards',
+    },
+    {
+      name: 'SolTerra Grain',
+      icon: Sun,
+      category: 'Broadacre Ag',
+    },
+    {
+      name: 'AgriCore Systems',
+      icon: ShieldCheck,
+      category: 'Precision Research',
+    },
+  ]
+
+  return (
+    <section className="px-4 sm:px-8 lg:px-12 py-8 sm:py-12 max-w-[1380px] mx-auto w-full">
+      <div className="flex flex-col items-center text-center space-y-6 sm:space-y-8">
+        {/* Subtitle / Trust Label */}
+        <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-[#0A2B1D]/45">
+          Trusted by 250+ Commercial Farms & Agri Enterprises Worldwide
+        </p>
+
+        {/* Black & White / Monochromatic Partner Logos Grid */}
+        <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 items-center justify-center">
+          {partners.map((partner) => {
+            const Icon = partner.icon
+            return (
+              <div
+                key={partner.name}
+                className="group flex flex-col items-center justify-center gap-2 p-3 sm:p-4 rounded-2xl transition-all duration-300 hover:bg-black/[0.02]"
+              >
+                <div className="flex items-center gap-2.5 grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0A2B1D]/5 text-[#0A2B1D]">
+                    <Icon className="h-4 w-4 stroke-[2.2]" />
+                  </div>
+                  <span className="font-display text-xs sm:text-sm font-bold tracking-tight text-[#0A2B1D]">
+                    {partner.name}
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}
