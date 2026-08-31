@@ -1,4 +1,4 @@
-import { HeroBg } from '@/assets'
+import { HeroBg, HeroMobile } from '@/assets'
 import { ArrowRight, Star, Asterisk, ShoppingBag, CheckCircle2 } from 'lucide-react'
 
 export function HeroSection() {
@@ -6,12 +6,16 @@ export function HeroSection() {
     <section className="relative w-full px-0 sm:px-6 lg:px-8 pt-0 sm:pt-3 pb-8">
       {/* 85% Height Hero Container: Edge-to-Edge full width on mobile, rounded card on sm/lg */}
       <div className="relative min-h-[85vh] lg:h-[85vh] w-full rounded-none sm:rounded-[48px] overflow-hidden px-5 py-8 sm:p-10 lg:p-14 pt-28 sm:pt-28 lg:pt-32 flex flex-col justify-between shadow-2xl">
-        {/* Background Image: Aerial Terraced Green Crop Rows */}
-        <img
-          src={HeroBg}
-          alt="Aerial view of green agricultural field"
-          className="absolute inset-0 h-full w-full object-cover object-center scale-105"
-        />
+        {/* Responsive Background Image: Uses HeroMobile on mobile and HeroBg on larger screens */}
+        <picture className="absolute inset-0 h-full w-full">
+          <source media="(max-width: 640px)" srcSet={HeroMobile} />
+          <img
+            src={HeroBg}
+            alt="Agricultural field operations"
+            className="h-full w-full object-cover object-center scale-105"
+          />
+        </picture>
+
         {/* Dark subtle gradient overlay to keep high contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A2B1D]/60 via-[#0A2B1D]/35 to-[#0A2B1D]/85" />
 
