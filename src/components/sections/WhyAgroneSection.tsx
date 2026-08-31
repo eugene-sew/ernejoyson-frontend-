@@ -175,7 +175,7 @@ export function WhyAgroneSection() {
           </div>
 
           {/* Large Video Display Stage */}
-          <div className="relative min-h-[340px] sm:min-h-[460px] w-full rounded-[24px] sm:rounded-[40px] overflow-hidden shadow-md">
+          <div className="relative min-h-[360px] sm:min-h-[460px] w-full rounded-[24px] sm:rounded-[40px] overflow-hidden shadow-md">
             {/* Background Aerial Green Rows & Field Operations */}
             <img
               src={accordions[activeMediaIndex].videoBg}
@@ -184,30 +184,47 @@ export function WhyAgroneSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A2B1D]/85 via-[#0A2B1D]/35 to-transparent" />
 
-            {/* Bottom-Left Floating White Notched Card with Lime Play Button */}
-            <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-auto sm:max-w-lg z-10">
-              <div className="relative rounded-[22px] sm:rounded-[32px] bg-white p-4 sm:p-7 shadow-2xl border border-white/80 transition-all duration-300">
-                {/* Protruding Lime Green Play Button */}
+            {/* Bottom-Left Floating Custom Notched Agrone Card with Docked Lime Play Button */}
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto sm:w-[480px] z-10">
+              <div className="relative p-5 sm:p-7 sm:pb-8 flex flex-col justify-between min-h-[190px] sm:min-h-[220px] filter drop-shadow-2xl">
+                {/* Custom Notched Agrone Card SVG Background */}
+                <svg
+                  viewBox="0 0 776 361"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M604.811 0.000381001C632.425 -0.103903 654.895 22.1972 655 49.8112L655.179 97.2064C655.262 119.298 673.238 137.138 695.329 137.055L724.854 136.944C752.468 136.839 774.938 159.14 775.042 186.754L775.499 307.74C775.603 335.354 753.302 357.824 725.688 357.928L51.1647 360.476C23.5507 360.58 1.08044 338.279 0.976155 310.665L0.000385292 52.2848C-0.103899 24.6708 22.1972 2.20062 49.8112 2.09633L604.811 0.000381001Z"
+                    fill="white"
+                  />
+                </svg>
+
+                {/* Protruding Docked Lime Play Button in Notch */}
                 <button
                   type="button"
                   aria-label="Play Featured Video"
-                  className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#8BD333] text-white shadow-xl transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20"
+                  className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#8BD333] text-white shadow-xl transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20"
                 >
-                  <Play className="h-4.5 w-4.5 sm:h-5 sm:w-5 fill-current ml-0.5" />
+                  <Play className="h-5 w-5 sm:h-5 sm:w-5 fill-current ml-0.5" />
                 </button>
 
-                {/* Subtitle tag */}
-                <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-[#8BD333] block mb-1">
-                  CASE STUDY & SHOWCASE
-                </span>
+                {/* Content Inside Notched Card */}
+                <div className="relative z-10 pr-10 sm:pr-14 space-y-1 sm:space-y-1.5 pt-1">
+                  {/* Subtitle tag */}
+                  <span className="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-[#8BD333] block">
+                    CASE STUDY & SHOWCASE
+                  </span>
 
-                {/* Headline / Copy */}
-                <h3 className="font-display text-sm sm:text-xl font-extrabold text-[#0A2B1D] leading-snug pr-7 sm:pr-8">
-                  {accordions[activeMediaIndex].mediaTitle}
-                </h3>
+                  {/* Headline / Copy */}
+                  <h3 className="font-display text-sm sm:text-lg lg:text-xl font-extrabold text-[#0A2B1D] leading-snug">
+                    {accordions[activeMediaIndex].mediaTitle}
+                  </h3>
+                </div>
 
                 {/* Bottom Actions: VIEW MORE pill + Circle Arrow */}
-                <div className="mt-3 sm:mt-4 flex items-center gap-2 sm:gap-2.5 pt-1">
+                <div className="relative z-10 mt-3 sm:mt-4 flex items-center gap-2 sm:gap-2.5 pt-1">
                   <a
                     href="#capabilities"
                     className="inline-flex items-center justify-center rounded-full border border-[#0A2B1D] px-5 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-[#0A2B1D] transition-all hover:bg-[#0A2B1D] hover:text-white active:scale-95"
