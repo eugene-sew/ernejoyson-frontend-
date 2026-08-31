@@ -26,23 +26,23 @@ export function NewsSection() {
   ]
 
   return (
-    <section id="news" className="px-4 sm:px-6 py-12 sm:py-16 max-w-7xl mx-auto w-full space-y-8">
+    <section id="news" className="px-4 sm:px-6 py-12 sm:py-20 max-w-7xl mx-auto w-full space-y-8 sm:space-y-10">
       {/* Section Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0A2B1D]">
+        <div className="space-y-1.5">
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0A2B1D]">
             News & Articles
           </h2>
-          <p className="text-xs sm:text-sm text-[#0A2B1D]/70">
+          <p className="text-sm sm:text-base text-[#0A2B1D]/75 font-medium">
             Insights, real-world case studies, and engineering breakthroughs in smart farming.
           </p>
         </div>
 
         <a
           href="#news"
-          className="hidden sm:inline-flex items-center gap-1 text-xs font-bold text-[#0A2B1D] hover:text-[#154631] underline decoration-[#8BD333] decoration-2 underline-offset-4"
+          className="hidden sm:inline-flex items-center gap-1.5 text-sm font-bold text-[#0A2B1D] hover:text-[#154631] underline decoration-[#8BD333] decoration-2 underline-offset-4"
         >
-          View All News <ArrowUpRight className="h-3.5 w-3.5 text-[#8BD333]" />
+          View All News <ArrowUpRight className="h-4 w-4 text-[#8BD333]" />
         </a>
       </div>
 
@@ -51,38 +51,38 @@ export function NewsSection() {
         {articles.map((article) => (
           <article
             key={article.id}
-            className="group flex flex-col justify-between rounded-[32px] bg-white p-4 shadow-sm border border-[#EAE4D6] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-[#8BD333]/50"
+            className="group flex flex-col justify-between rounded-[32px] bg-white p-5 shadow-sm border border-[#EAE4D6] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-[#8BD333]/50"
           >
             {/* Image Thumbnail with Overlay Circle Button */}
-            <div className="relative h-56 w-full overflow-hidden rounded-[24px] bg-slate-900">
+            <div className="relative h-60 w-full overflow-hidden rounded-[24px] bg-slate-900">
               <img
                 src={article.image}
                 alt={article.title}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute top-3 left-3 rounded-full bg-[#0A2B1D]/80 backdrop-blur-md px-3 py-0.5 text-[10px] font-bold text-white">
+              <div className="absolute top-3 left-3 rounded-full bg-[#0A2B1D]/80 backdrop-blur-md px-3.5 py-1 text-xs font-bold text-white">
                 {article.category}
               </div>
-              <div className="absolute top-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-[#8BD333] text-[#0A2B1D] shadow-md transition-transform duration-200 group-hover:scale-110">
-                <ArrowUpRight className="h-4 w-4" />
+              <div className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#8BD333] text-[#0A2B1D] shadow-md transition-transform duration-200 group-hover:scale-110">
+                <ArrowUpRight className="h-5 w-5" />
               </div>
             </div>
 
             {/* Content info */}
-            <div className="pt-4 pb-2 space-y-3">
-              <span className="text-[11px] font-medium text-[#0A2B1D]/60">
+            <div className="pt-4 pb-2 space-y-2">
+              <span className="text-xs font-medium text-[#0A2B1D]/60">
                 {article.date}
               </span>
-              <h3 className="font-display text-base font-bold text-[#0A2B1D] group-hover:text-[#154631] transition-colors leading-snug line-clamp-2">
+              <h3 className="font-display text-lg font-bold text-[#0A2B1D] group-hover:text-[#154631] transition-colors leading-snug line-clamp-2">
                 {article.title}
               </h3>
             </div>
 
             {/* Read More Pill Link */}
-            <div className="pt-2 border-t border-[#0A2B1D]/5">
+            <div className="pt-3 border-t border-[#0A2B1D]/5">
               <a
                 href="#read"
-                className="inline-flex items-center gap-1.5 rounded-full bg-[#FAF5ED] px-4 py-1.5 text-xs font-bold text-[#0A2B1D] transition-colors hover:bg-[#8BD333]"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#FAF5ED] px-5 py-2 text-xs font-bold text-[#0A2B1D] transition-colors hover:bg-[#8BD333]"
               >
                 Read Article
               </a>

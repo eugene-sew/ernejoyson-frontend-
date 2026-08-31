@@ -1,98 +1,157 @@
-import { useState } from 'react'
-import { Asterisk, ArrowRight } from 'lucide-react'
+import { ArrowUpRight, Sparkles, ArrowRight } from 'lucide-react'
 
 export function FeaturesGridSection() {
-  const [activeTab, setActiveTab] = useState(0)
-
-  const features = [
+  const categories = [
     {
-      id: 0,
-      title: 'Magnetic Drive Impeller Pump',
-      description:
-        'Dual pump flow rate of up to 24 L/min[3]. This is a 100% increase compared with the previous generation, to meet demands of fields, orchards, and high-temperature environments.',
-      image: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1200&q=90',
+      id: 'poultry',
+      name: 'Poultry Equipment',
+      description: 'Feeders, cages, drinkers & more',
+      badge: 'Top Category',
+      span: 'lg:col-span-7',
+      minHeight: 'min-h-[380px] sm:min-h-[420px]',
+      image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1200&q=85',
+      href: '#products',
     },
     {
-      id: 1,
-      title: 'Dual Atomizing Centrifugal Sprinklers',
-      description:
-        'Micron-level uniform atomization with adjustable droplet size ranging from 50 to 500 μm, preventing drift while maximizing leaf canopy absorption.',
-      image: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=90',
+      id: 'machinery',
+      name: 'Farm Machinery',
+      description: 'Tractors, pumps, machinery & more',
+      badge: null,
+      span: 'lg:col-span-5',
+      minHeight: 'min-h-[380px] sm:min-h-[420px]',
+      image: 'https://images.unsplash.com/photo-1592982537447-7440770cbfc9?auto=format&fit=crop&w=1000&q=85',
+      href: '#products',
     },
     {
-      id: 2,
-      title: 'Brand-New Solenoid Valves',
-      description:
-        'High-precision start/stop dripping prevention with centrifugal atomization valves ensuring zero chemical wastage and pinpoint droplet distribution.',
-      image: 'https://images.unsplash.com/photo-1527061011665-3652c757a4d4?auto=format&fit=crop&w=1200&q=90',
+      id: 'implements',
+      name: 'Agricultural Implements',
+      description: 'Tools & equipment for the field',
+      badge: null,
+      span: 'lg:col-span-3 sm:col-span-6',
+      minHeight: 'min-h-[300px] sm:min-h-[340px]',
+      image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=85',
+      href: '#products',
+    },
+    {
+      id: 'animal-health',
+      name: 'Animal Health',
+      description: 'Veterinary products & care',
+      badge: null,
+      span: 'lg:col-span-3 sm:col-span-6',
+      minHeight: 'min-h-[300px] sm:min-h-[340px]',
+      image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=85',
+      href: '#products',
+    },
+    {
+      id: 'irrigation',
+      name: 'Irrigation & Water',
+      description: 'Pumps, tanks, irrigation & more',
+      badge: null,
+      span: 'lg:col-span-3 sm:col-span-6',
+      minHeight: 'min-h-[300px] sm:min-h-[340px]',
+      image: 'https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&w=800&q=85',
+      href: '#products',
+    },
+    {
+      id: 'supplies',
+      name: 'Farm & Feed Supplies',
+      description: 'Essential farm supplies & inputs',
+      badge: null,
+      span: 'lg:col-span-3 sm:col-span-6',
+      minHeight: 'min-h-[300px] sm:min-h-[340px]',
+      image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=800&q=85',
+      href: '#products',
     },
   ]
 
   return (
-    <section className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24 max-w-[1380px] mx-auto w-full space-y-12 sm:space-y-16">
-      {/* Centered Display Header with Exact 3-line Break */}
-      <div className="text-center max-w-4xl mx-auto">
-        <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0A2B1D] leading-[1.14]">
-          <span className="inline-flex items-center justify-center rounded-full bg-[#FAF5ED] border border-[#EAE4D6] h-11 w-11 sm:h-14 sm:w-14 text-[#8BD333] align-middle mr-2 sm:mr-3 shadow-sm">
-            <Asterisk className="h-6 w-6 sm:h-8 sm:w-8 text-[#8BD333] stroke-[2.5]" />
-          </span>
-          Elevates agricultural <br />
-          operations to{' '}
-          <span className="inline-flex items-center justify-center rounded-full bg-[#8BD333] px-4 sm:px-6 py-1.5 sm:py-2 align-middle text-[#0A2B1D] mx-1 sm:mx-2 shadow-sm transition-transform hover:scale-105">
-            <ArrowRight className="h-5 w-5 sm:h-7 sm:w-7 stroke-[2.5]" />
-          </span> <br />
-          new heights
-        </h2>
+    <section id="categories" className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24 max-w-[1380px] mx-auto w-full space-y-10 sm:space-y-12">
+      {/* Header with Eyebrow, Title and View All Products Action */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-3 max-w-3xl">
+          {/* Eyebrow */}
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FAF5ED] px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-[#0A2B1D] border border-[#EAE4D6] shadow-sm">
+              <Sparkles className="h-3.5 w-3.5 text-[#8BD333] fill-current" />
+              EXPLORE OUR RANGE
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#0A2B1D] leading-[1.1]">
+            Everything You Need for <br className="hidden sm:inline" />
+            Better Farming.
+          </h2>
+
+          {/* Subtitle */}
+          <p className="text-sm sm:text-base text-[#0A2B1D]/80 leading-relaxed max-w-2xl font-medium pt-1">
+            From poultry equipment to agricultural machinery, find reliable products for every stage of your operation.
+          </p>
+        </div>
+
+        {/* Top Right Action Button */}
+        <div className="shrink-0">
+          <a
+            href="#products"
+            className="inline-flex items-center gap-2 rounded-full border border-[#0A2B1D] px-7 py-3 text-sm font-extrabold text-[#0A2B1D] transition-all hover:bg-[#0A2B1D] hover:text-white active:scale-95 shadow-sm"
+          >
+            <span>View All Products</span>
+            <ArrowRight className="h-4 w-4 stroke-[2.5]" />
+          </a>
+        </div>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-        {/* Left Column: Vertical Feature Selector with Indicator Line */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="space-y-5 border-l-2 border-[#0A2B1D]/15 pl-0">
-            {features.map((feature, index) => {
-              const isActive = activeTab === index
-              return (
-                <div
-                  key={feature.id}
-                  onClick={() => setActiveTab(index)}
-                  className={`group relative pl-6 py-2 transition-all duration-300 cursor-pointer ${
-                    isActive ? 'border-l-2 border-[#0A2B1D] -ml-[2px]' : '-ml-[2px] border-l-2 border-transparent'
-                  }`}
-                >
-                  <h3
-                    className={`font-display text-base sm:text-lg font-bold tracking-tight transition-colors ${
-                      isActive ? 'text-[#0A2B1D]' : 'text-[#0A2B1D]/70 group-hover:text-[#0A2B1D]'
-                    }`}
-                  >
-                    {feature.title}
-                  </h3>
-
-                  {isActive && (
-                    <p className="text-xs sm:text-sm text-[#0A2B1D]/75 leading-relaxed mt-2.5 max-w-md animate-in fade-in duration-300">
-                      {feature.description}
-                    </p>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Right Column: Cream Card with Drone Cutout */}
-        <div className="lg:col-span-7">
-          <div className="relative rounded-[36px] sm:rounded-[44px] bg-[#FAF5ED] border border-[#EAE4D6] p-6 sm:p-10 min-h-[340px] sm:min-h-[420px] flex items-center justify-center shadow-lg overflow-hidden group">
-            {/* Top Right Stepped Notch Accent */}
-            <div className="absolute top-0 right-0 w-16 h-10 bg-white/40 rounded-bl-[24px] pointer-events-none" />
-
-            {/* Drone Feature Image Display */}
+      {/* Category Bento Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6">
+        {categories.map((cat) => (
+          <a
+            key={cat.id}
+            href={cat.href}
+            className={`group relative rounded-[32px] sm:rounded-[36px] overflow-hidden ${cat.span} ${cat.minHeight} flex flex-col justify-between p-6 sm:p-8 shadow-md border border-black/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer`}
+          >
+            {/* Real Product Background Photography */}
             <img
-              src={features[activeTab].image}
-              alt={features[activeTab].title}
-              className="w-full max-h-[320px] sm:max-h-[380px] object-contain drop-shadow-2xl transition-all duration-500 group-hover:scale-105"
+              src={cat.image}
+              alt={cat.name}
+              className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             />
-          </div>
-        </div>
+
+            {/* Dark Soft Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#082318]/95 via-[#082318]/45 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+
+            {/* Top Row: Optional Badge & Interactive Arrow Circle */}
+            <div className="relative z-10 flex items-center justify-between w-full">
+              {cat.badge ? (
+                <span className="inline-flex items-center rounded-full bg-[#8BD333] px-3.5 py-1 text-xs font-black text-[#0A2B1D] shadow-md">
+                  {cat.badge}
+                </span>
+              ) : (
+                <div />
+              )}
+
+              {/* Circle Action Button */}
+              <div className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-lg transition-all duration-300 group-hover:bg-[#8BD333] group-hover:text-[#0A2B1D] group-hover:scale-110 group-hover:rotate-45">
+                <ArrowUpRight className="h-5 w-5 stroke-[2.5]" />
+              </div>
+            </div>
+
+            {/* Bottom Content Row: Title, Description, and Link Text */}
+            <div className="relative z-10 space-y-2 pt-12">
+              <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
+                {cat.name}
+              </h3>
+
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-medium">
+                {cat.description}
+              </p>
+
+              <div className="pt-2 flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#8BD333] transition-transform duration-200 group-hover:translate-x-1">
+                <span>Explore</span>
+                <ArrowRight className="h-4 w-4" />
+              </div>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )

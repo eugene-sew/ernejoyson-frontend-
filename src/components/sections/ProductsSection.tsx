@@ -53,14 +53,14 @@ export function ProductsSection() {
   }
 
   return (
-    <section id="products" className="px-4 sm:px-6 py-12 sm:py-16 max-w-7xl mx-auto w-full space-y-8">
+    <section id="products" className="px-4 sm:px-6 py-12 sm:py-20 max-w-7xl mx-auto w-full space-y-8 sm:space-y-10">
       {/* Header with Title and Slider Buttons */}
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-[#0A2B1D]">
+        <div className="space-y-1.5">
+          <h2 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-[#0A2B1D]">
             Explore Our Products
           </h2>
-          <p className="text-xs sm:text-sm text-[#0A2B1D]/70">
+          <p className="text-sm sm:text-base text-[#0A2B1D]/75 font-medium">
             Professional fleet of agricultural drones, generators, and precision payload systems.
           </p>
         </div>
@@ -70,18 +70,18 @@ export function ProductsSection() {
           <button
             onClick={handlePrev}
             disabled={scrollIndex === 0}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0A2B1D]/20 bg-white text-[#0A2B1D] shadow-sm transition-all hover:bg-[#0A2B1D] hover:text-white disabled:opacity-40 cursor-pointer"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#0A2B1D]/20 bg-white text-[#0A2B1D] shadow-sm transition-all hover:bg-[#0A2B1D] hover:text-white disabled:opacity-40 cursor-pointer"
             aria-label="Previous products"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-5 w-5" />
           </button>
           <button
             onClick={handleNext}
             disabled={scrollIndex === products.length - 1}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#0A2B1D]/20 bg-white text-[#0A2B1D] shadow-sm transition-all hover:bg-[#0A2B1D] hover:text-white disabled:opacity-40 cursor-pointer"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#0A2B1D]/20 bg-white text-[#0A2B1D] shadow-sm transition-all hover:bg-[#0A2B1D] hover:text-white disabled:opacity-40 cursor-pointer"
             aria-label="Next products"
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-5 w-5" />
           </button>
         </div>
       </div>
@@ -91,27 +91,27 @@ export function ProductsSection() {
         {products.map((product) => (
           <div
             key={product.id}
-            className="group relative flex flex-col justify-between rounded-[30px] bg-white p-5 shadow-sm border border-[#EAE4D6] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-[#8BD333]/50"
+            className="group relative flex flex-col justify-between rounded-[32px] bg-white p-6 shadow-sm border border-[#EAE4D6] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-[#8BD333]/50"
           >
             {/* Top Badge */}
             <div className="flex items-center justify-between pb-3">
-              <span className="rounded-full bg-[#FFEED6] px-3 py-0.5 text-[10px] font-bold text-[#D97706]">
+              <span className="rounded-full bg-[#FFEED6] px-3.5 py-1 text-xs font-bold text-[#D97706]">
                 {product.badge}
               </span>
-              <span className="text-xs font-bold text-[#0A2B1D]/60">
+              <span className="text-sm font-extrabold text-[#0A2B1D]/80">
                 {product.price}
               </span>
             </div>
 
             {/* Product Image Stage */}
-            <div className="relative my-4 flex h-40 w-full items-center justify-center rounded-2xl bg-[#FAF5ED] p-3 overflow-hidden">
+            <div className="relative my-4 flex h-44 w-full items-center justify-center rounded-2xl bg-[#FAF5ED] p-4 overflow-hidden">
               <img
                 src={product.image}
                 alt={product.title}
                 className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-110"
               />
               {product.hasLimeButton && (
-                <div className="absolute bottom-2 left-2 rounded-full bg-[#8BD333] px-2 py-0.5 text-[9px] font-bold text-[#0A2B1D]">
+                <div className="absolute bottom-2 left-2 rounded-full bg-[#8BD333] px-2.5 py-1 text-[10px] font-bold text-[#0A2B1D]">
                   Best Match
                 </div>
               )}
@@ -119,11 +119,11 @@ export function ProductsSection() {
 
             {/* Product Info & Action */}
             <div className="flex items-end justify-between pt-2">
-              <div className="space-y-1 pr-2">
-                <h3 className="font-display text-sm font-bold text-[#0A2B1D]">
+              <div className="space-y-1.5 pr-2">
+                <h3 className="font-display text-base sm:text-lg font-bold text-[#0A2B1D]">
                   {product.title}
                 </h3>
-                <p className="text-[11px] text-[#0A2B1D]/70 line-clamp-1">
+                <p className="text-xs sm:text-sm text-[#0A2B1D]/75 line-clamp-1 font-medium">
                   {product.specs}
                 </p>
               </div>
