@@ -3,9 +3,9 @@ import { ArrowRight, Star, Asterisk, ShoppingBag, CheckCircle2 } from 'lucide-re
 
 export function HeroSection() {
   return (
-    <section className="relative w-full px-3 sm:px-6 lg:px-8 pt-3 pb-8">
-      {/* 85% Height Hero Container with comfortable breathing room */}
-      <div className="relative min-h-[85vh] lg:h-[85vh] w-full rounded-[36px] sm:rounded-[48px] overflow-hidden p-6 sm:p-10 lg:p-14 pt-24 sm:pt-28 lg:pt-32 flex flex-col justify-between shadow-2xl">
+    <section className="relative w-full px-0 sm:px-6 lg:px-8 pt-0 sm:pt-3 pb-8">
+      {/* 85% Height Hero Container: Edge-to-Edge full width on mobile, rounded card on sm/lg */}
+      <div className="relative min-h-[85vh] lg:h-[85vh] w-full rounded-none sm:rounded-[48px] overflow-hidden px-5 py-8 sm:p-10 lg:p-14 pt-28 sm:pt-28 lg:pt-32 flex flex-col justify-between shadow-2xl">
         {/* Background Image: Aerial Terraced Green Crop Rows */}
         <img
           src={HeroBg}
@@ -19,8 +19,6 @@ export function HeroSection() {
         <div className="relative z-10 max-w-[1380px] mx-auto w-full grid grid-cols-1 gap-8 lg:grid-cols-12 items-center my-auto">
           {/* Left Title & Copy Flow */}
           <div className="lg:col-span-8 space-y-6">
-
-
             {/* H1 Headline */}
             <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] max-w-3xl">
               Build Better. <br />
