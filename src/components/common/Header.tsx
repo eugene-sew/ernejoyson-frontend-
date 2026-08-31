@@ -20,6 +20,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isPastHeroPartners, setIsPastHeroPartners] = useState(false)
   const [cartCount] = useState(0) // Default cart count is 0
   const [isLoggedIn] = useState(false) // Account pill only visible when logged in
 
@@ -48,9 +49,21 @@ export function Header() {
       } else {
         setIsScrolled(false)
       }
+
+      // Check if scrolled past Hero + Partners section
+      const capabilitiesEl = document.getElementById('capabilities')
+      if (capabilitiesEl) {
+        const rect = capabilitiesEl.getBoundingClientRect()
+        setIsPastHeroPartners(rect.top <= 140)
+      } else {
+        const threshold = window.innerHeight * 0.85 + 160
+        setIsPastHeroPartners(window.scrollY > threshold)
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+
     return () => {
       window.removeEventListener('scroll', handleScroll)
       if (dropdownTimeoutRef.current) {
@@ -401,10 +414,14 @@ export function Header() {
         {/* 3. Right Pill: Primary High-Value CTA Button "Get a Quote" */}
         <a
           href="#contact"
-          className="hidden lg:inline-flex items-center justify-center gap-2 rounded-full bg-[#8BD333] px-7 py-3 shadow-md border border-black/5 text-sm font-extrabold text-white transition-all hover:bg-[#9BE139] hover:scale-[1.02] active:scale-95 shrink-0"
+          className={`hidden lg:inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 shadow-md border border-black/5 text-sm font-extrabold transition-all duration-300 hover:scale-[1.02] active:scale-95 shrink-0 ${
+            isPastHeroPartners
+              ? 'bg-[#0A2B1D] text-white hover:bg-[#154631] shadow-lg ring-1 ring-white/10'
+              : 'bg-[#8BD333] text-white hover:bg-[#9BE139]'
+          }`}
         >
           <span>Get a Quote</span>
-          <ArrowRight className="h-4 w-4 stroke-[2.5]" />
+          <ArrowRight className={`h-4 w-4 stroke-[2.5] transition-colors ${isPastHeroPartners ? 'text-[#8BD333]' : 'text-white'}`} />
         </a>
 
         {/* Mobile / Tablet Controls */}
@@ -504,7 +521,9 @@ export function Header() {
               <a
                 href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#8BD333] text-sm font-bold text-white shadow-md"
+                className={`flex h-12 w-full items-center justify-center gap-2 rounded-full text-sm font-bold shadow-md transition-all duration-300 ${
+                  isPastHeroPartners ? 'bg-[#0A2B1D] text-white' : 'bg-[#8BD333] text-white'
+                }`}
               >
                 <span>Get a Quote</span>
                 <ArrowRight className="h-4 w-4" />
