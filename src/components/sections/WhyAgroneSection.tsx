@@ -205,7 +205,7 @@ export function WhyAgroneSection() {
                 <button
                   type="button"
                   aria-label="Play Featured Video"
-                  className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#8BD333] text-white shadow-xl transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20"
+                  className="absolute top-3 -right-[5px] sm:top-4 sm:-right-[5px] flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#8BD333] text-white shadow-xl transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20"
                 >
                   <Play className="h-5 w-5 sm:h-5 sm:w-5 fill-current ml-0.5" />
                 </button>

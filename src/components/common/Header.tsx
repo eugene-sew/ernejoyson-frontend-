@@ -79,10 +79,10 @@ export function Header() {
       }`}
     >
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-3 sm:gap-4 pointer-events-auto">
-        {/* 1. Left Pill: Brand Logo */}
+        {/* 1. Left Pill: Brand Logo (Matched h-12 on mobile, h-14 on desktop) */}
         <a
           href="#"
-          className="flex items-center gap-2.5 rounded-full bg-white px-4 sm:px-5 py-2.5 sm:py-3 shadow-md border border-black/5 shrink-0 transition-all duration-200 hover:scale-[1.02] active:scale-95"
+          className="flex h-12 lg:h-14 items-center gap-2.5 rounded-full bg-white px-4 sm:px-6 shadow-md border border-black/5 shrink-0 transition-all duration-200 hover:scale-[1.02] active:scale-95"
         >
           <div className="flex h-6 w-6 items-center justify-center text-[#8BD333]">
             <Drone className="h-5 w-5 stroke-[2.5]" />
@@ -92,13 +92,13 @@ export function Header() {
           </span>
         </a>
 
-        {/* 2. Center Pill: Navigation Links + (Search & Cart tightly grouped on right) */}
-        <nav className="hidden lg:flex flex-1 items-center justify-between gap-4 2xl:gap-6 rounded-full bg-white px-6 py-2.5 shadow-md border border-black/5">
+        {/* 2. Center Pill: Navigation Links + (Search & Cart tightly grouped on right) (Matched h-14 on desktop) */}
+        <nav className="hidden lg:flex flex-1 h-14 items-center justify-between gap-4 2xl:gap-6 rounded-full bg-white px-6 shadow-md border border-black/5">
           {/* Navigation Links (Unwrapped & Spacious) */}
-          <div className="flex items-center gap-4 xl:gap-5 2xl:gap-7 text-sm font-bold text-[#0A2B1D] shrink-0">
+          <div className="flex items-center gap-4 xl:gap-5 2xl:gap-7 text-sm font-bold text-[#0A2B1D] shrink-0 h-full">
             {/* 1. Shop Dropdown */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap"
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
               onMouseEnter={() => handleMouseEnter('shop')}
               onMouseLeave={handleMouseLeave}
             >
@@ -156,7 +156,7 @@ export function Header() {
 
             {/* 2. Solutions Dropdown */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap"
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
               onMouseEnter={() => handleMouseEnter('solutions')}
               onMouseLeave={handleMouseLeave}
             >
@@ -201,7 +201,7 @@ export function Header() {
 
             {/* 3. Farm Advisory Dropdown */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap"
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
               onMouseEnter={() => handleMouseEnter('advisory')}
               onMouseLeave={handleMouseLeave}
             >
@@ -243,7 +243,7 @@ export function Header() {
 
             {/* 4. Resources Dropdown */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap"
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
               onMouseEnter={() => handleMouseEnter('resources')}
               onMouseLeave={handleMouseLeave}
             >
@@ -286,7 +286,7 @@ export function Header() {
 
             {/* 5. About Dropdown */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap"
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
               onMouseEnter={() => handleMouseEnter('about')}
               onMouseLeave={handleMouseLeave}
             >
@@ -325,7 +325,7 @@ export function Header() {
           {/* Right Group: Search Bar + (Account if logged in) + Cart Icon tightly nested */}
           <div className="flex items-center gap-2.5 2xl:gap-3 shrink-0">
             {/* Search Bar */}
-            <div className="relative flex items-center rounded-full bg-[#FAF2EB] px-4 py-2 transition-all focus-within:ring-1.5 focus-within:ring-[#0A2B1D]/40 w-48 xl:w-56 2xl:w-64">
+            <div className="relative flex items-center h-10 rounded-full bg-[#FAF2EB] px-4 transition-all focus-within:ring-1.5 focus-within:ring-[#0A2B1D]/40 w-48 xl:w-56 2xl:w-64">
               <Search className="h-4 w-4 text-[#0A2B1D]/60 shrink-0 mr-2.5" />
               <input
                 type="text"
@@ -343,7 +343,7 @@ export function Header() {
               >
                 <button
                   type="button"
-                  className="flex items-center gap-2 rounded-full bg-[#FAF2EB] px-3.5 py-2 text-sm font-bold text-[#0A2B1D] transition-all hover:bg-[#F3E8DD] active:scale-95 cursor-pointer"
+                  className="flex h-10 items-center gap-2 rounded-full bg-[#FAF2EB] px-3.5 text-sm font-bold text-[#0A2B1D] transition-all hover:bg-[#F3E8DD] active:scale-95 cursor-pointer"
                 >
                   <User className="h-4 w-4 text-[#0A2B1D]" />
                   <span className="hidden 2xl:inline">Account</span>
@@ -399,7 +399,7 @@ export function Header() {
             <button
               type="button"
               aria-label="Shopping Cart"
-              className="relative flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#FAF2EB] text-[#0A2B1D] transition-all hover:bg-[#F3E8DD] active:scale-95 cursor-pointer"
+              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF2EB] text-[#0A2B1D] transition-all hover:bg-[#F3E8DD] active:scale-95 cursor-pointer"
             >
               <ShoppingCart className="h-4 w-4 text-[#0A2B1D]" />
               {cartCount > 0 && (
@@ -411,10 +411,10 @@ export function Header() {
           </div>
         </nav>
 
-        {/* 3. Right Pill: Primary High-Value CTA Button "Get a Quote" */}
+        {/* 3. Right Pill: Primary High-Value CTA Button "Get a Quote" (Matched h-14 on desktop) */}
         <a
           href="#contact"
-          className={`hidden lg:inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 shadow-md border border-black/5 text-sm font-extrabold transition-all duration-300 hover:scale-[1.02] active:scale-95 shrink-0 ${
+          className={`hidden lg:inline-flex items-center justify-center gap-2 rounded-full h-14 px-8 shadow-md border border-black/5 text-sm font-extrabold transition-all duration-300 hover:scale-[1.02] active:scale-95 shrink-0 ${
             isPastHeroPartners
               ? 'bg-[#0A2B1D] text-white hover:bg-[#154631] shadow-lg ring-1 ring-white/10'
               : 'bg-[#8BD333] text-white hover:bg-[#9BE139]'
@@ -424,15 +424,15 @@ export function Header() {
           <ArrowRight className={`h-4 w-4 stroke-[2.5] transition-colors ${isPastHeroPartners ? 'text-[#8BD333]' : 'text-white'}`} />
         </a>
 
-        {/* Mobile / Tablet Controls */}
+        {/* Mobile / Tablet Controls (Matched h-12 with Brand Logo) */}
         <div className="flex items-center gap-2.5 lg:hidden">
           {/* Mobile Cart Button */}
           <button
             type="button"
             aria-label="Shopping Cart"
-            className="relative flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm border border-black/5 text-[#0A2B1D]"
+            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-black/5 text-[#0A2B1D]"
           >
-            <ShoppingCart className="h-4 w-4 text-[#0A2B1D]" />
+            <ShoppingCart className="h-4.5 w-4.5 text-[#0A2B1D]" />
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#8BD333] text-[10px] font-black text-[#0A2B1D]">
                 {cartCount}
@@ -441,7 +441,7 @@ export function Header() {
           </button>
 
           {/* Mobile Hamburger */}
-          <div className="flex items-center rounded-full bg-white p-1.5 shadow-md border border-black/5">
+          <div className="flex items-center rounded-full bg-white p-1.5 shadow-md border border-black/5 h-12 w-12 justify-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FAF2EB] text-[#0A2B1D]"
