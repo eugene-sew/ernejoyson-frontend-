@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export interface CircleArrowButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'dark' | 'lime' | 'outline' | 'white'
+  variant?: 'dark' | 'green' | 'outline' | 'white'
   size?: 'sm' | 'md' | 'lg'
 }
 
@@ -14,10 +14,10 @@ export function CircleArrowButton({
   ...props
 }: CircleArrowButtonProps) {
   const variants = {
-    dark: 'bg-[#0A2B1D] text-white hover:bg-[#154631] shadow-sm',
-    lime: 'bg-[#8BD333] text-[#0A2B1D] hover:bg-[#9BE139] shadow-sm',
-    outline: 'border border-[#0A2B1D]/20 text-[#0A2B1D] hover:bg-[#0A2B1D]/5 bg-transparent',
-    white: 'bg-white text-[#0A2B1D] hover:bg-[#F4F0E6] shadow-sm',
+    dark: 'bg-[#14532D] text-white hover:bg-[#0E3B20] shadow-sm',
+    green: 'bg-[#166534] text-white hover:bg-[#14532D] shadow-sm',
+    outline: 'border border-[#14532D]/20 text-[#14532D] hover:bg-[#14532D]/5 bg-transparent',
+    white: 'bg-white text-[#14532D] hover:bg-[#FAF9F5] shadow-sm border border-[#EAE6DC]',
   }
 
   const sizes = {

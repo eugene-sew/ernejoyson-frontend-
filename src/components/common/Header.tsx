@@ -3,26 +3,22 @@ import {
   Search,
   ChevronDown,
   ShoppingCart,
-  User,
   Menu,
   X,
-  Drone,
+  ShieldPlus,
   ArrowRight,
-  Package,
-  FileText,
-  Bookmark,
-  Building2,
-  Settings,
-  LogOut,
+  Headphones,
+  Sparkles,
+  Layers,
+  HeartPulse,
 } from 'lucide-react'
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isPastHeroPartners, setIsPastHeroPartners] = useState(false)
-  const [cartCount] = useState(0) // Default cart count is 0
-  const [isLoggedIn] = useState(false) // Account pill only visible when logged in
+  const [isPastHero, setIsPastHero] = useState(false)
+  const [cartCount] = useState(0)
 
   const dropdownTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -44,20 +40,14 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true)
-      } else {
-        setIsScrolled(false)
-      }
+      setIsScrolled(window.scrollY > 20)
 
-      // Check if scrolled past Hero + Partners section
-      const capabilitiesEl = document.getElementById('capabilities')
-      if (capabilitiesEl) {
-        const rect = capabilitiesEl.getBoundingClientRect()
-        setIsPastHeroPartners(rect.top <= 140)
+      const quickActionsEl = document.getElementById('quick-actions')
+      if (quickActionsEl) {
+        const rect = quickActionsEl.getBoundingClientRect()
+        setIsPastHero(rect.top <= 140)
       } else {
-        const threshold = window.innerHeight * 0.85 + 160
-        setIsPastHeroPartners(window.scrollY > threshold)
+        setIsPastHero(window.scrollY > 400)
       }
     }
 
@@ -74,35 +64,40 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-4 sm:top-5 left-0 right-0 z-50 transition-all duration-300 pointer-events-none ${
-        isScrolled ? 'py-1.5' : 'py-3 sm:py-4'
+      className={`fixed top-3 sm:top-4 left-0 right-0 z-50 transition-all duration-300 pointer-events-none ${
+        isScrolled ? 'py-1' : 'py-2.5 sm:py-3'
       }`}
     >
       <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-3 sm:gap-4 pointer-events-auto">
-        {/* 1. Left Pill: Brand Logo (Matched h-12 on mobile, h-14 on desktop) */}
+        {/* 1. Left Pill: Brand Logo */}
         <a
           href="#"
-          className="flex h-12 lg:h-14 items-center gap-2.5 rounded-full bg-white px-4 sm:px-6 shadow-md border border-black/5 shrink-0 transition-all duration-200 hover:scale-[1.02] active:scale-95"
+          className="flex h-12 lg:h-14 items-center gap-2.5 rounded-full bg-white px-4 sm:px-6 shadow-md border border-black/5 shrink-0 transition-all duration-200 hover:scale-[1.01] active:scale-95"
         >
-          <div className="flex h-6 w-6 items-center justify-center text-[#8BD333]">
-            <Drone className="h-5 w-5 stroke-[2.5]" />
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#DCFCE7] text-[#166534]">
+            <ShieldPlus className="h-4.5 w-4.5 stroke-[2.2]" />
           </div>
-          <span className="font-display text-xs sm:text-sm font-black tracking-tight text-[#0A2B1D] whitespace-nowrap">
-            ERNEJOYSON LIMITED
-          </span>
+          <div className="flex flex-col">
+            <span className="font-display text-xs sm:text-sm font-black tracking-tight text-[#14532D] whitespace-nowrap">
+              ERNEJOYSON
+            </span>
+            <span className="text-[9px] font-bold text-[#166534] tracking-wider uppercase -mt-0.5 hidden sm:block">
+              Veterinary & Livestock
+            </span>
+          </div>
         </a>
 
-        {/* 2. Center Pill: Navigation Links + (Search & Cart tightly grouped on right) (Matched h-14 on desktop) */}
+        {/* 2. Center Pill: Navigation Links + Search + Cart */}
         <nav className="hidden lg:flex flex-1 h-14 items-center justify-between gap-4 2xl:gap-6 rounded-full bg-white px-6 shadow-md border border-black/5">
-          {/* Navigation Links (Unwrapped & Spacious) */}
-          <div className="flex items-center gap-4 xl:gap-5 2xl:gap-7 text-sm font-bold text-[#0A2B1D] shrink-0 h-full">
-            {/* 1. Shop Dropdown */}
+          {/* Navigation Dropdowns */}
+          <div className="flex items-center gap-4 xl:gap-5 2xl:gap-6 text-sm font-bold text-[#14532D] shrink-0 h-full">
+            {/* Dropdown 1: Shop Categories */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
               onMouseEnter={() => handleMouseEnter('shop')}
               onMouseLeave={handleMouseLeave}
             >
-              <a href="#products" className="hover:text-[#8BD333] transition-colors">
+              <a href="#categories" className="hover:text-[#166534] transition-colors">
                 Shop
               </a>
               <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
@@ -112,55 +107,55 @@ export function Header() {
                   onMouseEnter={() => handleMouseEnter('shop')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
-                    <span className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0A2B1D]/45">
+                  <div className="w-72 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
                       Product Categories
                     </span>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-semibold flex items-center justify-between">
-                      <span>All Products</span>
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Veterinary Pharmaceuticals
                     </a>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Farm Machinery
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Anti-Parasitics & Anthelmintics
                     </a>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Poultry Equipment
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Nutritional Supplements
                     </a>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Agricultural Implements
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Feeding & Drinking Systems
                     </a>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Animal Health
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Incubators & Hatchery Equipment
                     </a>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Irrigation & Water
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Feed Processing Machines
                     </a>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Feed & Farm Supplies
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Slaughtering Equipment
                     </a>
-                    <a href="#products" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Processing Equipment
+                    <a href="#categories" className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm">
+                      Transport Cages
                     </a>
 
-                    <div className="my-1.5 border-t border-black/5" />
+                    <div className="my-1 border-t border-black/5" />
                     <a
-                      href="#products"
-                      className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#8BD333]/15 font-bold text-xs flex items-center justify-between"
+                      href="#featured-products"
+                      className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between"
                     >
-                      <span>View All Products</span>
-                      <ArrowRight className="h-4 w-4 text-[#8BD333]" />
+                      <span>Browse Featured Products</span>
+                      <ArrowRight className="h-4 w-4" />
                     </a>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* 2. Solutions Dropdown */}
+            {/* Dropdown 2: Farm Solutions */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
               onMouseEnter={() => handleMouseEnter('solutions')}
               onMouseLeave={handleMouseLeave}
             >
-              <a href="#capabilities" className="hover:text-[#8BD333] transition-colors">
+              <a href="#farm-solutions" className="hover:text-[#166534] transition-colors">
                 Solutions
               </a>
               <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
@@ -171,361 +166,290 @@ export function Header() {
                   onMouseLeave={handleMouseLeave}
                 >
                   <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
-                    <span className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0A2B1D]/45">
-                      Farm Problems Solved
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
+                      Operations Supported
                     </span>
-                    <a href="#capabilities" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Farm Setup
+                    <a href="#farm-solutions" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5">
+                      <HeartPulse className="h-4 w-4 text-[#166534]" />
+                      <span>Animal Health</span>
                     </a>
-                    <a href="#capabilities" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Farm Upgrade
+                    <a href="#farm-solutions" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5">
+                      <Layers className="h-4 w-4 text-[#166534]" />
+                      <span>Poultry Production</span>
                     </a>
-                    <a href="#capabilities" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Poultry Solutions
-                    </a>
-                    <a href="#capabilities" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Agricultural Machinery
-                    </a>
-                    <a href="#capabilities" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Installation & Maintenance
-                    </a>
-                    <div className="my-1.5 border-t border-black/5" />
-                    <a href="#contact" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-bold flex items-center justify-between">
-                      <span>B2B / Wholesale</span>
-                      <span className="text-xs text-[#8BD333] font-bold">Enterprise</span>
+                    <a href="#farm-solutions" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5">
+                      <Sparkles className="h-4 w-4 text-[#166534]" />
+                      <span>Farm Expansion</span>
                     </a>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* 3. Farm Advisory Dropdown */}
+            {/* Dropdown 3: Technical Support */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
-              onMouseEnter={() => handleMouseEnter('advisory')}
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              onMouseEnter={() => handleMouseEnter('support')}
               onMouseLeave={handleMouseLeave}
             >
-              <a href="#services" className="hover:text-[#8BD333] transition-colors">
-                Farm Advisory
+              <a href="#technical-support" className="hover:text-[#166534] transition-colors">
+                Technical Support
               </a>
               <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
-              {activeDropdown === 'advisory' && (
+              {activeDropdown === 'support' && (
                 <div
                   className="absolute top-full left-0 pt-2 z-50"
-                  onMouseEnter={() => handleMouseEnter('advisory')}
+                  onMouseEnter={() => handleMouseEnter('support')}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="w-68 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
+                      Farmer Assistance
+                    </span>
+                    <a href="#technical-support" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Understand Your Needs
+                    </a>
+                    <a href="#technical-support" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Find the Right Products
+                    </a>
+                    <a href="#technical-support" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Use Products Effectively
+                    </a>
+                    <div className="my-1 border-t border-black/5" />
+                    <a href="#b2b-quote" className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between">
+                      <span>Talk to Our Technical Team</span>
+                      <Headphones className="h-4 w-4" />
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Dropdown 4: Locations */}
+            <div
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              onMouseEnter={() => handleMouseEnter('locations')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <a href="#locations" className="hover:text-[#166534] transition-colors">
+                Locations
+              </a>
+              <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
+              {activeDropdown === 'locations' && (
+                <div
+                  className="absolute top-full left-0 pt-2 z-50"
+                  onMouseEnter={() => handleMouseEnter('locations')}
                   onMouseLeave={handleMouseLeave}
                 >
                   <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
-                    <span className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0A2B1D]/45">
-                      Get Expert Guidance
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
+                      Ghana Distribution Network
                     </span>
-                    <a href="#services" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Start a Farm
+                    <a href="#locations" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between">
+                      <span>Kasoa</span>
+                      <span className="text-[10px] font-bold text-[#166534] bg-[#DCFCE7] px-2 py-0.5 rounded-full">Head Office</span>
                     </a>
-                    <a href="#services" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Expand Your Farm
+                    <a href="#locations" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between">
+                      <span>Kumasi</span>
+                      <span className="text-[10px] text-[#14532D]/60">Middle & North</span>
                     </a>
-                    <a href="#services" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Farm Assessment
+                    <a href="#locations" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between">
+                      <span>Swedru</span>
+                      <span className="text-[10px] text-[#14532D]/60">Regional Hub</span>
                     </a>
-                    <a href="#services" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Talk to an Expert
-                    </a>
-                    <div className="my-1.5 border-t border-black/5" />
-                    <a href="#contact" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-bold flex items-center justify-between">
-                      <span>Request a Farm Quote</span>
-                      <ArrowRight className="h-4 w-4 text-[#8BD333]" />
+                    <a href="#locations" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between">
+                      <span>Nsawam</span>
+                      <span className="text-[10px] text-[#14532D]/60">Regional Hub</span>
                     </a>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* 4. Resources Dropdown */}
+            {/* Dropdown 5: B2B / Bulk Supply */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
-              onMouseEnter={() => handleMouseEnter('resources')}
+              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              onMouseEnter={() => handleMouseEnter('b2b')}
               onMouseLeave={handleMouseLeave}
             >
-              <a href="#news" className="hover:text-[#8BD333] transition-colors">
-                Resources
+              <a href="#b2b" className="hover:text-[#166534] transition-colors">
+                B2B & Bulk
               </a>
               <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
-              {activeDropdown === 'resources' && (
+              {activeDropdown === 'b2b' && (
                 <div
                   className="absolute top-full left-0 pt-2 z-50"
-                  onMouseEnter={() => handleMouseEnter('resources')}
+                  onMouseEnter={() => handleMouseEnter('b2b')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="w-60 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
-                    <span className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0A2B1D]/45">
-                      Knowledge Hub & Media
+                  <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
+                      Commercial & Wholesale
                     </span>
-                    <a href="#news" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Agriculture Hub
+                    <a href="#b2b" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Commercial Farm Supply
                     </a>
-                    <a href="#news" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Farming Guides
+                    <a href="#b2b" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Wholesale Enquiries
                     </a>
-                    <a href="#news" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Equipment Guides
+                    <a href="#b2b" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Product Sourcing
                     </a>
-                    <a href="#news" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Videos
-                    </a>
-                    <a href="#news" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      FAQs
-                    </a>
-                    <a href="#news" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Case Studies
+                    <div className="my-1 border-t border-black/5" />
+                    <a href="#b2b-quote" className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between">
+                      <span>Request Business Quote</span>
+                      <ArrowRight className="h-4 w-4" />
                     </a>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* 5. About Dropdown */}
-            <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#8BD333] transition-colors py-1 whitespace-nowrap h-full"
-              onMouseEnter={() => handleMouseEnter('about')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <a href="#contact" className="hover:text-[#8BD333] transition-colors">
-                About
-              </a>
-              <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
-              {activeDropdown === 'about' && (
-                <div
-                  className="absolute top-full left-0 pt-2 z-50"
-                  onMouseEnter={() => handleMouseEnter('about')}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="w-56 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
-                    <a href="#about" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      About Enerjoyson
-                    </a>
-                    <a href="#about" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Our Story
-                    </a>
-                    <a href="#team" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Our Team
-                    </a>
-                    <a href="#contact" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Locations
-                    </a>
-                    <a href="#contact" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium">
-                      Contact Us
-                    </a>
-                  </div>
-                </div>
-              )}
-            </div>
+            {/* Dropdown 6: Farm Knowledge */}
+            <a href="#knowledge" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap">
+              Knowledge
+            </a>
           </div>
 
-          {/* Right Group: Search Bar + (Account if logged in) + Cart Icon tightly nested */}
+          {/* Right Group: Search Bar + Cart */}
           <div className="flex items-center gap-2.5 2xl:gap-3 shrink-0">
             {/* Search Bar */}
-            <div className="relative flex items-center h-10 rounded-full bg-[#FAF2EB] px-4 transition-all focus-within:ring-1.5 focus-within:ring-[#0A2B1D]/40 w-48 xl:w-56 2xl:w-64">
-              <Search className="h-4 w-4 text-[#0A2B1D]/60 shrink-0 mr-2.5" />
+            <div className="relative flex items-center h-10 rounded-full bg-[#FAF9F5] px-4 transition-all focus-within:ring-1.5 focus-within:ring-[#166534]/40 w-44 xl:w-56 2xl:w-64 border border-[#EAE6DC]">
+              <Search className="h-4 w-4 text-[#14532D]/50 shrink-0 mr-2" />
               <input
                 type="text"
-                placeholder="Search products, equipment, or solutions..."
-                className="w-full bg-transparent text-xs sm:text-sm text-[#0A2B1D] placeholder:text-[#0A2B1D]/55 focus:outline-none truncate font-medium"
+                placeholder="Search products & equipment..."
+                className="w-full bg-transparent text-xs sm:text-sm text-[#14532D] placeholder:text-[#14532D]/50 focus:outline-none truncate font-medium"
               />
             </div>
 
-            {/* Account Pill (Conditional on isLoggedIn) */}
-            {isLoggedIn && (
-              <div
-                className="relative"
-                onMouseEnter={() => handleMouseEnter('account')}
-                onMouseLeave={handleMouseLeave}
-              >
-                <button
-                  type="button"
-                  className="flex h-10 items-center gap-2 rounded-full bg-[#FAF2EB] px-3.5 text-sm font-bold text-[#0A2B1D] transition-all hover:bg-[#F3E8DD] active:scale-95 cursor-pointer"
-                >
-                  <User className="h-4 w-4 text-[#0A2B1D]" />
-                  <span className="hidden 2xl:inline">Account</span>
-                </button>
-
-                {activeDropdown === 'account' && (
-                  <div
-                    className="absolute top-full right-0 pt-2 z-50"
-                    onMouseEnter={() => handleMouseEnter('account')}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <div className="w-60 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
-                      <div className="px-3 py-2 border-b border-black/5">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#0A2B1D]/45 block">
-                          My Account
-                        </span>
-                        <span className="text-sm font-bold text-[#0A2B1D]">Farmer Dashboard</span>
-                      </div>
-
-                      <a href="#orders" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium flex items-center gap-2.5">
-                        <Package className="h-4 w-4 text-[#0A2B1D]/60" />
-                        <span>Orders</span>
-                      </a>
-                      <a href="#quotes" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium flex items-center gap-2.5">
-                        <FileText className="h-4 w-4 text-[#0A2B1D]/60" />
-                        <span>Quotes</span>
-                      </a>
-                      <a href="#saved" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium flex items-center gap-2.5">
-                        <Bookmark className="h-4 w-4 text-[#0A2B1D]/60" />
-                        <span>Saved Products</span>
-                      </a>
-                      <a href="#farm" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium flex items-center gap-2.5">
-                        <Building2 className="h-4 w-4 text-[#0A2B1D]/60" />
-                        <span>Farm Profile</span>
-                      </a>
-                      <a href="#settings" className="rounded-xl px-3 py-2 text-[#0A2B1D] hover:bg-[#FAF5ED] font-medium flex items-center gap-2.5">
-                        <Settings className="h-4 w-4 text-[#0A2B1D]/60" />
-                        <span>Account Settings</span>
-                      </a>
-
-                      <div className="my-1.5 border-t border-black/5" />
-                      <a href="#signout" className="rounded-xl px-3 py-2 text-rose-600 hover:bg-rose-50 font-bold flex items-center gap-2.5">
-                        <LogOut className="h-4 w-4" />
-                        <span>Sign Out</span>
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Shopping Cart Pill Button (Default count is 0, badge only shows when count > 0) */}
-            <button
-              type="button"
+            {/* Shopping Cart Pill Button */}
+            <a
+              href="#featured-products"
               aria-label="Shopping Cart"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF2EB] text-[#0A2B1D] transition-all hover:bg-[#F3E8DD] active:scale-95 cursor-pointer"
+              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF9F5] text-[#14532D] border border-[#EAE6DC] transition-all hover:bg-[#F4F1EA] active:scale-95 cursor-pointer"
             >
-              <ShoppingCart className="h-4 w-4 text-[#0A2B1D]" />
+              <ShoppingCart className="h-4 w-4 text-[#14532D]" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#8BD333] text-[10px] font-black text-[#0A2B1D] shadow-sm">
+                <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#166534] text-[10px] font-black text-white shadow-sm">
                   {cartCount}
                 </span>
               )}
-            </button>
+            </a>
           </div>
         </nav>
 
-        {/* 3. Right Pill: Primary High-Value CTA Button "Get a Quote" (Matched h-14 on desktop) */}
+        {/* 3. Right Pill: Primary B2B / High-Value CTA Button "Request a Quote" */}
         <a
-          href="#contact"
-          className={`hidden lg:inline-flex items-center justify-center gap-2 rounded-full h-14 px-8 shadow-md border border-black/5 text-sm font-extrabold transition-all duration-300 hover:scale-[1.02] active:scale-95 shrink-0 ${
-            isPastHeroPartners
-              ? 'bg-[#0A2B1D] text-white hover:bg-[#154631] shadow-lg ring-1 ring-white/10'
-              : 'bg-[#8BD333] text-white hover:bg-[#9BE139]'
+          href="#b2b-quote"
+          className={`hidden lg:inline-flex items-center justify-center gap-2 rounded-full h-14 px-7 shadow-md border border-black/5 text-sm font-extrabold transition-all duration-300 hover:scale-[1.02] active:scale-95 shrink-0 ${
+            isPastHero
+              ? 'bg-[#14532D] text-white hover:bg-[#0E3B20] shadow-lg ring-1 ring-white/10'
+              : 'bg-[#166534] text-white hover:bg-[#14532D]'
           }`}
         >
-          <span>Get a Quote</span>
-          <ArrowRight className={`h-4 w-4 stroke-[2.5] transition-colors ${isPastHeroPartners ? 'text-[#8BD333]' : 'text-white'}`} />
+          <span>Request a Quote</span>
+          <ArrowRight className="h-4 w-4 stroke-[2.5]" />
         </a>
 
-        {/* Mobile / Tablet Controls (Matched h-12 with Brand Logo) */}
-        <div className="flex items-center gap-2.5 lg:hidden">
-          {/* Mobile Cart Button */}
-          <button
-            type="button"
+        {/* Mobile / Tablet Header Controls */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <a
+            href="#featured-products"
             aria-label="Shopping Cart"
-            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-black/5 text-[#0A2B1D]"
+            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-black/5 text-[#14532D]"
           >
-            <ShoppingCart className="h-4.5 w-4.5 text-[#0A2B1D]" />
+            <ShoppingCart className="h-4.5 w-4.5 text-[#14532D]" />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#8BD333] text-[10px] font-black text-[#0A2B1D]">
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#166534] text-[10px] font-black text-white">
                 {cartCount}
               </span>
             )}
-          </button>
+          </a>
 
-          {/* Mobile Hamburger */}
-          <div className="flex items-center rounded-full bg-white p-1.5 shadow-md border border-black/5 h-12 w-12 justify-center">
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FAF2EB] text-[#0A2B1D]"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-black/5 text-[#14532D]"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="max-w-[1560px] mx-auto px-4 sm:px-6 mt-3 pointer-events-auto">
           <div className="rounded-3xl bg-white/98 p-6 shadow-2xl backdrop-blur-xl border border-black/5 lg:hidden max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200 space-y-5">
             {/* Search Input */}
-            <div className="flex items-center rounded-full bg-[#FAF2EB] px-4 py-3">
-              <Search className="h-4 w-4 text-[#0A2B1D]/60 shrink-0 mr-2.5" />
+            <div className="flex items-center rounded-full bg-[#FAF9F5] px-4 py-3 border border-[#EAE6DC]">
+              <Search className="h-4 w-4 text-[#14532D]/60 shrink-0 mr-2.5" />
               <input
                 type="text"
-                placeholder="Search products, equipment, or solutions..."
-                className="w-full bg-transparent text-sm text-[#0A2B1D] placeholder:text-[#0A2B1D]/60 focus:outline-none font-medium"
+                placeholder="Search veterinary products, poultry equipment..."
+                className="w-full bg-transparent text-sm text-[#14532D] placeholder:text-[#14532D]/60 focus:outline-none font-medium"
               />
             </div>
 
-            {/* Navigation Groups */}
-            <div className="space-y-5 text-sm font-semibold text-[#0A2B1D]">
-              {/* Shop */}
+            {/* Navigation Sections */}
+            <div className="space-y-4 text-sm font-semibold text-[#14532D]">
+              {/* Shopping Section */}
               <div className="space-y-1.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0A2B1D]/45">Shop</span>
-                <div className="grid grid-cols-2 gap-2.5 text-sm font-medium text-[#0A2B1D]/80 pt-1">
-                  <a href="#products" onClick={() => setMobileMenuOpen(false)}>Farm Machinery</a>
-                  <a href="#products" onClick={() => setMobileMenuOpen(false)}>Poultry Equipment</a>
-                  <a href="#products" onClick={() => setMobileMenuOpen(false)}>Agricultural Implements</a>
-                  <a href="#products" onClick={() => setMobileMenuOpen(false)}>Animal Health</a>
-                  <a href="#products" onClick={() => setMobileMenuOpen(false)}>Irrigation & Water</a>
-                  <a href="#products" onClick={() => setMobileMenuOpen(false)}>Feed Supplies</a>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#166534]">Shop Products</span>
+                <div className="grid grid-cols-1 gap-2 text-sm font-medium text-[#14532D]/85 pt-1">
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Veterinary Pharmaceuticals</a>
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Anti-Parasitics & Anthelmintics</a>
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Nutritional Supplements</a>
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Feeding & Drinking Systems</a>
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Incubators & Hatchery Equipment</a>
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Feed Processing Machines</a>
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Slaughtering Equipment</a>
+                  <a href="#categories" onClick={() => setMobileMenuOpen(false)}>Transport Cages</a>
                 </div>
               </div>
 
-              {/* Solutions */}
-              <div className="space-y-1.5 pt-2 border-t border-black/5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0A2B1D]/45">Solutions</span>
-                <div className="grid grid-cols-2 gap-2.5 text-sm font-medium text-[#0A2B1D]/80 pt-1">
-                  <a href="#capabilities" onClick={() => setMobileMenuOpen(false)}>Farm Setup</a>
-                  <a href="#capabilities" onClick={() => setMobileMenuOpen(false)}>Farm Upgrade</a>
-                  <a href="#capabilities" onClick={() => setMobileMenuOpen(false)}>Poultry Solutions</a>
-                  <a href="#capabilities" onClick={() => setMobileMenuOpen(false)}>Installation</a>
+              {/* B2B & Wholesale */}
+              <div className="space-y-1.5 pt-3 border-t border-black/5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#166534]">B2B & Bulk Supply</span>
+                <div className="grid grid-cols-2 gap-2 text-sm font-medium text-[#14532D]/85 pt-1">
+                  <a href="#b2b" onClick={() => setMobileMenuOpen(false)}>Bulk Orders</a>
+                  <a href="#b2b" onClick={() => setMobileMenuOpen(false)}>Commercial Supply</a>
+                  <a href="#b2b" onClick={() => setMobileMenuOpen(false)}>Wholesale Enquiries</a>
+                  <a href="#b2b-quote" onClick={() => setMobileMenuOpen(false)}>Request Quote</a>
                 </div>
               </div>
 
-              {/* Farm Advisory */}
-              <div className="space-y-1.5 pt-2 border-t border-black/5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0A2B1D]/45">Farm Advisory</span>
-                <div className="grid grid-cols-2 gap-2.5 text-sm font-medium text-[#0A2B1D]/80 pt-1">
-                  <a href="#services" onClick={() => setMobileMenuOpen(false)}>Start a Farm</a>
-                  <a href="#services" onClick={() => setMobileMenuOpen(false)}>Expand Your Farm</a>
-                  <a href="#services" onClick={() => setMobileMenuOpen(false)}>Farm Assessment</a>
-                  <a href="#services" onClick={() => setMobileMenuOpen(false)}>Talk to an Expert</a>
+              {/* Technical Support */}
+              <div className="space-y-1.5 pt-3 border-t border-black/5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#166534]">Technical Support</span>
+                <div className="grid grid-cols-2 gap-2 text-sm font-medium text-[#14532D]/85 pt-1">
+                  <a href="#technical-support" onClick={() => setMobileMenuOpen(false)}>Product Guidance</a>
+                  <a href="#technical-support" onClick={() => setMobileMenuOpen(false)}>Talk to an Expert</a>
+                  <a href="#farm-solutions" onClick={() => setMobileMenuOpen(false)}>Farm Solutions</a>
+                  <a href="#knowledge" onClick={() => setMobileMenuOpen(false)}>Farm Knowledge</a>
                 </div>
               </div>
 
-              {/* Resources & About */}
-              <div className="space-y-1.5 pt-2 border-t border-black/5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0A2B1D]/45">Resources & About</span>
-                <div className="grid grid-cols-2 gap-2.5 text-sm font-medium text-[#0A2B1D]/80 pt-1">
-                  <a href="#news" onClick={() => setMobileMenuOpen(false)}>Agriculture Hub</a>
-                  <a href="#news" onClick={() => setMobileMenuOpen(false)}>Farming Guides</a>
-                  <a href="#about" onClick={() => setMobileMenuOpen(false)}>Our Story</a>
-                  <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact Us</a>
+              {/* Locations in Ghana */}
+              <div className="space-y-1.5 pt-3 border-t border-black/5">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#166534]">Locations in Ghana</span>
+                <div className="grid grid-cols-2 gap-2 text-sm font-medium text-[#14532D]/85 pt-1">
+                  <a href="#locations" onClick={() => setMobileMenuOpen(false)}>Kasoa (HQ)</a>
+                  <a href="#locations" onClick={() => setMobileMenuOpen(false)}>Kumasi</a>
+                  <a href="#locations" onClick={() => setMobileMenuOpen(false)}>Swedru</a>
+                  <a href="#locations" onClick={() => setMobileMenuOpen(false)}>Nsawam</a>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Actions: Get a Quote */}
-            <div className="pt-3 border-t border-black/5 space-y-2.5">
+            {/* Bottom Actions */}
+            <div className="pt-3 border-t border-black/5 space-y-2">
               <a
-                href="#contact"
+                href="#b2b-quote"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex h-12 w-full items-center justify-center gap-2 rounded-full text-sm font-bold shadow-md transition-all duration-300 ${
-                  isPastHeroPartners ? 'bg-[#0A2B1D] text-white' : 'bg-[#8BD333] text-white'
-                }`}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#166534] text-white text-sm font-bold shadow-md hover:bg-[#14532D]"
               >
-                <span>Get a Quote</span>
+                <span>Request a Quote</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>
