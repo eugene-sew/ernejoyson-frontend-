@@ -1,4 +1,4 @@
-import { ArrowRight, ShoppingBag, ShieldCheck, MapPin, CheckCircle2, PackageCheck } from 'lucide-react'
+import { ArrowRight, ShoppingBag, MapPin, CheckCircle2, PackageCheck } from 'lucide-react'
 
 export function HeroSection() {
   return (
@@ -25,14 +25,6 @@ export function HeroSection() {
         <div className="relative z-10 max-w-[1380px] mx-auto w-full grid grid-cols-1 gap-8 lg:grid-cols-12 items-center my-auto">
           {/* Left Title & Copy Flow */}
           <div className="lg:col-span-8 space-y-6">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 backdrop-blur-md border border-white/20 text-white">
-              <ShieldCheck className="h-4 w-4 text-[#DCFCE7]" />
-              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#DCFCE7]">
-                VETERINARY PRODUCTS • LIVESTOCK EQUIPMENT • FARMER SUPPORT
-              </span>
-            </div>
-
             {/* H1 Headline */}
             <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08] max-w-3xl">
               Better Animal Health. <br />
