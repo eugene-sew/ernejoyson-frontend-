@@ -97,30 +97,26 @@ export const ShopPage: React.FC = () => {
   return (
     <div className="pt-24 pb-20 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
       {/* 1. Header Banner */}
-      <div className="rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-8 sm:p-12 lg:p-14 text-white relative overflow-hidden shadow-xl border border-white/10">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#22C55E]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 max-w-3xl space-y-4">
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1]">
-            Veterinary Drugs, Poultry Feeders & Equipment
-          </h1>
+      <div className="rounded-3xl bg-radial from-[#14532D] via-[#0E3B20] to-[#0A2614] p-6 sm:p-8 lg:p-10 text-white relative overflow-hidden shadow-lg border border-white/10">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-[#22C55E]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white">
+              Veterinary & Poultry Equipment
+            </h1>
+            <p className="text-xs sm:text-sm text-[#DCFCE7]/80 font-medium leading-relaxed">
+              Certified veterinary pharmaceuticals and poultry equipment with direct wholesale pricing across Ghana.
+            </p>
+          </div>
 
-          <p className="text-sm sm:text-base text-[#DCFCE7]/85 font-medium leading-relaxed">
-            Directly imported from certified global manufacturers. All items are priced in Ghanaian Cedis (GHS), backed by technical advice, and stocked ready for dispatch across Kasoa, Kumasi, Swedru, and Nsawam.
-          </p>
-
-          {/* Quick Metrics */}
-          <div className="pt-4 flex flex-wrap gap-4 sm:gap-8 text-xs sm:text-sm font-medium text-white/90">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-[#22C55E]" />
+          <div className="flex flex-wrap md:flex-col items-start gap-2.5 shrink-0">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xs border border-white/10 text-xs font-semibold text-[#DCFCE7]">
+              <ShieldCheck className="h-3.5 w-3.5 text-[#22C55E]" />
               <span>100% Genuine Potency</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Truck className="h-4 w-4 text-[#22C55E]" />
-              <span>Dispatched Nationwide from 4 Hubs</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-[#DCFCE7] font-display">Direct Wholesale Pricing</span>
-              <span>• No Hidden Markups</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-xs border border-white/10 text-xs font-semibold text-[#DCFCE7]">
+              <Truck className="h-3.5 w-3.5 text-[#22C55E]" />
+              <span>Dispatched from 4 Hubs</span>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { ArrowRight, ShoppingBag, MapPin, CheckCircle2, PackageCheck } from 'lucide-react'
+import { ArrowRight, ShoppingBag, MapPin, PackageCheck } from 'lucide-react'
 
 export function HeroSection() {
   return (
@@ -53,12 +53,6 @@ export function HeroSection() {
                 <span>Free Vaccination Chart</span>
                 <ArrowRight className="h-4.5 w-4.5 stroke-[2.5]" />
               </a>
-            </div>
-
-            {/* Sub-caption Trust Line */}
-            <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/90 pt-1">
-              <CheckCircle2 className="h-4 w-4 text-[#22C55E] shrink-0" />
-              <span>Reliable distribution • Technical guidance • Serving farms across Ghana</span>
             </div>
           </div>
 
