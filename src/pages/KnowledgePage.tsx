@@ -214,19 +214,19 @@ export const KnowledgePage: React.FC = () => {
                 onChange={(e) => setSelectedDrug(e.target.value)}
                 className="w-full h-12 px-4 rounded-2xl border border-[#EAE6DC] bg-[#FAF9F5] text-xs sm:text-sm font-bold text-[#14532D] focus:ring-2 focus:ring-[#166534]/30 focus:outline-none cursor-pointer"
               >
-                <option value="joy-amino">Joy Amino (Vitamins + Amino Acids - Ref: #7974)</option>
-                <option value="ernzuril">Ernzuril 2.5% Toltrazuril (Cocci Cure - Ref: #7980)</option>
-                <option value="erncox">Erncox 20% Powder (Cocci Preventive - Ref: #7994)</option>
-                <option value="bolai-enro">Bolai Enro 20% (Enrofloxacin CRD Cure - Ref: #8101)</option>
-                <option value="doxy-tylo">Doxy Tylo (Respiratory Complex - Ref: #8063)</option>
-                <option value="egg-booster">Egg Booster WSP (Lay Rate Accelerator - Ref: #8055)</option>
+                <option value="joy-amino">Joy Amino (Vitamins + Amino Acids)</option>
+                <option value="ernzuril">Ernzuril 2.5% Toltrazuril (Cocci Cure)</option>
+                <option value="erncox">Erncox 20% Powder (Cocci Preventive)</option>
+                <option value="bolai-enro">Bolai Enro 20% (Enrofloxacin CRD Cure)</option>
+                <option value="doxy-tylo">Doxy Tylo (Respiratory Complex)</option>
+                <option value="egg-booster">Egg Booster WSP (Lay Rate Accelerator)</option>
               </select>
             </div>
 
             <div className="space-y-2">
               <div className="flex items-center justify-between text-xs font-bold text-[#14532D]">
                 <span>Water Tank Capacity:</span>
-                <span className="font-mono text-sm font-black text-[#166534]">
+                <span className="font-display text-sm font-black text-[#166534]">
                   {tankLiters} Litres
                 </span>
               </div>
@@ -239,7 +239,7 @@ export const KnowledgePage: React.FC = () => {
                 onChange={(e) => setTankLiters(Number(e.target.value))}
                 className="w-full accent-[#166534] cursor-pointer"
               />
-              <div className="flex justify-between text-[11px] font-mono text-[#14532D]/50">
+              <div className="flex justify-between text-[11px] font-sans font-medium text-[#14532D]/50">
                 <span>20L (Small tank)</span>
                 <span>200L (Standard drum)</span>
                 <span>500L (Polytank)</span>
@@ -253,7 +253,7 @@ export const KnowledgePage: React.FC = () => {
                 <button
                   key={liters}
                   onClick={() => setTankLiters(liters)}
-                  className={`rounded-full px-3 py-1 text-xs font-mono font-bold transition-all cursor-pointer ${
+                  className={`rounded-full px-3 py-1 text-xs font-display font-bold transition-all cursor-pointer ${
                     tankLiters === liters
                       ? 'bg-[#166534] text-white shadow-xs'
                       : 'bg-[#FAF9F5] text-[#14532D] hover:bg-[#F4F1EA] border border-[#EAE6DC]'
@@ -285,7 +285,7 @@ export const KnowledgePage: React.FC = () => {
                 <span className="text-xs uppercase font-bold text-[#DCFCE7]/80">
                   Amount to Dissolve into {tankLiters}L of Clean Water:
                 </span>
-                <p className="font-mono text-3xl sm:text-4xl font-black text-[#22C55E]">
+                <p className="font-display text-3xl sm:text-4xl font-black text-[#22C55E]">
                   {selectedFormula.calculate(tankLiters)}
                 </p>
               </div>

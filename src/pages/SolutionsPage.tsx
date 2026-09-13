@@ -187,7 +187,7 @@ export const SolutionsPage: React.FC = () => {
                 : 'border-[#EAE6DC] bg-[#FAF9F5] hover:bg-white'
             }`}
           >
-            <span className="text-xs font-mono font-black text-[#166534] block">100 - 500 Birds</span>
+            <span className="text-xs font-display font-black text-[#166534] block">100 - 500 Birds</span>
             <span className="font-display text-base font-extrabold text-[#14532D] mt-1 block">
               Starter / Backyard
             </span>
@@ -201,7 +201,7 @@ export const SolutionsPage: React.FC = () => {
                 : 'border-[#EAE6DC] bg-[#FAF9F5] hover:bg-white'
             }`}
           >
-            <span className="text-xs font-mono font-black text-[#166534] block">500 - 2,000 Birds</span>
+            <span className="text-xs font-display font-black text-[#166534] block">500 - 2,000 Birds</span>
             <span className="font-display text-base font-extrabold text-[#14532D] mt-1 block">
               Semi-Commercial
             </span>
@@ -215,7 +215,7 @@ export const SolutionsPage: React.FC = () => {
                 : 'border-[#EAE6DC] bg-[#FAF9F5] hover:bg-white'
             }`}
           >
-            <span className="text-xs font-mono font-black text-[#166534] block">2,000 - 10,000+ Birds</span>
+            <span className="text-xs font-display font-black text-[#166534] block">2,000 - 10,000+ Birds</span>
             <span className="font-display text-base font-extrabold text-[#14532D] mt-1 block">
               Full Commercial
             </span>

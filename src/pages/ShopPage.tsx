@@ -119,7 +119,7 @@ export const ShopPage: React.FC = () => {
               <span>Dispatched Nationwide from 4 Hubs</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-black text-[#DCFCE7] font-mono">GHS Real Pricing</span>
+              <span className="font-extrabold text-[#DCFCE7] font-display">Direct Wholesale Pricing</span>
               <span>• No Hidden Markups</span>
             </div>
           </div>
@@ -270,15 +270,6 @@ export const ShopPage: React.FC = () => {
                       className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
 
-                    {/* Badges */}
-                    <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
-                      {product.refCode && (
-                        <span className="rounded-full bg-white/95 backdrop-blur-xs px-2.5 py-0.5 text-[10px] font-black font-mono text-[#166534] shadow-xs border border-black/5">
-                          Ref: #{product.refCode}
-                        </span>
-                      )}
-                    </div>
-
                     <div className="absolute top-2.5 right-2.5">
                       {product.inStock ? (
                         <span className="rounded-full bg-[#DCFCE7]/90 backdrop-blur-xs px-2 py-0.5 text-[9px] font-black text-[#14532D] uppercase tracking-wider shadow-xs">
@@ -320,10 +311,7 @@ export const ShopPage: React.FC = () => {
                 {/* Bottom Card Controls */}
                 <div className="pt-4 mt-4 border-t border-[#FAF9F5] flex items-center justify-between gap-3">
                   <div>
-                    <span className="text-[10px] text-[#14532D]/50 block font-bold uppercase tracking-wider">
-                      Ghana Price
-                    </span>
-                    <span className="font-mono text-base font-black text-[#14532D]">
+                    <span className="font-display text-lg font-extrabold tracking-tight text-[#14532D]">
                       {product.priceDisplay}
                     </span>
                   </div>

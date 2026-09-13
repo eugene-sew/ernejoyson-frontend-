@@ -374,9 +374,9 @@ export const TechnicalSupportPage: React.FC = () => {
                         {row.productRef && (
                           <Link
                             to={`/shop?q=${row.productRef.split('/')[0].trim()}`}
-                            className="inline-flex items-center gap-1 text-[10px] font-mono font-bold bg-[#DCFCE7] text-[#14532D] px-2 py-0.5 rounded hover:bg-[#166534] hover:text-white transition-colors"
+                            className="inline-flex items-center gap-1 text-[10px] font-display font-bold bg-[#DCFCE7] text-[#14532D] px-2 py-0.5 rounded hover:bg-[#166534] hover:text-white transition-colors"
                           >
-                            <span>Ref: #{row.productRef}</span>
+                            <span>View in Shop</span>
                             <ArrowRight className="h-3 w-3" />
                           </Link>
                         )}

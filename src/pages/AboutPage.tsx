@@ -199,7 +199,7 @@ export const AboutPage: React.FC = () => {
               key={i}
               className="rounded-2xl bg-[#FAF9F5] p-5 border border-[#EAE6DC] space-y-2 relative"
             >
-              <span className="text-xs font-mono font-black text-[#166534] bg-[#DCFCE7] px-2.5 py-0.5 rounded-full inline-block">
+              <span className="text-xs font-display font-black text-[#166534] bg-[#DCFCE7] px-2.5 py-0.5 rounded-full inline-block">
                 {m.year}
               </span>
               <h4 className="font-display text-base font-bold text-[#14532D]">

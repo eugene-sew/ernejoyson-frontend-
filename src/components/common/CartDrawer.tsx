@@ -148,11 +148,6 @@ export const CartDrawer: React.FC = () => {
                       </div>
 
                       <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
-                        {product.refCode && (
-                          <span className="text-[10px] font-bold text-[#166534] bg-[#DCFCE7] px-1.5 py-0.2 rounded font-mono">
-                            #{product.refCode}
-                          </span>
-                        )}
                         <span className="text-[10px] text-[#14532D]/60 truncate max-w-[150px]">
                           {product.category}
                         </span>
@@ -164,11 +159,11 @@ export const CartDrawer: React.FC = () => {
                       <div>
                         {product.price !== null ? (
                           <div className="flex flex-col">
-                            <span className="font-mono text-xs font-black text-[#14532D]">
+                            <span className="font-display text-xs font-black text-[#14532D]">
                               GHS {(product.price * quantity).toFixed(2)}
                             </span>
                             {quantity > 1 && (
-                              <span className="text-[10px] text-[#14532D]/50 font-mono">
+                              <span className="text-[10px] text-[#14532D]/60 font-semibold font-display">
                                 @ GHS {product.price.toFixed(2)} each
                               </span>
                             )}
@@ -189,7 +184,7 @@ export const CartDrawer: React.FC = () => {
                         >
                           <Minus className="h-3 w-3" />
                         </button>
-                        <span className="w-7 text-center font-mono text-xs font-black text-[#14532D]">
+                        <span className="w-7 text-center font-display text-xs font-black text-[#14532D]">
                           {quantity}
                         </span>
                         <button
@@ -219,7 +214,7 @@ export const CartDrawer: React.FC = () => {
               </div>
               <div className="flex items-center justify-between text-sm font-extrabold text-[#14532D]">
                 <span>Estimated Subtotal (GHC)</span>
-                <span className="font-mono text-base text-[#166534]">
+                <span className="font-display text-base font-black text-[#166534]">
                   GHS {totalPrice.toFixed(2)}
                 </span>
               </div>

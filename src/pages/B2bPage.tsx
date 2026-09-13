@@ -140,7 +140,7 @@ export const B2bPage: React.FC = () => {
                   <span className="text-[10px] font-black uppercase tracking-wider text-[#166534] bg-[#DCFCE7] px-3 py-1 rounded-full">
                     {tier.badge}
                   </span>
-                  <span className="text-xs font-mono font-bold text-[#14532D]/70">
+                  <span className="text-xs font-display font-black text-[#166534]">
                     {tier.discount}
                   </span>
                 </div>

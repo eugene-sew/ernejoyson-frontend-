@@ -92,11 +92,6 @@ export const ProductDetailPage: React.FC = () => {
               alt={product.name}
               className="h-full w-full object-cover"
             />
-            {product.refCode && (
-              <div className="absolute top-4 left-4 rounded-full bg-white/95 backdrop-blur-xs px-3.5 py-1 text-xs font-mono font-black text-[#166534] border border-black/5 shadow-xs">
-                Ref Code: #{product.refCode}
-              </div>
-            )}
             <div className="absolute top-4 right-4">
               {product.inStock ? (
                 <span className="rounded-full bg-[#DCFCE7] px-3 py-1 text-xs font-black text-[#14532D] shadow-xs">
@@ -166,14 +161,9 @@ export const ProductDetailPage: React.FC = () => {
 
             {/* Pricing */}
             <div className="pt-2 flex items-baseline gap-3">
-              <span className="font-mono text-3xl font-black text-[#166534]">
+              <span className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-[#166534]">
                 {product.priceDisplay}
               </span>
-              {product.price !== null && (
-                <span className="text-xs text-[#14532D]/60 font-semibold">
-                  (Includes statutory farm supply pricing)
-                </span>
-              )}
             </div>
 
             {/* Notes / Bulk discounts */}
@@ -206,7 +196,7 @@ export const ProductDetailPage: React.FC = () => {
                 >
                   -
                 </button>
-                <span className="w-12 text-center font-mono text-base font-black text-[#14532D]">
+                <span className="w-12 text-center font-display text-base font-extrabold text-[#14532D]">
                   {quantity}
                 </span>
                 <button
@@ -323,17 +313,12 @@ export const ProductDetailPage: React.FC = () => {
                       className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  {rel.refCode && (
-                    <span className="text-[10px] font-mono font-bold text-[#166534] bg-[#DCFCE7] px-2 py-0.5 rounded-full">
-                      #{rel.refCode}
-                    </span>
-                  )}
                   <h3 className="font-display text-sm font-bold text-[#14532D] group-hover:text-[#166534] transition-colors line-clamp-1 mt-1">
                     {rel.name}
                   </h3>
                 </div>
                 <div className="pt-3 mt-3 border-t border-[#FAF9F5] flex items-center justify-between">
-                  <span className="font-mono text-sm font-bold text-[#14532D]">
+                  <span className="font-display text-sm font-extrabold text-[#14532D]">
                     {rel.priceDisplay}
                   </span>
                   <span className="text-xs font-bold text-[#166534]">View &rarr;</span>
