@@ -77,6 +77,7 @@ export function Footer() {
               <li><Link to="/technical-support" className="hover:text-[#DCFCE7] transition-colors">Technical Farmer Support</Link></li>
               <li><Link to="/technical-support#vaccination-chart" className="hover:text-[#DCFCE7] transition-colors">Poultry Vaccination Schedule</Link></li>
               <li><Link to="/knowledge" className="hover:text-[#DCFCE7] transition-colors">Farm Knowledge Hub</Link></li>
+              <li><Link to="/user-flow" className="hover:text-[#DCFCE7] transition-colors text-[#22C55E] font-semibold">One Ordering Flow</Link></li>
               <li><Link to="/locations" className="hover:text-[#DCFCE7] transition-colors">Kasoa Central Hub</Link></li>
               <li><Link to="/locations" className="hover:text-[#DCFCE7] transition-colors">Kumasi Branch (Ashanti & North)</Link></li>
               <li><Link to="/locations" className="hover:text-[#DCFCE7] transition-colors">Swedru & Nsawam Regional Hubs</Link></li>
@@ -104,6 +105,7 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 text-xs text-white/60 border-t border-white/5">
           <p>© 2026 ERNEJOYSON LIMITED. All rights reserved. Registered in Ghana.</p>
           <div className="flex items-center gap-6">
+            <Link to="/user-flow" className="hover:text-white transition-colors">One Ordering Flow</Link>
             <Link to="/locations" className="hover:text-white transition-colors">Ghana Distribution Network</Link>
             <Link to="/technical-support" className="hover:text-white transition-colors">Technical Farmer Advisory</Link>
             <Link to="/b2b" className="hover:text-white transition-colors">Wholesale & B2B</Link>
