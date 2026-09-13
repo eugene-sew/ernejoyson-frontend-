@@ -12,7 +12,7 @@ import { CtaBanner } from '@/components/sections/CtaBanner'
 
 export function HomePage() {
   return (
-    <div className="space-y-4 sm:space-y-8">
+    <div className="space-y-4 sm:space-y-8 -mt-10">
       {/* Hero: Better Animal Health. Better Farm Performance. */}
       <HeroSection />
 

@@ -50,7 +50,7 @@ export function App() {
         <CartDrawer />
 
         {/* Routed Platform Content */}
-        <main className="flex-1">
+        <main className="flex-1 pt-12">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/shop" element={<ShopPage />} />
