@@ -339,7 +339,7 @@ export function Header() {
           </div>
         </nav>
 
-        {/* 3. Right Pill: Primary B2B / High-Value CTA Button "Request a Quote" */}
+        {/* 3. Right Pill: Primary B2B / High-Value CTA Button "Free Vaccination Chart" */}
         <a
           href="#b2b-quote"
           className={`hidden lg:inline-flex items-center justify-center gap-2 rounded-full h-14 px-7 shadow-md border border-black/5 text-sm font-extrabold transition-all duration-300 hover:scale-[1.02] active:scale-95 shrink-0 ${
@@ -348,7 +348,7 @@ export function Header() {
               : 'bg-[#166534] text-white hover:bg-[#14532D]'
           }`}
         >
-          <span>Request a Quote</span>
+          <span>Free Vaccination Chart</span>
           <ArrowRight className="h-4 w-4 stroke-[2.5]" />
         </a>
 
@@ -449,7 +449,7 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#166534] text-white text-sm font-bold shadow-md hover:bg-[#14532D]"
               >
-                <span>Request a Quote</span>
+                <span>Free Vaccination Chart</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>

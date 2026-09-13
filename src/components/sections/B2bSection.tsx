@@ -104,10 +104,10 @@ export function B2bSection() {
                   DIRECT INQUIRY
                 </span>
                 <h3 className="font-display text-2xl font-extrabold text-[#14532D]">
-                  Request a Farm Quote
+                  Request a Quote or Chart
                 </h3>
                 <p className="text-xs text-[#14532D]/70 font-medium">
-                  Receive a prompt commercial response from our sales and technical team.
+                  Receive our free poultry vaccination chart and a prompt commercial response from our technical team.
                 </p>
               </div>
 
@@ -118,7 +118,7 @@ export function B2bSection() {
                     Inquiry Received!
                   </h4>
                   <p className="text-xs text-[#14532D]/80">
-                    Thank you. Our commercial sales desk will get in touch with you shortly.
+                    Thank you. We will send you the vaccination chart and our team will get in touch with you shortly.
                   </p>
                 </div>
               ) : (
@@ -175,6 +175,7 @@ export function B2bSection() {
                       onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
                       className="w-full rounded-xl border border-[#EAE6DC] bg-[#FAF9F5] px-3.5 py-2.5 text-sm text-[#14532D] focus:outline-none focus:ring-1.5 focus:ring-[#166534]"
                     >
+                      <option value="Free Poultry Vaccination Chart & Protocol">⭐ Free Poultry Vaccination Chart & Protocol</option>
                       <option value="Veterinary Pharmaceuticals">Veterinary Pharmaceuticals</option>
                       <option value="Poultry Feeding & Drinking Lines">Poultry Feeding & Drinking Lines</option>
                       <option value="Hatchery & Incubator Units">Hatchery & Incubator Units</option>
@@ -188,7 +189,7 @@ export function B2bSection() {
                     type="submit"
                     className="w-full rounded-full bg-[#166534] py-3.5 text-sm font-extrabold text-white shadow-md transition-all hover:bg-[#14532D] active:scale-[0.98] cursor-pointer"
                   >
-                    Submit Quote Request
+                    Get Free Vaccination Chart / Quote
                   </button>
 
                   <p className="text-[11px] text-center text-[#14532D]/60 font-medium pt-1">

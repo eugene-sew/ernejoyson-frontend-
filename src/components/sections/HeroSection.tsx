@@ -50,7 +50,7 @@ export function HeroSection() {
                 href="#b2b-quote"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#166534] px-7 py-3.5 text-sm sm:text-base font-extrabold text-white shadow-xl transition-all hover:bg-[#14532D] hover:scale-[1.02] active:scale-95 cursor-pointer shrink-0 border border-white/20"
               >
-                <span>Request a Quote</span>
+                <span>Free Vaccination Chart</span>
                 <ArrowRight className="h-4.5 w-4.5 stroke-[2.5]" />
               </a>
             </div>

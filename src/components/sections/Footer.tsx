@@ -93,7 +93,7 @@ export function Footer() {
             href="#b2b-quote"
             className="inline-flex items-center gap-2 rounded-full bg-[#22C55E] px-8 py-4 text-sm font-extrabold text-[#0E3B20] shadow-xl transition-all hover:bg-[#DCFCE7] active:scale-95 cursor-pointer shrink-0"
           >
-            <span>Request a Quote</span>
+            <span>Free Vaccination Chart</span>
             <ArrowUpRight className="h-4.5 w-4.5" />
           </a>
         </div>
