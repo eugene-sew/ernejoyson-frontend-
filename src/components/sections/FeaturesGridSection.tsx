@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, Sparkles, ArrowRight } from 'lucide-react'
 
 export function FeaturesGridSection() {
@@ -10,7 +11,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-6',
       minHeight: 'min-h-[340px] sm:min-h-[380px]',
       image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85',
-      href: '#featured-products',
+      href: '/shop?category=antibiotics',
     },
     {
       id: 'anti-parasitics',
@@ -20,7 +21,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-6',
       minHeight: 'min-h-[340px] sm:min-h-[380px]',
       image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=1000&q=85',
-      href: '#featured-products',
+      href: '/shop?category=anti-parasitics',
     },
     {
       id: 'supplements',
@@ -30,7 +31,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-3 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
       image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=800&q=85',
-      href: '#featured-products',
+      href: '/shop?category=vitamins',
     },
     {
       id: 'feeding-drinking',
@@ -40,7 +41,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-3 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
       image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=800&q=85',
-      href: '#featured-products',
+      href: '/shop?category=feeders',
     },
     {
       id: 'incubators',
@@ -50,7 +51,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-3 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
       image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=800&q=85',
-      href: '#featured-products',
+      href: '/shop?category=equipment',
     },
     {
       id: 'feed-processing',
@@ -60,7 +61,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-3 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
       image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=85',
-      href: '#featured-products',
+      href: '/shop?category=equipment',
     },
     {
       id: 'slaughtering',
@@ -70,7 +71,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-6 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
       image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1000&q=85',
-      href: '#featured-products',
+      href: '/shop?category=equipment',
     },
     {
       id: 'transport-cages',
@@ -80,7 +81,7 @@ export function FeaturesGridSection() {
       span: 'lg:col-span-6 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
       image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=1000&q=85',
-      href: '#featured-products',
+      href: '/shop?category=equipment',
     },
   ]
 
@@ -111,22 +112,22 @@ export function FeaturesGridSection() {
 
         {/* Top Right Action Button */}
         <div className="shrink-0">
-          <a
-            href="#featured-products"
+          <Link
+            to="/shop"
             className="inline-flex items-center gap-2 rounded-full border border-[#166534] px-7 py-3 text-sm font-extrabold text-[#166534] transition-all hover:bg-[#166534] hover:text-white active:scale-95 shadow-sm"
           >
             <span>Browse Products</span>
             <ArrowRight className="h-4 w-4 stroke-[2.5]" />
-          </a>
+          </Link>
         </div>
       </div>
 
       {/* Category Bento Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6">
         {categories.map((cat) => (
-          <a
+          <Link
             key={cat.id}
-            href={cat.href}
+            to={cat.href}
             className={`group relative rounded-[32px] sm:rounded-[36px] overflow-hidden ${cat.span} ${cat.minHeight} flex flex-col justify-between p-6 sm:p-8 shadow-md border border-black/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 cursor-pointer`}
           >
             {/* Real Product Photography */}
@@ -170,7 +171,7 @@ export function FeaturesGridSection() {
                 <ArrowRight className="h-4 w-4" />
               </div>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </section>

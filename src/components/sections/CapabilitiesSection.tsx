@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Sparkles, ArrowLeft, ArrowRight, ArrowUpRight, Pill, Layers, Headphones } from 'lucide-react'
 
 export function CapabilitiesSection() {
@@ -11,7 +12,7 @@ export function CapabilitiesSection() {
       description:
         'Veterinary pharmaceuticals, therapeutic products, anti-parasitics, anthelmintics and nutritional support for animal health.',
       actionText: 'Browse Veterinary Products',
-      href: '#categories',
+      href: '/shop?category=antibiotics',
       icon: Pill,
       image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=85',
     },
@@ -21,7 +22,7 @@ export function CapabilitiesSection() {
       description:
         'Feeding, drinking, housing, transport, hatchery and farm equipment designed to support efficient livestock production.',
       actionText: 'Explore Equipment',
-      href: '#categories',
+      href: '/shop?category=feeders',
       icon: Layers,
       image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=85',
     },
@@ -31,7 +32,7 @@ export function CapabilitiesSection() {
       description:
         'Tell us about your farm and our team can help you identify products and equipment suited to your operation.',
       actionText: 'Talk to an Expert',
-      href: '#technical-support',
+      href: '/technical-support',
       icon: Headphones,
       image: 'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=800&q=85',
     },
@@ -137,13 +138,13 @@ export function CapabilitiesSection() {
                     </p>
 
                     <div className="pt-2">
-                      <a
-                        href={item.href}
+                      <Link
+                        to={item.href}
                         className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#166534] transition-colors group-hover:text-[#14532D]"
                       >
                         <span>{item.actionText}</span>
                         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
