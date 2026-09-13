@@ -1,4 +1,4 @@
-import { ArrowUpRight, ShoppingBag, ShieldCheck, MapPin, Headphones } from 'lucide-react'
+import { ArrowUpRight, ShoppingBag, MapPin, Headphones, ShieldCheck } from 'lucide-react'
 
 export function CtaBanner() {
   return (
@@ -15,10 +15,6 @@ export function CtaBanner() {
         {/* Content */}
         <div className="relative z-10 max-w-3xl space-y-7">
           <div className="space-y-4">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/25 px-4 py-1.5 text-xs sm:text-sm font-bold text-[#DCFCE7] backdrop-blur-md">
-              <ShieldCheck className="h-4 w-4 text-[#22C55E]" />
-              ERNEJOYSON LIMITED • GHANA
-            </span>
 
             <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
               Let's Build a Better <br />

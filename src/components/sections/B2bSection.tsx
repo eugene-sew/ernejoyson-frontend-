@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Sparkles, ArrowRight, PhoneCall, CheckCircle2, Building, Package, RefreshCw, FileCheck, Layers, Send } from 'lucide-react'
+import { ArrowRight, PhoneCall, CheckCircle2, Building, Package, RefreshCw, FileCheck, Layers, Send } from 'lucide-react'
 
 export function B2bSection() {
   const [quoteSubmitted, setQuoteSubmitted] = useState(false)
@@ -36,12 +36,6 @@ export function B2bSection() {
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Left Column: Heading, Copy & Features */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-md border border-white/15">
-              <Sparkles className="h-3.5 w-3.5 text-[#DCFCE7]" />
-              <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#DCFCE7]">
-                FOR FARMS & BUSINESSES
-              </span>
-            </div>
 
             <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
               Need Products in Bulk?

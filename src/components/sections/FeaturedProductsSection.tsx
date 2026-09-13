@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Sparkles, ShoppingBag, FileText, Check, ShieldCheck, Layers, ArrowRight } from 'lucide-react'
+import { ShoppingBag, FileText, Check, ShieldCheck, Layers, ArrowRight } from 'lucide-react'
 
 interface Product {
   id: string
@@ -138,12 +138,6 @@ export function FeaturedProductsSection() {
       {/* Header Row */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div className="space-y-3 max-w-3xl">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#DCFCE7] px-3.5 py-1 text-xs font-extrabold uppercase tracking-widest text-[#166534]">
-              <Sparkles className="h-3.5 w-3.5 fill-current" />
-              SHOP OUR PRODUCTS
-            </span>
-          </div>
 
           <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14532D] leading-[1.1]">
             Quality Products. <br className="hidden sm:inline" />

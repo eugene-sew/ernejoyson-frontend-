@@ -1,4 +1,4 @@
-import { Sparkles, ArrowRight, ArrowUpRight, CheckCircle2, HeartPulse, Layers, TrendingUp } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, CheckCircle2, HeartPulse, Layers, TrendingUp } from 'lucide-react'
 
 export function ProductsSection() {
   const solutions = [
@@ -45,12 +45,6 @@ export function ProductsSection() {
       {/* Header with Eyebrow, Title and Supporting Copy */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div className="space-y-3 max-w-3xl">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#DCFCE7] px-4 py-1 text-xs font-extrabold uppercase tracking-widest text-[#166534]">
-            <Sparkles className="h-3.5 w-3.5 fill-current" />
-            SOLUTIONS FOR YOUR OPERATION
-          </div>
-
           {/* Heading */}
           <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14532D] leading-[1.1]">
             From Animal Health to <br className="hidden sm:inline" />

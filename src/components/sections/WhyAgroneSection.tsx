@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Play, ArrowRight, ChevronLeft, ChevronRight, Video, Sparkles, CheckCircle2 } from 'lucide-react'
+import { Play, ArrowRight, ChevronLeft, ChevronRight, Video, CheckCircle2 } from 'lucide-react'
 
 export function WhyAgroneSection() {
   const [openAccordion, setOpenAccordion] = useState<number | null>(0)
@@ -69,12 +69,6 @@ export function WhyAgroneSection() {
     <section id="why-ernejoyson" className="px-3 sm:px-8 lg:px-12 py-14 sm:py-20 max-w-[1380px] mx-auto w-full space-y-8 sm:space-y-12">
       {/* Header with Eyebrow, Title and Supporting Copy */}
       <div className="text-center max-w-3xl mx-auto space-y-3 px-2 sm:px-0">
-        {/* Eyebrow */}
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-[#DCFCE7] px-4 py-1 text-xs font-extrabold uppercase tracking-widest text-[#166534]">
-          <Sparkles className="h-3.5 w-3.5 fill-current" />
-          WHY ERNEJOYSON
-        </div>
-
         {/* Heading */}
         <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14532D] leading-[1.1]">
           More Than a Supplier. <br className="hidden sm:inline" />

@@ -230,11 +230,6 @@ export const TechnicalSupportPage: React.FC = () => {
       <div className="rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-8 sm:p-12 lg:p-14 text-white relative overflow-hidden shadow-xl border border-white/10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#22C55E]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-black uppercase tracking-wider text-[#DCFCE7] border border-white/10">
-            <HeartPulse className="h-3.5 w-3.5 text-[#22C55E]" />
-            <span>Official Ghana Veterinary Advisory</span>
-          </div>
-
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1]">
             Poultry Vaccination Schedule & Technical Farmer Support
           </h1>
