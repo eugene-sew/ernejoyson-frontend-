@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, BookOpen } from 'lucide-react'
 
 export function NewsSection() {
@@ -46,13 +47,13 @@ export function NewsSection() {
 
         {/* CTA */}
         <div className="shrink-0">
-          <a
-            href="#knowledge"
+          <Link
+            to="/knowledge"
             className="inline-flex items-center gap-2 rounded-full border border-[#166534] px-7 py-3 text-sm font-extrabold text-[#166534] transition-all hover:bg-[#166534] hover:text-white active:scale-95 shadow-sm"
           >
             <span>Explore Farm Knowledge</span>
             <BookOpen className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -64,7 +65,7 @@ export function NewsSection() {
             className="group flex flex-col justify-between rounded-[32px] bg-white p-5 shadow-sm border border-[#EAE6DC] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
           >
             {/* Image Thumbnail with Overlay Category Badge */}
-            <div className="relative h-60 w-full overflow-hidden rounded-[24px] bg-[#FAF9F5]">
+            <Link to="/knowledge" className="relative h-60 w-full overflow-hidden rounded-[24px] bg-[#FAF9F5] block">
               <img
                 src={article.image}
                 alt={article.title}
@@ -76,7 +77,7 @@ export function NewsSection() {
               <div className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#166534] text-white shadow-md transition-transform duration-200 group-hover:scale-110">
                 <ArrowUpRight className="h-4.5 w-4.5 stroke-[2.2]" />
               </div>
-            </div>
+            </Link>
 
             {/* Content */}
             <div className="pt-4 pb-2 space-y-2 flex-1 flex flex-col justify-between">
@@ -84,9 +85,11 @@ export function NewsSection() {
                 <span className="text-[11px] font-bold text-[#166534] uppercase tracking-wide">
                   {article.date}
                 </span>
-                <h3 className="font-display text-lg font-extrabold text-[#14532D] group-hover:text-[#166534] transition-colors leading-snug pt-1">
-                  {article.title}
-                </h3>
+                <Link to="/knowledge">
+                  <h3 className="font-display text-lg font-extrabold text-[#14532D] group-hover:text-[#166534] transition-colors leading-snug pt-1">
+                    {article.title}
+                  </h3>
+                </Link>
                 <p className="text-xs sm:text-sm text-[#14532D]/75 leading-relaxed font-medium pt-2">
                   {article.summary}
                 </p>
@@ -94,13 +97,13 @@ export function NewsSection() {
 
               {/* Read Link */}
               <div className="pt-4 border-t border-[#EAE6DC]/60 mt-4">
-                <a
-                  href="#knowledge"
+                <Link
+                  to="/knowledge"
                   className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#166534] hover:text-[#14532D] transition-colors"
                 >
                   <span>Read Practical Guide</span>
                   <ArrowUpRight className="h-3.5 w-3.5" />
-                </a>
+                </Link>
               </div>
             </div>
           </article>

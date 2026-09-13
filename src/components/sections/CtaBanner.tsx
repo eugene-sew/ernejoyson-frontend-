@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, ShoppingBag, MapPin, Headphones, ShieldCheck } from 'lucide-react'
 
 export function CtaBanner() {
@@ -28,22 +29,22 @@ export function CtaBanner() {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <a
-              href="#featured-products"
+            <Link
+              to="/shop"
               className="inline-flex items-center justify-center gap-2.5 rounded-full bg-white px-9 py-4 text-sm sm:text-base font-extrabold text-[#14532D] shadow-xl transition-all hover:bg-[#FAF9F5] hover:scale-105 active:scale-95 cursor-pointer shrink-0"
             >
               <ShoppingBag className="h-5 w-5 text-[#166534]" />
               <span>Shop Products</span>
               <ArrowUpRight className="h-5 w-5 text-[#14532D]" />
-            </a>
+            </Link>
 
-            <a
-              href="#b2b-quote"
+            <Link
+              to="/technical-support"
               className="inline-flex items-center justify-center gap-2.5 rounded-full border border-white/40 bg-white/10 px-8 py-4 text-sm sm:text-base font-bold text-white backdrop-blur-md transition-all hover:bg-white/20 active:scale-95 shrink-0"
             >
               <Headphones className="h-4.5 w-4.5 text-[#DCFCE7]" />
               <span>Talk to Our Team</span>
-            </a>
+            </Link>
           </div>
 
           {/* Core Commitments */}

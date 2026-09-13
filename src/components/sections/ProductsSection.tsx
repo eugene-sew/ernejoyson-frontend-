@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, CheckCircle2, HeartPulse, Layers, TrendingUp } from 'lucide-react'
 
 export function ProductsSection() {
@@ -10,7 +11,7 @@ export function ProductsSection() {
       description:
         'Support healthier livestock with veterinary products, therapeutic solutions, anti-parasitics and nutritional supplements.',
       actionText: 'Browse Health Products',
-      href: '#categories',
+      href: '/shop?category=antibiotics',
       icon: HeartPulse,
       image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=85',
     },
@@ -22,7 +23,7 @@ export function ProductsSection() {
       description:
         'Equip your poultry operation with feeding, drinking, hatchery and other essential equipment.',
       actionText: 'Explore Poultry Gear',
-      href: '#categories',
+      href: '/shop?category=feeders',
       icon: Layers,
       image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=800&q=85',
     },
@@ -34,7 +35,7 @@ export function ProductsSection() {
       description:
         'Planning your next stage of growth? Speak with our team about equipment, products and bulk supply requirements.',
       actionText: 'Plan Expansion',
-      href: '#b2b-quote',
+      href: '/solutions',
       icon: TrendingUp,
       image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=800&q=85',
     },
@@ -59,13 +60,13 @@ export function ProductsSection() {
 
         {/* Top Right Action Button */}
         <div className="shrink-0">
-          <a
-            href="#b2b-quote"
+          <Link
+            to="/solutions"
             className="inline-flex items-center gap-2 rounded-full border border-[#166534] px-7 py-3 text-sm font-extrabold text-[#166534] transition-all hover:bg-[#166534] hover:text-white active:scale-95 shadow-sm"
           >
-            <span>Talk to Our Team</span>
+            <span>Explore Solutions</span>
             <ArrowRight className="h-4 w-4 stroke-[2.5]" />
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -133,22 +134,22 @@ export function ProductsSection() {
 
                 {/* Bottom Interactive Link & Circle Button */}
                 <div className="relative z-10 mt-6 pt-4 border-t border-black/5 flex items-center justify-between">
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-[#14532D] transition-colors group-hover:text-[#166534]"
                   >
                     <span>{item.actionText}</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </a>
+                  </Link>
 
                   {/* Docked Action Button */}
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     aria-label={item.actionText}
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF9F5] text-[#14532D] border border-black/5 shadow-sm transition-all duration-300 group-hover:bg-[#166534] group-hover:text-white group-hover:scale-110 group-hover:rotate-45"
                   >
                     <ArrowUpRight className="h-4.5 w-4.5 stroke-[2.5]" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -173,13 +174,13 @@ export function ProductsSection() {
 
         {/* CTA Button */}
         <div className="shrink-0 w-full md:w-auto">
-          <a
-            href="#technical-support"
+          <Link
+            to="/technical-support"
             className="flex md:inline-flex items-center justify-center gap-2 rounded-full bg-[#22C55E] px-7 py-3.5 text-sm font-extrabold text-[#0E3B20] shadow-lg transition-all hover:bg-[#DCFCE7] hover:scale-[1.02] active:scale-95 text-center"
           >
             <span>Get Product Guidance</span>
             <ArrowRight className="h-4 w-4 stroke-[2.5]" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ShoppingBag, FileText, Check, ShieldCheck, Layers, ArrowRight } from 'lucide-react'
 
 interface Product {
@@ -238,13 +239,13 @@ export function FeaturedProductsSection() {
                   )}
                 </button>
 
-                <a
-                  href="#b2b-quote"
+                <Link
+                  to="/b2b#rfq-form"
                   title="Request Quote for Bulk Order"
                   className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FAF9F5] border border-[#EAE6DC] text-[#14532D] transition-colors hover:bg-[#166534] hover:text-white shrink-0"
                 >
                   <FileText className="h-4 w-4" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -266,14 +267,22 @@ export function FeaturedProductsSection() {
           </p>
         </div>
 
-        <div className="shrink-0">
-          <a
-            href="#b2b-quote"
+        <div className="shrink-0 flex flex-wrap items-center gap-3">
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-2 rounded-full border border-[#166534] px-6 py-3 text-sm font-extrabold text-[#166534] hover:bg-[#166534] hover:text-white transition-all shadow-xs"
+          >
+            <span>Browse Full Shop</span>
+            <ArrowRight className="h-4 w-4 stroke-[2.5]" />
+          </Link>
+
+          <Link
+            to="/b2b#rfq-form"
             className="inline-flex items-center gap-2 rounded-full bg-[#166534] px-7 py-3.5 text-sm font-extrabold text-white shadow-md hover:bg-[#14532D] transition-all hover:scale-[1.02] active:scale-95"
           >
             <span>Request a Business Quote</span>
             <ArrowRight className="h-4 w-4 stroke-[2.5]" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

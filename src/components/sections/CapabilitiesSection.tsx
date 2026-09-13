@@ -60,12 +60,12 @@ export function CapabilitiesSection() {
 
         {/* Top Right: Explore Solutions Action */}
         <div className="shrink-0 pt-2 lg:pt-3">
-          <a
-            href="#categories"
+          <Link
+            to="/shop"
             className="inline-flex items-center justify-center rounded-full border border-[#166534] px-7 py-3 text-sm font-extrabold text-[#166534] transition-all hover:bg-[#166534] hover:text-white active:scale-95 shadow-sm"
           >
             EXPLORE ALL PRODUCTS
-          </a>
+          </Link>
         </div>
       </div>
 

@@ -259,7 +259,10 @@ export const ShopPage: React.FC = () => {
               >
                 <div>
                   {/* Image Container */}
-                  <div className="relative aspect-4/3 w-full rounded-2xl overflow-hidden bg-[#FAF9F5] border border-[#EAE6DC]/60 mb-4">
+                  <Link
+                    to={`/shop/${product.id}`}
+                    className="block relative aspect-4/3 w-full rounded-2xl overflow-hidden bg-[#FAF9F5] border border-[#EAE6DC]/60 mb-4 cursor-pointer"
+                  >
                     <img
                       src={product.image}
                       alt={product.name}
@@ -277,7 +280,7 @@ export const ShopPage: React.FC = () => {
                         </span>
                       )}
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Category & Title */}
                   <div className="space-y-1.5">

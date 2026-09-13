@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowRight, PhoneCall, CheckCircle2, Building, Package, RefreshCw, FileCheck, Layers, Send } from 'lucide-react'
 
 export function B2bSection() {
@@ -72,21 +73,21 @@ export function B2bSection() {
 
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-4 pt-2">
-              <a
-                href="#b2b-quote"
+              <Link
+                to="/b2b"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#22C55E] px-8 py-4 text-sm font-extrabold text-[#0E3B20] shadow-xl transition-all hover:bg-[#DCFCE7] hover:scale-[1.02] active:scale-95"
               >
-                <span>Request a Business Quote</span>
+                <span>B2B Commercial Portal</span>
                 <ArrowRight className="h-4 w-4 stroke-[2.5]" />
-              </a>
+              </Link>
 
-              <a
-                href="#locations"
+              <Link
+                to="/locations"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-7 py-4 text-sm font-bold text-white transition-all hover:bg-white/20 active:scale-95"
               >
                 <PhoneCall className="h-4 w-4" />
-                <span>Talk to Sales</span>
-              </a>
+                <span>Contact Hub Locations</span>
+              </Link>
             </div>
           </div>
 

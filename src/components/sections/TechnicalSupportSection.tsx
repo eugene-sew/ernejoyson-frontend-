@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowRight, MessageSquareCheck, SearchCheck, CheckCircle2, Headphones } from 'lucide-react'
 
 export function TechnicalSupportSection() {
@@ -40,14 +41,14 @@ export function TechnicalSupportSection() {
 
         {/* CTA Button */}
         <div className="shrink-0">
-          <a
-            href="#b2b-quote"
+          <Link
+            to="/technical-support"
             className="inline-flex items-center gap-2 rounded-full bg-[#166534] px-7 py-3.5 text-sm font-extrabold text-white shadow-md transition-all hover:bg-[#14532D] hover:scale-[1.02] active:scale-95"
           >
             <Headphones className="h-4.5 w-4.5" />
             <span>Talk to Our Team</span>
             <ArrowRight className="h-4 w-4 stroke-[2.5]" />
-          </a>
+          </Link>
         </div>
       </div>
 

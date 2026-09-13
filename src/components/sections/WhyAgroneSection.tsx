@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Play, ArrowRight, ChevronLeft, ChevronRight, Video, CheckCircle2 } from 'lucide-react'
 
 export function WhyAgroneSection() {
@@ -218,20 +219,20 @@ export function WhyAgroneSection() {
 
                 {/* Bottom Actions: EXPLORE SOLUTIONS pill + Circle Arrow */}
                 <div className="relative z-10 mt-3 sm:mt-4 flex items-center gap-2 sm:gap-2.5 pt-1">
-                  <a
-                    href="#categories"
+                  <Link
+                    to="/shop"
                     className="inline-flex items-center justify-center rounded-full border border-[#14532D] px-5 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-[#14532D] transition-all hover:bg-[#166534] hover:text-white active:scale-95"
                   >
                     EXPLORE PRODUCTS
-                  </a>
+                  </Link>
 
-                  <a
-                    href="#categories"
+                  <Link
+                    to="/shop"
                     aria-label="Explore products"
                     className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-[#14532D] text-[#DCFCE7] transition-all hover:bg-[#166534] active:scale-95"
                   >
                     <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

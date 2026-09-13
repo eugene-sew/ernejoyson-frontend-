@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { MapPin, Building2, PhoneCall } from 'lucide-react'
 
 export function LocationsSection() {
@@ -22,7 +23,7 @@ export function LocationsSection() {
       id: 'swedru',
       city: 'Swedru',
       role: 'Regional Operations',
-      description: 'Supporting commercial farms, feed supplies, and veterinary distribution in the Central Region.',
+      description: 'Serving key farming communities in the Central Region.',
       isHq: false,
       belt: 'Central Region',
     },
@@ -54,13 +55,13 @@ export function LocationsSection() {
 
         {/* CTA */}
         <div className="shrink-0">
-          <a
-            href="#b2b-quote"
+          <Link
+            to="/locations"
             className="inline-flex items-center gap-2 rounded-full border border-[#166534] px-7 py-3.5 text-sm font-extrabold text-[#166534] transition-all hover:bg-[#166534] hover:text-white active:scale-95 shadow-sm"
           >
-            <span>Contact a Regional Hub</span>
+            <span>View All Regional Hubs</span>
             <PhoneCall className="h-4 w-4 stroke-[2.2]" />
-          </a>
+          </Link>
         </div>
       </div>
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ArrowRight, ShoppingBag, MapPin, PackageCheck } from 'lucide-react'
 
 export function HeroSection() {
@@ -38,21 +39,21 @@ export function HeroSection() {
 
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-3.5 pt-1">
-              <a
-                href="#featured-products"
+              <Link
+                to="/shop"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm sm:text-base font-extrabold text-[#14532D] shadow-xl transition-all hover:bg-[#FAF9F5] hover:scale-[1.02] active:scale-95 cursor-pointer shrink-0"
               >
                 <ShoppingBag className="h-4.5 w-4.5 text-[#166534]" />
                 <span>Shop Products</span>
-              </a>
+              </Link>
 
-              <a
-                href="#b2b-quote"
+              <Link
+                to="/technical-support#vaccination-chart"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#166534] px-7 py-3.5 text-sm sm:text-base font-extrabold text-white shadow-xl transition-all hover:bg-[#14532D] hover:scale-[1.02] active:scale-95 cursor-pointer shrink-0 border border-white/20"
               >
                 <span>Free Vaccination Chart</span>
                 <ArrowRight className="h-4.5 w-4.5 stroke-[2.5]" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -101,13 +102,13 @@ export function HeroSection() {
 
                 {/* Bottom Row Action */}
                 <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between">
-                  <a
-                    href="#locations"
+                  <Link
+                    to="/locations"
                     className="text-xs font-bold text-[#DCFCE7] hover:text-white flex items-center gap-1.5 transition-colors"
                   >
                     <span>View Hub Locations</span>
                     <ArrowRight className="h-3.5 w-3.5" />
-                  </a>
+                  </Link>
 
                   <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#166534] text-[#DCFCE7]">
                     <PackageCheck className="h-4.5 w-4.5" />
