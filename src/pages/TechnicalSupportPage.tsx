@@ -10,7 +10,109 @@ import {
   PhoneCall,
   MessageSquare,
   ArrowRight,
+  Lock,
 } from 'lucide-react'
+
+/* ─── Lead Capture Modal ─────────────────────────────────────────────── */
+function LeadCaptureModal({ onUnlock }: { onUnlock: () => void }) {
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [farmSize, setFarmSize] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!name.trim() || !phone.trim()) {
+      setError('Please fill in your name and phone number.')
+      return
+    }
+    setSubmitting(true)
+    // Store lead in localStorage (swap for API call when backend is ready)
+    const leads = JSON.parse(localStorage.getItem('ej_leads') || '[]')
+    leads.push({ name: name.trim(), phone: phone.trim(), farmSize, timestamp: new Date().toISOString() })
+    localStorage.setItem('ej_leads', JSON.stringify(leads))
+    localStorage.setItem('ej_chart_unlocked', '1')
+    setTimeout(() => onUnlock(), 300)
+  }
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="lead-modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
+
+      {/* Card */}
+      <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-8 flex flex-col gap-5">
+        {/* Icon + headline */}
+        <div className="flex flex-col items-center text-center gap-2">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#F0FDF4] text-[#166534]">
+            <Lock className="h-5 w-5" />
+          </span>
+          <h2 id="lead-modal-title" className="font-display text-xl font-extrabold text-[#14532D] tracking-tight">
+            Get Your Free Vaccination Chart
+          </h2>
+          <p className="text-xs text-neutral-500 leading-relaxed">
+            Enter a few quick details and we'll unlock the full schedule for you.
+          </p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+          <input
+            id="lead-name"
+            type="text"
+            placeholder="Your name"
+            value={name}
+            onChange={e => { setName(e.target.value); setError('') }}
+            className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-800 placeholder:text-neutral-400 outline-none focus:border-[#22C55E] focus:ring-2 focus:ring-[#22C55E]/20 transition"
+            required
+          />
+          <input
+            id="lead-phone"
+            type="tel"
+            placeholder="Phone number (e.g. 0244 000 000)"
+            value={phone}
+            onChange={e => { setPhone(e.target.value); setError('') }}
+            className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-800 placeholder:text-neutral-400 outline-none focus:border-[#22C55E] focus:ring-2 focus:ring-[#22C55E]/20 transition"
+            required
+          />
+          <select
+            id="lead-farm-size"
+            value={farmSize}
+            onChange={e => setFarmSize(e.target.value)}
+            className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-800 outline-none focus:border-[#22C55E] focus:ring-2 focus:ring-[#22C55E]/20 transition bg-white"
+          >
+            <option value="">Flock size (optional)</option>
+            <option value="1-500">1 – 500 birds</option>
+            <option value="500-2000">500 – 2,000 birds</option>
+            <option value="2000+">2,000+ birds</option>
+          </select>
+
+          {error && (
+            <p className="text-xs text-red-500">{error}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="mt-1 w-full rounded-xl bg-[#14532D] text-white text-sm font-bold py-3 hover:bg-[#166534] active:scale-[0.98] transition-all disabled:opacity-60"
+          >
+            {submitting ? 'Unlocking…' : 'View Vaccination Chart →'}
+          </button>
+        </form>
+
+        <p className="text-center text-[10px] text-neutral-400 leading-relaxed">
+          We respect your privacy. No spam, ever.
+        </p>
+      </div>
+    </div>
+  )
+}
 
 export const TechnicalSupportPage: React.FC = () => {
   const [flockType, setFlockType] = useState<'layers' | 'broilers'>('layers')
@@ -224,7 +326,14 @@ export const TechnicalSupportPage: React.FC = () => {
 
   const currentSchedule = vaccinationSchedule[flockType]
 
+  // Lead gate state
+  const [chartUnlocked, setChartUnlocked] = useState(
+    () => localStorage.getItem('ej_chart_unlocked') === '1'
+  )
+
   return (
+    <>
+    {!chartUnlocked && <LeadCaptureModal onUnlock={() => setChartUnlocked(true)} />}
     <div className="pt-24 pb-20 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       {/* 1. Header Banner */}
       <div className="rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-8 sm:p-12 lg:p-14 text-white relative overflow-hidden shadow-xl border border-white/10">
@@ -260,7 +369,7 @@ export const TechnicalSupportPage: React.FC = () => {
       </div>
 
       {/* 2. Interactive Vaccination Chart Component */}
-      <div id="vaccination-chart" className="scroll-mt-28 space-y-6">
+      <div id="vaccination-chart" className={`scroll-mt-28 space-y-6 transition-all duration-500 ${!chartUnlocked ? 'select-none pointer-events-none' : ''}`}>
         <div className="rounded-3xl bg-white border border-[#EAE6DC] p-6 sm:p-8 shadow-xs space-y-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAE6DC] pb-6">
             <div>
@@ -518,5 +627,6 @@ export const TechnicalSupportPage: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
