@@ -14,7 +14,6 @@ import { LocationsPage } from '@/pages/LocationsPage'
 import { B2bPage } from '@/pages/B2bPage'
 import { KnowledgePage } from '@/pages/KnowledgePage'
 import { AboutPage } from '@/pages/AboutPage'
-import { UserFlowPage } from '@/pages/UserFlowPage'
 
 /**
  * ScrollToTop helper:
@@ -61,7 +60,6 @@ export function App() {
             <Route path="/b2b" element={<B2bPage />} />
             <Route path="/knowledge" element={<KnowledgePage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/user-flow" element={<UserFlowPage />} />
             <Route path="*" element={<HomePage />} />
           </Routes>
         </main>

@@ -383,15 +383,7 @@ export function Header() {
               Knowledge
             </Link>
 
-            {/* Link 7: User Flow */}
-            <Link
-              to="/user-flow"
-              className="hover:text-[#14532D] transition-colors py-1 whitespace-nowrap text-xs font-bold text-[#166534] bg-[#DCFCE7] px-2.5 py-1 rounded-full shadow-xs"
-            >
-              User Flow
-            </Link>
-
-            {/* Link 8: About */}
+            {/* Link 7: About */}
             <Link to="/about" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap">
               About
             </Link>
@@ -503,9 +495,6 @@ export function Header() {
                 </Link>
                 <Link to="/knowledge" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30">
                   Farm Knowledge
-                </Link>
-                <Link to="/user-flow" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#DCFCE7]/60 text-[#166534] font-bold">
-                  User Flow
                 </Link>
                 <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30 col-span-2 text-center">
                   About ERNEJOYSON
