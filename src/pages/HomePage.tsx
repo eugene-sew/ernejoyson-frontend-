@@ -8,6 +8,7 @@ import { TechnicalSupportSection } from '@/components/sections/TechnicalSupportS
 import { LocationsSection } from '@/components/sections/LocationsSection'
 import { B2bSection } from '@/components/sections/B2bSection'
 import { NewsSection } from '@/components/sections/NewsSection'
+import { FaqSection } from '@/components/sections/FaqSection'
 import { CtaBanner } from '@/components/sections/CtaBanner'
 
 export function HomePage() {
@@ -42,6 +43,9 @@ export function HomePage() {
 
       {/* Section 9 — Farm Knowledge: Better Farming Starts With Better Information. */}
       <NewsSection />
+
+      {/* Section 10 — Frequently Asked Questions: Accordion FAQ */}
+      <FaqSection />
 
       {/* Final CTA: Let's Build a Better Farm Operation. */}
       <CtaBanner />
