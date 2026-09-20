@@ -68,3 +68,25 @@ h1, h2, h3, h4, h5, h6, .font-display {
 ::-webkit-scrollbar-thumb:hover {
   background: #166534;
 }
+
+/* mapcn MapLibre GL overrides */
+.maplibregl-popup-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+.maplibregl-popup-tip {
+  display: none !important;
+}
+.maplibregl-ctrl-attrib {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #525252 !important;
+  border: 1px solid #e5e5e5 !important;
+  border-radius: 0.375rem !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  font-size: 11px !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: #166534 !important;
+}

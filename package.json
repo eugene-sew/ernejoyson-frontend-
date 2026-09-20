@@ -12,8 +12,10 @@
   "dependencies": {
     "@paystack/inline-js": "^2.25.0",
     "@tailwindcss/vite": "^4.3.3",
+    "@types/geojson": "^7946.0.16",
     "clsx": "^2.1.1",
     "lucide-react": "^1.37.0",
+    "maplibre-gl": "^6.10.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.3",

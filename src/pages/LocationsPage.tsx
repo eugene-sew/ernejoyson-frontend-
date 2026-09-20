@@ -41,7 +41,8 @@ export interface BranchData {
   hours: string
   keySupplies: string[]
   shortDesc: string
-  mapCoords: { x: number; y: number }
+  lng: number
+  lat: number
 }
 
 export const LocationsPage: React.FC = () => {
@@ -74,7 +75,8 @@ export const LocationsPage: React.FC = () => {
       ],
       shortDesc:
         'Our corporate headquarters and primary bonded warehouse receiving all direct overseas shipments.',
-      mapCoords: { x: 236, y: 468 },
+      lng: -0.4200,
+      lat: 5.5345,
     },
     {
       id: 'kumasi',
@@ -101,7 +103,8 @@ export const LocationsPage: React.FC = () => {
       ],
       shortDesc:
         'Serving Ghana’s primary egg and poultry cluster in Ashanti and transit hub for northern regions.',
-      mapCoords: { x: 185, y: 350 },
+      lng: -1.6244,
+      lat: 6.6885,
     },
     {
       id: 'swedru',
@@ -128,7 +131,8 @@ export const LocationsPage: React.FC = () => {
       ],
       shortDesc:
         'Providing direct access to genuine animal health supplies and durable equipment for Central Region farms.',
-      mapCoords: { x: 215, y: 462 },
+      lng: -0.6998,
+      lat: 5.5342,
     },
     {
       id: 'nsawam',
@@ -155,7 +159,8 @@ export const LocationsPage: React.FC = () => {
       ],
       shortDesc:
         'Convenient restock point for commercial poultry operations along the Accra–Eastern transit corridor.',
-      mapCoords: { x: 250, y: 442 },
+      lng: -0.3503,
+      lat: 5.8089,
     },
   ]
 
@@ -165,10 +170,13 @@ export const LocationsPage: React.FC = () => {
     shortName: b.shortName,
     role: b.badge,
     manager: b.manager.name,
+    managerPhoto: b.manager.photo,
+    managerRole: b.manager.role,
     phone: b.phone,
-    x: b.mapCoords.x,
-    y: b.mapCoords.y,
+    lng: b.lng,
+    lat: b.lat,
     isHq: b.isHq,
+    address: b.address,
   }))
 
   const selectedBranch =
@@ -257,13 +265,13 @@ export const LocationsPage: React.FC = () => {
       </div>
 
       {/* ─── 2. Interactive Ghana Map & Spotlight Split View ─── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: Interactive Map Component */}
+      <div id="map-section" className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Interactive Map Component (mapcn) */}
         <div className="lg:col-span-6 xl:col-span-5">
           <GhanaMap
             branches={branchPins}
             activeBranchId={selectedBranchId}
-            onSelectBranch={(id) => scrollToBranch(id)}
+            onSelectBranch={(id) => setSelectedBranchId(id)}
           />
         </div>
 
@@ -481,8 +489,8 @@ export const LocationsPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Big, Easy Tap Call Button */}
-              <div className="pt-2 flex items-center gap-2.5">
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-2.5">
                 <a
                   href={`tel:${b.phone.replace(/\s+/g, '')}`}
                   className="flex-1 flex items-center justify-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white py-3 px-4 text-xs sm:text-sm font-black transition-all shadow-xs active:scale-[0.99] cursor-pointer"
@@ -490,6 +498,22 @@ export const LocationsPage: React.FC = () => {
                   <PhoneCall className="h-4 w-4" />
                   <span>Call {b.shortName}: {b.phone}</span>
                 </a>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSelectedBranchId(b.id)
+                    const mapEl = document.getElementById('map-section')
+                    if (mapEl) {
+                      mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-3 rounded-full text-xs font-bold text-[#166534] bg-[#FAF9F5] hover:bg-[#F4F1EA] border border-[#EAE6DC] transition-colors cursor-pointer"
+                  title="Locate on Map"
+                >
+                  <MapPin className="h-4 w-4" />
+                  <span className="hidden sm:inline">On Map</span>
+                </button>
 
                 <a
                   href={`mailto:${b.email}`}

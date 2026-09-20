@@ -1,5 +1,21 @@
-import React from 'react'
-import { Navigation } from 'lucide-react'
+import React, { useRef, useState } from 'react'
+import {
+  Map,
+  MapMarker,
+  MarkerContent,
+  MarkerPopup,
+  MapControls,
+  type MapRef,
+} from '@/components/ui/map'
+import {
+  MapPin,
+  PhoneCall,
+  Navigation,
+  Building2,
+  ExternalLink,
+  ChevronRight,
+  Maximize2,
+} from 'lucide-react'
 
 export interface BranchPin {
   id: string
@@ -7,10 +23,13 @@ export interface BranchPin {
   shortName: string
   role: string
   manager: string
+  managerPhoto?: string
+  managerRole?: string
   phone: string
-  x: number
-  y: number
+  lng: number
+  lat: number
   isHq?: boolean
+  address?: string
 }
 
 interface GhanaMapProps {
@@ -24,297 +43,255 @@ export const GhanaMap: React.FC<GhanaMapProps> = ({
   activeBranchId,
   onSelectBranch,
 }) => {
-  // Reference key transit destinations across Ghana
-  const waybillHubs = [
-    { name: 'Tamale', x: 215, y: 195, region: 'Northern' },
-    { name: 'Sunyani', x: 130, y: 320, region: 'Bono' },
-    { name: 'Techiman', x: 175, y: 295, region: 'Bono East' },
-    { name: 'Bolgatanga', x: 250, y: 85, region: 'Upper East' },
-    { name: 'Wa', x: 105, y: 130, region: 'Upper West' },
-    { name: 'Takoradi', x: 135, y: 495, region: 'Western' },
-    { name: 'Ho', x: 300, y: 395, region: 'Volta' },
-    { name: 'Cape Coast', x: 180, y: 490, region: 'Central' },
-  ]
+  const mapRef = useRef<MapRef | null>(null)
+  const [popupBranchId, setPopupBranchId] = useState<string | null>(activeBranchId)
+
+  // Default Ghana center view covering all 4 branches
+  const GHANA_CENTER: [number, number] = [-0.95, 6.2]
+  const GHANA_ZOOM = 7.1
+
+  const handleFlyTo = (branch: BranchPin) => {
+    onSelectBranch(branch.id)
+    setPopupBranchId(branch.id)
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [branch.lng, branch.lat],
+        zoom: 10.5,
+        duration: 1000,
+        essential: true,
+      })
+    }
+  }
+
+  const handleResetView = () => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: GHANA_CENTER,
+        zoom: GHANA_ZOOM,
+        duration: 900,
+        essential: true,
+      })
+    }
+  }
 
   return (
-    <div className="relative w-full rounded-3xl bg-white border border-[#EAE6DC] p-4 sm:p-6 shadow-xs overflow-hidden select-none">
-      {/* Top Map Header */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#EAE6DC]/60 mb-2">
+    <div className="flex flex-col w-full rounded-3xl bg-white border border-[#EAE6DC] p-3 sm:p-5 shadow-xs overflow-hidden">
+      {/* Top Map Action Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#EAE6DC]">
         <div className="flex items-center gap-2">
-          <div className="h-2.5 w-2.5 rounded-full bg-[#166534] animate-ping" />
-          <span className="text-xs font-black uppercase tracking-wider text-[#14532D]">
-            Interactive Branch &amp; Delivery Map
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#166534] opacity-75" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#166534]" />
           </span>
+          <div>
+            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#14532D]">
+              Interactive Ghana Hub Map
+            </h3>
+            <span className="text-[11px] text-[#14532D]/70 font-medium">
+              Powered by <span className="font-semibold text-[#166534]">mapcn</span> • Click pin for manager hotline
+            </span>
+          </div>
         </div>
-        <span className="text-[11px] font-bold text-[#166534] bg-[#DCFCE7] px-2.5 py-0.5 rounded-full flex items-center gap-1">
-          <Navigation className="h-3 w-3" />
-          <span>Click any pin to view details</span>
-        </span>
+
+        <button
+          type="button"
+          onClick={handleResetView}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-[#14532D] bg-[#FAF9F5] border border-[#EAE6DC] hover:bg-[#F4F1EA] transition-colors cursor-pointer"
+        >
+          <Maximize2 className="h-3 w-3 text-[#166534]" />
+          <span>Reset View</span>
+        </button>
       </div>
 
-      {/* SVG Map Container */}
-      <div className="relative flex items-center justify-center py-2">
-        <svg
-          viewBox="0 0 440 560"
-          className="w-full max-w-[420px] h-auto drop-shadow-sm transition-all"
+      {/* Quick Jump Buttons for Farmers */}
+      <div className="flex items-center gap-2 overflow-x-auto py-2.5 no-scrollbar">
+        <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#14532D]/60 shrink-0">
+          Jump to:
+        </span>
+        {branches.map((b) => {
+          const isActive = activeBranchId === b.id
+          return (
+            <button
+              key={b.id}
+              type="button"
+              onClick={() => handleFlyTo(b)}
+              className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                isActive
+                  ? 'bg-[#166534] text-white shadow-xs scale-[1.02]'
+                  : 'bg-[#FAF9F5] text-[#14532D] hover:bg-[#F4F1EA] border border-[#EAE6DC]'
+              }`}
+            >
+              <MapPin className={`h-3 w-3 ${isActive ? 'text-amber-300' : 'text-[#166534]'}`} />
+              <span>{b.shortName}</span>
+              {b.isHq && (
+                <span className="text-[9px] bg-amber-400/30 text-amber-900 px-1 rounded font-black">
+                  HQ
+                </span>
+              )}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Map Canvas Container */}
+      <div className="relative w-full h-[460px] sm:h-[520px] rounded-2xl overflow-hidden border border-[#EAE6DC] bg-[#FAF9F5]">
+        <Map
+          ref={mapRef}
+          center={GHANA_CENTER}
+          zoom={GHANA_ZOOM}
+          minZoom={5.5}
+          maxZoom={16}
+          className="w-full h-full"
         >
-          {/* Subtle Grid Pattern */}
-          <defs>
-            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#FAF9F5" strokeWidth="0.8" />
-            </pattern>
-            <linearGradient id="ghanaFill" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#F4F8F4" />
-              <stop offset="100%" stopColor="#EBF5ED" />
-            </linearGradient>
-            <linearGradient id="lakeFill" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#93C5FD" stopOpacity="0.7" />
-              <stop offset="100%" stopColor="#60A5FA" stopOpacity="0.8" />
-            </linearGradient>
-          </defs>
+          <MapControls position="bottom-right" showZoom showCompass showLocate />
 
-          {/* Ghana Country Boundary Silhouette */}
-          <path
-            d="M 95 65 
-               Q 140 45 200 40 
-               Q 260 35 315 42 
-               L 330 55 
-               Q 325 105 328 160 
-               Q 330 200 318 240 
-               Q 312 280 332 335 
-               Q 342 375 338 410 
-               L 325 440 
-               L 305 460 
-               Q 275 468 245 478 
-               Q 215 486 180 496 
-               Q 145 505 115 515 
-               L 70 478 
-               Q 80 420 72 370 
-               Q 65 315 75 260 
-               Q 85 205 78 150 
-               Q 88 100 95 65 Z"
-            fill="url(#ghanaFill)"
-            stroke="#166534"
-            strokeWidth="2.5"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            className="transition-colors duration-300"
-          />
-
-          {/* Lake Volta Representation */}
-          <path
-            d="M 268 250 
-               Q 252 285 262 325 
-               Q 272 365 292 395 
-               Q 296 415 284 435 
-               Q 272 408 258 358 
-               Q 246 298 254 260 Z"
-            fill="url(#lakeFill)"
-            stroke="#3B82F6"
-            strokeWidth="1"
-            className="opacity-90"
-          />
-          <text
-            x="276"
-            y="345"
-            fontSize="9"
-            fill="#2563EB"
-            fontWeight="bold"
-            letterSpacing="0.05em"
-            className="select-none opacity-80"
-          >
-            Lake Volta
-          </text>
-
-          {/* Regional Belt Labels */}
-          <text x="180" y="110" fontSize="10" fill="#14532D" opacity="0.35" fontWeight="900" letterSpacing="0.1em">
-            NORTHERN BELT
-          </text>
-          <text x="120" y="270" fontSize="10" fill="#14532D" opacity="0.35" fontWeight="900" letterSpacing="0.1em">
-            MIDDLE BELT
-          </text>
-          <text x="95" y="450" fontSize="10" fill="#14532D" opacity="0.35" fontWeight="900" letterSpacing="0.1em">
-            COASTAL BELT
-          </text>
-
-          {/* Inter-Branch Waybill Freight Corridors (Dotted Lines) */}
-          {/* Kasoa -> Kumasi */}
-          <line
-            x1="236"
-            y1="468"
-            x2="185"
-            y2="350"
-            stroke="#166534"
-            strokeWidth="1.8"
-            strokeDasharray="4 4"
-            opacity="0.6"
-          />
-          {/* Kumasi -> Tamale */}
-          <line
-            x1="185"
-            y1="350"
-            x2="215"
-            y2="195"
-            stroke="#166534"
-            strokeWidth="1.5"
-            strokeDasharray="3 3"
-            opacity="0.45"
-          />
-          {/* Kasoa -> Swedru */}
-          <line
-            x1="236"
-            y1="468"
-            x2="215"
-            y2="462"
-            stroke="#166534"
-            strokeWidth="1.8"
-            strokeDasharray="3 3"
-            opacity="0.6"
-          />
-          {/* Kasoa -> Nsawam */}
-          <line
-            x1="236"
-            y1="468"
-            x2="250"
-            y2="442"
-            stroke="#166534"
-            strokeWidth="1.8"
-            strokeDasharray="3 3"
-            opacity="0.6"
-          />
-          {/* Nsawam -> Kumasi */}
-          <line
-            x1="250"
-            y1="442"
-            x2="185"
-            y2="350"
-            stroke="#166534"
-            strokeWidth="1.8"
-            strokeDasharray="3 3"
-            opacity="0.6"
-          />
-
-          {/* Major Waybill Destination Dots (Reference Stations) */}
-          {waybillHubs.map((hub) => (
-            <g key={hub.name} className="opacity-70 group cursor-default">
-              <circle cx={hub.x} cy={hub.y} r="3" fill="#6B7280" />
-              <text
-                x={hub.x + 6}
-                y={hub.y + 3}
-                fontSize="9"
-                fill="#4B5563"
-                fontWeight="600"
-                className="select-none"
-              >
-                {hub.name}
-              </text>
-            </g>
-          ))}
-
-          {/* 4 Interactive ERNEJOYSON Branch Pins */}
-          {branches.map((b) => {
-            const isActive = activeBranchId === b.id
+          {/* Branch Markers */}
+          {branches.map((branch) => {
+            const isActive = activeBranchId === branch.id
+            const isPopupOpen = popupBranchId === branch.id
 
             return (
-              <g
-                key={b.id}
-                onClick={() => onSelectBranch(b.id)}
-                className="cursor-pointer transition-transform duration-200"
-                style={{ transformOrigin: `${b.x}px ${b.y}px` }}
+              <MapMarker
+                key={branch.id}
+                longitude={branch.lng}
+                latitude={branch.lat}
+                onClick={() => {
+                  onSelectBranch(branch.id)
+                  setPopupBranchId(branch.id)
+                }}
               >
-                {/* Radar Ring for Active / HQ */}
-                {isActive && (
-                  <circle
-                    cx={b.x}
-                    cy={b.y}
-                    r="16"
-                    fill="none"
-                    stroke="#166534"
-                    strokeWidth="2"
-                    className="animate-ping opacity-75"
-                  />
-                )}
-
-                {/* Outer Glow Halo */}
-                <circle
-                  cx={b.x}
-                  cy={b.y}
-                  r={isActive ? '13' : '10'}
-                  fill={isActive ? '#166534' : '#22C55E'}
-                  opacity={isActive ? '0.25' : '0.15'}
-                />
-
-                {/* Pin Circle */}
-                <circle
-                  cx={b.x}
-                  cy={b.y}
-                  r={isActive ? '7.5' : '6'}
-                  fill={b.isHq ? '#14532D' : '#166534'}
-                  stroke="#FFFFFF"
-                  strokeWidth={isActive ? '2.5' : '1.8'}
-                  className="shadow-md"
-                />
-
-                {/* Inner White / Gold Dot */}
-                <circle
-                  cx={b.x}
-                  cy={b.y}
-                  r={b.isHq ? '2.5' : '2'}
-                  fill={b.isHq ? '#FDE047' : '#FFFFFF'}
-                />
-
-                {/* Pin Text Label Badge */}
-                <g transform={`translate(${b.x}, ${b.y})`}>
-                  {/* Position text differently depending on space around South Ghana */}
-                  <rect
-                    x={b.id === 'kumasi' ? -42 : b.id === 'swedru' ? -62 : b.id === 'nsawam' ? 10 : 10}
-                    y={b.id === 'kumasi' ? -26 : b.id === 'swedru' ? -8 : b.id === 'nsawam' ? -18 : 6}
-                    width={b.isHq ? 84 : 64}
-                    height="18"
-                    rx="9"
-                    fill={isActive ? '#14532D' : '#FFFFFF'}
-                    stroke={isActive ? '#166534' : '#EAE6DC'}
-                    strokeWidth="1.2"
-                    className="shadow-xs"
-                  />
-                  <text
-                    x={b.id === 'kumasi' ? 0 : b.id === 'swedru' ? -31 : b.id === 'nsawam' ? 42 : 52}
-                    y={b.id === 'kumasi' ? -14 : b.id === 'swedru' ? 4 : b.id === 'nsawam' ? -6 : 18}
-                    textAnchor="middle"
-                    fontSize="9.5"
-                    fontWeight="800"
-                    fill={isActive ? '#FFFFFF' : '#14532D'}
-                    className="select-none"
+                {/* Marker Pin */}
+                <MarkerContent>
+                  <div
+                    className={`relative flex flex-col items-center group cursor-pointer transition-transform ${
+                      isActive ? 'scale-110 z-30' : 'hover:scale-105 z-20'
+                    }`}
                   >
-                    {b.shortName} {b.isHq ? '★ HQ' : ''}
-                  </text>
-                </g>
-              </g>
+                    {/* Pulsing ring for HQ */}
+                    {branch.isHq && (
+                      <span className="absolute -inset-1.5 rounded-full bg-[#166534]/30 animate-ping pointer-events-none" />
+                    )}
+
+                    {/* Pin Bubble */}
+                    <div
+                      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full shadow-lg border-2 transition-colors ${
+                        branch.isHq
+                          ? 'bg-[#14532D] text-white border-amber-400'
+                          : isActive
+                          ? 'bg-[#166534] text-white border-white'
+                          : 'bg-white text-[#14532D] border-[#166534]'
+                      }`}
+                    >
+                      {branch.isHq ? (
+                        <Building2 className="h-3.5 w-3.5 text-amber-300 shrink-0" />
+                      ) : (
+                        <MapPin className={`h-3.5 w-3.5 shrink-0 ${isActive ? 'text-amber-300' : 'text-[#166534]'}`} />
+                      )}
+                      <span className="text-xs font-black whitespace-nowrap">
+                        {branch.shortName}
+                      </span>
+                    </div>
+
+                    {/* Pin Tip Triangle */}
+                    <div
+                      className={`w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] -mt-[1px] ${
+                        branch.isHq
+                          ? 'border-t-amber-400'
+                          : isActive
+                          ? 'border-t-[#166534]'
+                          : 'border-t-[#166534]'
+                      }`}
+                    />
+                  </div>
+                </MarkerContent>
+
+                {/* Marker Popup */}
+                {isPopupOpen && (
+                  <MarkerPopup
+                    closeButton
+                    className="p-3 w-64 sm:w-72 rounded-2xl shadow-2xl border border-[#EAE6DC] bg-white text-neutral-900 space-y-2.5"
+                    offset={[0, -18]}
+                  >
+                    {/* Header */}
+                    <div className="flex items-start justify-between gap-2 border-b border-[#EAE6DC] pb-2">
+                      <div>
+                        <span className="text-[10px] font-black uppercase tracking-wider text-[#166534] bg-[#DCFCE7] px-2 py-0.5 rounded-full inline-block">
+                          {branch.role}
+                        </span>
+                        <h4 className="text-sm font-black text-[#14532D] mt-1 leading-snug">
+                          {branch.name}
+                        </h4>
+                      </div>
+                    </div>
+
+                    {/* Manager Details */}
+                    <div className="flex items-center gap-2.5 bg-[#FAF9F5] p-2 rounded-xl border border-[#EAE6DC]">
+                      {branch.managerPhoto && (
+                        <img
+                          src={branch.managerPhoto}
+                          alt={branch.manager}
+                          className="h-11 w-11 rounded-lg object-cover border border-white shadow-xs shrink-0"
+                        />
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[9px] uppercase font-bold text-neutral-500 block">
+                          Contact Person:
+                        </span>
+                        <p className="text-xs font-black text-[#14532D] truncate">
+                          {branch.manager}
+                        </p>
+                        <p className="text-[10px] text-neutral-600 truncate">
+                          {branch.managerRole || 'Branch Manager'}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Direct Call Button */}
+                    <a
+                      href={`tel:${branch.phone.replace(/\s+/g, '')}`}
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#166534] text-white py-2 px-3 text-xs font-black hover:bg-[#14532D] shadow-sm transition-transform active:scale-95 cursor-pointer"
+                    >
+                      <PhoneCall className="h-3.5 w-3.5" />
+                      <span>Call {branch.phone}</span>
+                    </a>
+
+                    {/* Scroll to full details link */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const el = document.getElementById(branch.id)
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                        }
+                      }}
+                      className="w-full inline-flex items-center justify-center gap-1 text-[11px] font-bold text-[#166534] hover:text-[#14532D] pt-0.5 cursor-pointer"
+                    >
+                      <span>View full branch inventory &amp; team</span>
+                      <ChevronRight className="h-3 w-3" />
+                    </button>
+                  </MarkerPopup>
+                )}
+              </MapMarker>
             )
           })}
-        </svg>
+        </Map>
       </div>
 
-      {/* Map Legend & Summary Bar */}
-      <div className="pt-3 border-t border-[#EAE6DC] flex flex-wrap items-center justify-between gap-3 text-xs text-[#14532D]">
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="flex items-center gap-1.5">
-            <span className="h-3 w-3 rounded-full bg-[#14532D] border-2 border-[#FDE047]" />
-            <span className="font-bold">Kasoa (HQ Depot)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#166534] border border-white" />
-            <span className="font-medium">Regional Hubs (3)</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
-            <span className="text-neutral-500 font-medium">Waybill Freight Hubs</span>
-          </div>
+      {/* Delivery Coverage Footer */}
+      <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-3 rounded-2xl bg-[#FAF9F5] border border-[#EAE6DC] text-xs">
+        <div className="flex items-center gap-2 text-[#14532D]">
+          <Navigation className="h-4 w-4 text-[#166534] shrink-0" />
+          <span className="font-semibold">
+            Not near these 4 branches? Daily nationwide express waybills to all 16 regions of Ghana.
+          </span>
         </div>
-
-        <span className="text-[11px] font-bold text-[#166534]">
-          Nationwide Daily Dispatch
-        </span>
+        <a
+          href="tel:0596709226"
+          className="inline-flex items-center gap-1.5 font-black text-[#166534] hover:text-[#14532D] text-xs cursor-pointer shrink-0"
+        >
+          <span>Waybill Hotline: 059 670 9226</span>
+          <ExternalLink className="h-3 w-3" />
+        </a>
       </div>
     </div>
   )
