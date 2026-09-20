@@ -18,18 +18,9 @@ import { X, Minus, Plus, Locate, Maximize, Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-if (typeof window !== "undefined") {
-  const gl = MapLibreGL as unknown as { getWorkerUrl?: () => string; setWorkerUrl?: (url: string) => void; version?: string };
-  if (typeof gl.getWorkerUrl === "function" && !gl.getWorkerUrl()) {
-    gl.setWorkerUrl?.(
-      `https://unpkg.com/maplibre-gl@${gl.version || "5.1.0"}/dist/maplibre-gl-worker.mjs`,
-    );
-  }
-}
-
 const defaultStyles = {
   dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
-  light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+  light: "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
 };
 
 // A tile-less, dependency-free style with a transparent background.
@@ -148,15 +139,7 @@ export type MapProps = {
 } & Omit<MapLibreGL.MapOptions, "container" | "style">;
 
 function DefaultLoader() {
-  return (
-    <div className="bg-white/30 absolute inset-0 z-10 flex items-center justify-center pointer-events-none transition-opacity duration-300">
-      <div className="flex gap-1.5 p-3 rounded-full bg-white/90 shadow-sm border border-neutral-200">
-        <span className="bg-[#166534] size-2 animate-pulse rounded-full" />
-        <span className="bg-[#166534] size-2 animate-pulse rounded-full [animation-delay:150ms]" />
-        <span className="bg-[#166534] size-2 animate-pulse rounded-full [animation-delay:300ms]" />
-      </div>
-    </div>
-  );
+  return null;
 }
 
 function getViewport(map: MapLibreGL.Map): MapViewport {
@@ -226,6 +209,8 @@ export const Map = forwardRef<MapRef, MapProps>(function Map(
       container: containerRef.current,
       style: initialStyle,
       renderWorldCopies: false,
+      maxCanvasSize: [4096, 4096],
+      pixelRatio: typeof window !== "undefined" ? window.devicePixelRatio || 2 : 2,
       attributionControl: {
         compact: true,
       },
