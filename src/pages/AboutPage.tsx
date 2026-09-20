@@ -1,6 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, MapPin, Phone, MessageSquare, Quote } from 'lucide-react'
+import {
+  ArrowRight,
+  MapPin,
+  Phone,
+  MessageSquare,
+  Quote,
+  Wrench,
+  Pill,
+  Building2,
+  Globe,
+  Truck,
+  Layers,
+  BadgeCheck,
+  HeartHandshake,
+} from 'lucide-react'
 
 // ─── Staff Photo Imports ──────────────────────────────────────────────────────
 import photoDirector from '@/assets/staff/Director.jpeg'
@@ -225,8 +239,8 @@ export const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Pillar 1 */}
             <div className="rounded-3xl border border-[#EAE6DC] p-8 sm:p-10 space-y-6 bg-[#FAF9F5] hover:border-[#166534]/30 transition-all group">
-              <div className="h-12 w-12 rounded-2xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] font-black text-xl">
-                🐔
+              <div className="h-12 w-12 rounded-2xl bg-[#DCFCE7] flex items-center justify-center text-[#166534]">
+                <Wrench className="h-6 w-6" />
               </div>
               <div>
                 <h3 className="font-display text-xl font-extrabold text-[#14532D] mb-2">
@@ -261,8 +275,8 @@ export const AboutPage: React.FC = () => {
 
             {/* Pillar 2 */}
             <div className="rounded-3xl border border-[#EAE6DC] p-8 sm:p-10 space-y-6 bg-[#FAF9F5] hover:border-[#166534]/30 transition-all group">
-              <div className="h-12 w-12 rounded-2xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] font-black text-xl">
-                💊
+              <div className="h-12 w-12 rounded-2xl bg-[#DCFCE7] flex items-center justify-center text-[#166534]">
+                <Pill className="h-6 w-6" />
               </div>
               <div>
                 <h3 className="font-display text-xl font-extrabold text-[#14532D] mb-2">
@@ -424,18 +438,20 @@ export const AboutPage: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
-            { icon: '🇬🇭', title: 'Ghanaian-Owned', desc: "Locally operated with deep understanding of Ghana's farming needs." },
-            { icon: '🌍', title: 'International Sourcing', desc: 'Products from reputable manufacturers in Asia and Europe.' },
-            { icon: '📦', title: 'Nationwide Distribution', desc: '4 branches with daily regional waybill dispatch across Ghana.' },
-            { icon: '🐾', title: 'Dual Specialisation', desc: 'Both veterinary pharmaceuticals and poultry/livestock equipment.' },
-            { icon: '💵', title: 'Quality & Affordability', desc: 'Premium products at competitive prices — no compromise.' },
-            { icon: '🤝', title: 'Customer-First', desc: 'Practical farm solutions and real support for every farmer.' },
+            { icon: Building2, title: 'Ghanaian-Owned', desc: "Locally operated with deep understanding of Ghana's farming needs." },
+            { icon: Globe, title: 'International Sourcing', desc: 'Products from reputable manufacturers in Asia and Europe.' },
+            { icon: Truck, title: 'Nationwide Distribution', desc: '4 branches with daily regional waybill dispatch across Ghana.' },
+            { icon: Layers, title: 'Dual Specialisation', desc: 'Both veterinary pharmaceuticals and poultry/livestock equipment.' },
+            { icon: BadgeCheck, title: 'Quality & Affordability', desc: 'Premium products at competitive prices — no compromise.' },
+            { icon: HeartHandshake, title: 'Customer-First', desc: 'Practical farm solutions and real support for every farmer.' },
           ].map((item) => (
             <div
               key={item.title}
               className="rounded-2xl border border-[#EAE6DC] bg-white p-6 space-y-3 hover:border-[#166534]/30 transition-all"
             >
-              <span className="text-2xl">{item.icon}</span>
+              <div className="h-11 w-11 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534]">
+                <item.icon className="h-5 w-5" />
+              </div>
               <h3 className="font-display font-extrabold text-[#14532D] text-sm">{item.title}</h3>
               <p className="text-xs text-[#14532D]/65 font-medium leading-relaxed">{item.desc}</p>
             </div>
@@ -453,8 +469,9 @@ export const AboutPage: React.FC = () => {
             <p className="text-sm text-[#14532D]/70 font-medium">
               Connect with ERNEJOYSON COMPANY LIMITED for direct quotes, farm equipment, and professional veterinary guidance.
             </p>
-            <p className="text-sm font-bold text-[#166534] pt-1">
-              📞 059 670 9226 &nbsp;/&nbsp; 024 160 4926
+            <p className="inline-flex items-center gap-2 text-sm font-bold text-[#166534] pt-1">
+              <Phone className="h-4 w-4 shrink-0" />
+              <span>059 670 9226 &nbsp;/&nbsp; 024 160 4926</span>
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0">
