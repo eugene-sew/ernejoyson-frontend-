@@ -17,7 +17,6 @@ import {
 
 // ─── Staff Photo Imports ──────────────────────────────────────────────────────
 import photoDirector from '@/assets/staff/Director.jpeg'
-import photoDirectorr from '@/assets/staff/Directorr.jpeg'
 import photoJoseph from '@/assets/staff/Mr. Joseph.jpeg'
 import photoAccountant from '@/assets/staff/Accountant.jpeg'
 import photoWitty from '@/assets/staff/Mrs. Witty Biamah Ohemeng.jpeg'
@@ -40,7 +39,7 @@ const BOARD = [
   {
     name: 'Richard Kwabena Nkum',
     role: 'Managing Director',
-    photo: photoDirectorr,
+    photo: photoManager,
     alt: 'Richard Kwabena Nkum – Managing Director, ERNEJOYSON',
   },
   {
@@ -51,7 +50,12 @@ const BOARD = [
   },
 ]
 
-const TEAM = [
+const TEAM: Array<{
+  name: string
+  role: string
+  branch: string
+  photo: string | null
+}> = [
   {
     name: 'Witty Biamah Ohemeng',
     role: 'Sales Manager',
@@ -98,7 +102,7 @@ const TEAM = [
     name: 'Abinga Christopher Kwadwo',
     role: 'Technical Sales Executive',
     branch: 'Kasoa',
-    photo: photoManager,
+    photo: null,
   },
 ]
 
@@ -409,12 +413,30 @@ export const AboutPage: React.FC = () => {
                 key={person.name}
                 className="rounded-2xl border border-[#EAE6DC] bg-[#FAF9F5] overflow-hidden group hover:shadow-md hover:border-[#166534]/25 transition-all"
               >
-                <div className="aspect-square overflow-hidden bg-[#DCFCE7]">
-                  <img
-                    src={person.photo}
-                    alt={`${person.name} – ${person.role}`}
-                    className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
-                  />
+                <div className="aspect-square overflow-hidden bg-[#DCFCE7] relative">
+                  {person.photo ? (
+                    <img
+                      src={person.photo}
+                      alt={`${person.name} – ${person.role}`}
+                      className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#166534] to-[#14532D] text-white p-4 text-center select-none">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/15 border-2 border-white/30 flex items-center justify-center font-display font-black text-xl sm:text-2xl tracking-wider text-white shadow-inner mb-1.5">
+                        {person.name
+                          .split(' ')
+                          .map((n) => n[0])
+                          .slice(0, 2)
+                          .join('')}
+                      </div>
+                      <span className="text-xs font-black text-white/95">
+                        {person.name.split(' ')[1] || person.name.split(' ')[0]}
+                      </span>
+                      <span className="text-[10px] font-semibold text-white/70">
+                        {person.name.split(' ')[0]}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-4 space-y-0.5">
                   <p className="font-display font-extrabold text-[#14532D] text-xs sm:text-sm leading-tight">{person.name}</p>
