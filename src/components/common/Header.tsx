@@ -114,16 +114,26 @@ export function Header() {
         <nav className="hidden lg:flex flex-1 h-14 items-center justify-between gap-4 2xl:gap-6 rounded-full bg-white px-6 shadow-md border border-black/5">
           {/* Navigation Dropdowns */}
           <div className="flex items-center gap-4 xl:gap-5 2xl:gap-6 text-sm font-bold text-[#14532D] shrink-0 h-full">
-            {/* Dropdown 1: Shop */}
+            {/* Nav Item: Shop */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              className="relative flex items-center h-full"
               onMouseEnter={() => handleMouseEnter('shop')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link to="/shop" className="hover:text-[#166534] transition-colors">
+              <Link
+                to="/shop"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+              >
                 Shop
               </Link>
-              <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'shop' ? null : 'shop')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle shop menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
               {activeDropdown === 'shop' && (
                 <div
                   className="absolute top-full left-0 pt-2 z-50"
@@ -144,13 +154,13 @@ export function Header() {
                       to="/shop?category=anti-parasitics"
                       className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
                     >
-                      Dewormers & Parasiticides
+                      Dewormers &amp; Parasiticides
                     </Link>
                     <Link
                       to="/shop?category=vitamins"
                       className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
                     >
-                      Vitamins & Amino Acids
+                      Vitamins &amp; Amino Acids
                     </Link>
                     <Link
                       to="/shop?category=feeders"
@@ -162,19 +172,19 @@ export function Header() {
                       to="/shop?category=drinkers"
                       className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
                     >
-                      Manual & Automatic Drinkers
+                      Manual &amp; Automatic Drinkers
                     </Link>
                     <Link
                       to="/shop?category=equipment"
                       className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
                     >
-                      Debeakers, Brooders & Crates
+                      Debeakers, Brooders &amp; Crates
                     </Link>
                     <Link
                       to="/shop?category=disinfectants"
                       className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
                     >
-                      Biosecurity & Disinfectants
+                      Biosecurity &amp; Disinfectants
                     </Link>
 
                     <div className="my-1 border-t border-black/5" />
@@ -190,16 +200,26 @@ export function Header() {
               )}
             </div>
 
-            {/* Dropdown 2: Farm Solutions */}
+            {/* Nav Item: Solutions */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              className="relative flex items-center h-full"
               onMouseEnter={() => handleMouseEnter('solutions')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link to="/solutions" className="hover:text-[#166534] transition-colors">
+              <Link
+                to="/solutions"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+              >
                 Solutions
               </Link>
-              <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle solutions menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
               {activeDropdown === 'solutions' && (
                 <div
                   className="absolute top-full left-0 pt-2 z-50"
@@ -229,23 +249,33 @@ export function Header() {
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5"
                     >
                       <Sparkles className="h-4 w-4 text-[#166534]" />
-                      <span>Ruminant & Swine Care</span>
+                      <span>Ruminant &amp; Swine Care</span>
                     </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Dropdown 3: Technical Support */}
+            {/* Nav Item: Technical Support */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              className="relative flex items-center h-full"
               onMouseEnter={() => handleMouseEnter('support')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link to="/technical-support" className="hover:text-[#166534] transition-colors">
+              <Link
+                to="/technical-support"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+              >
                 Technical Support
               </Link>
-              <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'support' ? null : 'support')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle support menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
               {activeDropdown === 'support' && (
                 <div
                   className="absolute top-full left-0 pt-2 z-50"
@@ -281,16 +311,26 @@ export function Header() {
               )}
             </div>
 
-            {/* Dropdown 4: Locations */}
+            {/* Nav Item: Locations */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              className="relative flex items-center h-full"
               onMouseEnter={() => handleMouseEnter('locations')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link to="/locations" className="hover:text-[#166534] transition-colors">
+              <Link
+                to="/locations"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+              >
                 Locations
               </Link>
-              <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'locations' ? null : 'locations')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle locations menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
               {activeDropdown === 'locations' && (
                 <div
                   className="absolute top-full left-0 pt-2 z-50"
@@ -315,7 +355,7 @@ export function Header() {
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between"
                     >
                       <span>Kumasi</span>
-                      <span className="text-[10px] text-[#14532D]/60">Middle & North</span>
+                      <span className="text-[10px] text-[#14532D]/60">Middle &amp; North</span>
                     </Link>
                     <Link
                       to="/locations"
@@ -336,16 +376,26 @@ export function Header() {
               )}
             </div>
 
-            {/* Dropdown 5: B2B / Bulk Supply */}
+            {/* Nav Item: B2B & Bulk */}
             <div
-              className="relative flex items-center gap-1.5 cursor-pointer hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full"
+              className="relative flex items-center h-full"
               onMouseEnter={() => handleMouseEnter('b2b')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link to="/b2b" className="hover:text-[#166534] transition-colors">
-                B2B & Bulk
+              <Link
+                to="/b2b"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+              >
+                B2B &amp; Bulk
               </Link>
-              <ChevronDown className="h-3.5 w-3.5 transition-transform opacity-70" />
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'b2b' ? null : 'b2b')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle B2B menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
               {activeDropdown === 'b2b' && (
                 <div
                   className="absolute top-full left-0 pt-2 z-50"
@@ -354,7 +404,7 @@ export function Header() {
                 >
                   <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
                     <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
-                      Commercial & Wholesale
+                      Commercial &amp; Wholesale
                     </span>
                     <Link to="/b2b" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
                       Commercial Farm Supply
@@ -378,13 +428,13 @@ export function Header() {
               )}
             </div>
 
-            {/* Link 6: Farm Knowledge */}
-            <Link to="/knowledge" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap">
+            {/* Link: Knowledge */}
+            <Link to="/knowledge" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap font-bold text-sm text-[#14532D]">
               Knowledge
             </Link>
 
-            {/* Link 7: About */}
-            <Link to="/about" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap">
+            {/* Link: About */}
+            <Link to="/about" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap font-bold text-sm text-[#14532D]">
               About
             </Link>
           </div>
