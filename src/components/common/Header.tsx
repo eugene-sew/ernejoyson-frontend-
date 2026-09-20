@@ -87,11 +87,11 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-3 sm:top-4 left-0 right-0 z-50 transition-all duration-300 pointer-events-none ${
+      className={`fixed top-3 sm:top-4 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'py-1' : 'py-2.5 sm:py-3'
       }`}
     >
-      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-3 sm:gap-4 pointer-events-auto">
+      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between gap-3 sm:gap-4">
         {/* 1. Left Pill: Brand Logo */}
         <Link
           to="/"
