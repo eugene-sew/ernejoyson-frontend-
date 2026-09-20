@@ -23,6 +23,7 @@ import { useCartStore, type CartItem } from '@/store/useCartStore'
 import { useAuthStore } from '@/store/useAuthStore'
 import { Link } from 'react-router-dom'
 import PaystackPop from '@paystack/inline-js'
+import { api } from '@/services/api'
 
 interface OrderReceipt {
   reference: string
@@ -189,11 +190,35 @@ export const CartDrawer: React.FC = () => {
     }
   }
 
-  const completeOrder = (
+  const completeOrder = async (
     ref: string,
     method: string,
     status: 'PAID' | 'PENDING'
   ) => {
+    // Send order to backend database
+    try {
+      await api.orders.create({
+        customerName: customerName.trim(),
+        customerPhone: customerPhone.trim(),
+        customerEmail: customerEmail.trim() || undefined,
+        deliveryLocation: deliveryLocation.trim(),
+        notes: orderNotes.trim() || undefined,
+        paymentMethod: method,
+        paymentStatus: status,
+        items: items.map((i) => ({
+          productId: i.product.id,
+          name: i.product.name,
+          image: i.product.image,
+          quantity: i.quantity,
+          price: i.product.price,
+        })),
+        totalAmount: totalPrice,
+        paystackReference: ref,
+      })
+    } catch (err) {
+      console.warn('Order could not be saved to remote backend immediately, saved locally:', err)
+    }
+
     const receipt: OrderReceipt = {
       reference: ref,
       date: new Date().toLocaleDateString('en-GB', {
