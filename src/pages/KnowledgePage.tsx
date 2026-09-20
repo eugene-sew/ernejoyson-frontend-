@@ -9,7 +9,9 @@ import {
   Thermometer,
   Layers,
   HeartPulse,
+  Download,
 } from 'lucide-react'
+import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
 
 export const KnowledgePage: React.FC = () => {
   // Quick Dosage Calculator State
@@ -176,13 +178,16 @@ export const KnowledgePage: React.FC = () => {
               <Calculator className="h-4 w-4" />
               <span>Interactive Dosage Calculator</span>
             </a>
-            <Link
-              to="/technical-support"
+            <a
+              href={vaccinationChartPdf}
+              download="ERNEJOYSON_VACCINATION_CHART.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
             >
-              <span>Download Vaccination Chart</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+              <Download className="h-4 w-4 text-[#86efac]" />
+              <span>Download Official PDF Chart</span>
+            </a>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, PhoneCall, CheckCircle2, Building, Package, RefreshCw, FileCheck, Layers, Send } from 'lucide-react'
+import { ArrowRight, PhoneCall, CheckCircle2, Building, Package, RefreshCw, FileCheck, Layers, Send, Download } from 'lucide-react'
+import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
 
 export function B2bSection() {
   const [quoteSubmitted, setQuoteSubmitted] = useState(false)
@@ -107,14 +108,24 @@ export function B2bSection() {
               </div>
 
               {quoteSubmitted ? (
-                <div className="rounded-2xl bg-[#DCFCE7] p-6 text-center space-y-2 border border-[#86EFAC]">
+                <div className="rounded-2xl bg-[#DCFCE7] p-6 text-center space-y-3 border border-[#86EFAC]">
                   <CheckCircle2 className="h-8 w-8 text-[#166534] mx-auto" />
                   <h4 className="font-display text-base font-bold text-[#14532D]">
                     Inquiry Received!
                   </h4>
                   <p className="text-xs text-[#14532D]/80">
-                    Thank you. We will send you the vaccination chart and our team will get in touch with you shortly.
+                    Thank you. You can download the official poultry vaccination chart immediately below:
                   </p>
+                  <a
+                    href={vaccinationChartPdf}
+                    download="ERNEJOYSON_VACCINATION_CHART.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white px-5 py-2.5 text-xs font-bold transition-colors shadow-sm"
+                  >
+                    <Download className="h-4 w-4 text-[#86efac]" />
+                    <span>Download Official PDF Chart</span>
+                  </a>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3.5">

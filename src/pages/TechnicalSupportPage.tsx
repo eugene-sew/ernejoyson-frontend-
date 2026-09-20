@@ -10,8 +10,11 @@ import {
   PhoneCall,
   ArrowRight,
   Lock,
+  Download,
+  Eye,
 } from 'lucide-react'
 import { useAuthStore } from '@/store/useAuthStore'
+import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
 
 /* ─── Lead Capture Modal ─────────────────────────────────────────────── */
 function LeadCaptureModal({ onUnlock }: { onUnlock: () => void }) {
@@ -351,6 +354,16 @@ export const TechnicalSupportPage: React.FC = () => {
               <span>View Interactive Vaccination Chart</span>
             </a>
             <a
+              href={vaccinationChartPdf}
+              download="ERNEJOYSON_VACCINATION_CHART.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-white text-[#14532D] hover:bg-[#FAF9F5] px-6 py-3 text-xs sm:text-sm font-extrabold transition-colors shadow-sm"
+            >
+              <Download className="h-4 w-4 text-[#166534]" />
+              <span>Download Official PDF Chart</span>
+            </a>
+            <a
               href="tel:0596709226"
               className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
             >
@@ -403,6 +416,18 @@ export const TechnicalSupportPage: React.FC = () => {
                   Commercial Broilers
                 </button>
               </div>
+
+              <a
+                href={vaccinationChartPdf}
+                download="ERNEJOYSON_VACCINATION_CHART.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white px-4 py-2 text-xs font-bold transition-colors cursor-pointer shadow-xs"
+                title="Download official PDF chart"
+              >
+                <Download className="h-4 w-4 text-[#86efac]" />
+                <span>Download Official PDF</span>
+              </a>
 
               <button
                 onClick={() => window.print()}
@@ -508,6 +533,53 @@ export const TechnicalSupportPage: React.FC = () => {
               <span>Order Schedule Medications in Shop</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
+          </div>
+        </div>
+
+        {/* Official Chart Download & Noticeboard Poster Card */}
+        <div className="rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-6 sm:p-8 text-white relative overflow-hidden border border-white/10 shadow-lg">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+            <div className="flex items-start gap-4">
+              <div className="h-14 w-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 text-[#22C55E]">
+                <FileText className="h-7 w-7" />
+              </div>
+              <div className="space-y-1.5 max-w-2xl">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[10px] font-black uppercase tracking-wider bg-[#22C55E] text-[#0A2614] px-2.5 py-0.5 rounded-full font-sans">
+                    Official Veterinary Document
+                  </span>
+                  <span className="text-xs text-[#DCFCE7]/75 font-mono">PDF Format · Print Ready</span>
+                </div>
+                <h3 className="font-display text-lg sm:text-xl font-bold text-white">
+                  ERNEJOYSON Poultry Medication & Vaccination Wall Chart
+                </h3>
+                <p className="text-xs sm:text-sm text-[#DCFCE7]/80 leading-relaxed font-sans">
+                  The verified field chart distributed to commercial poultry farms and hatcheries across Ghana. Contains official age timelines, disease targets, and dilution parameters for Newcastle, Gumboro, and Coccidiosis.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+              <a
+                href={vaccinationChartPdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-5 py-3 text-xs font-bold text-white transition-colors"
+              >
+                <Eye className="h-4 w-4 text-[#86efac]" />
+                <span>Preview Document</span>
+              </a>
+              <a
+                href={vaccinationChartPdf}
+                download="ERNEJOYSON_VACCINATION_CHART.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#22C55E] hover:bg-[#4ADE80] px-6 py-3 text-xs font-black text-[#0A2614] transition-colors shadow-sm"
+              >
+                <Download className="h-4 w-4" />
+                <span>Download PDF Chart</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
