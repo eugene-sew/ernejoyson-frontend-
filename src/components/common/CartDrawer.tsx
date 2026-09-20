@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   X,
   ShoppingBag,
@@ -12,7 +12,9 @@ import {
   FileText,
 } from 'lucide-react'
 import { useCartStore } from '@/store/useCartStore'
+import { useAuthStore } from '@/store/useAuthStore'
 import { Link } from 'react-router-dom'
+import { User, Check } from 'lucide-react'
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -43,7 +45,56 @@ export const CartDrawer: React.FC = () => {
 
   const totalItems = getTotalItems()
   const totalPrice = getTotalPrice()
-  const whatsappUrl = generateWhatsAppUrl()
+
+  const { user, isLoggedIn, login } = useAuthStore()
+  const [showLoginForm, setShowLoginForm] = useState(false)
+  const [checkoutName, setCheckoutName] = useState(user?.name || '')
+  const [checkoutPhone, setCheckoutPhone] = useState(user?.phone || '')
+  const [checkoutLocation, setCheckoutLocation] = useState(user?.farmSize || '')
+  const [loginError, setLoginError] = useState('')
+
+  useEffect(() => {
+    if (user) {
+      setCheckoutName(user.name || '')
+      setCheckoutPhone(user.phone || '')
+      setCheckoutLocation(user.farmSize || '')
+    }
+  }, [user])
+
+  const handleConfirmOrder = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (!isLoggedIn || !user?.name || !user?.phone) {
+      setShowLoginForm(true)
+      return
+    }
+    const url = generateWhatsAppUrl({
+      name: user.name,
+      phone: user.phone,
+      location: user.farmSize,
+    })
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!checkoutName.trim() || !checkoutPhone.trim()) {
+      setLoginError('Please provide your name and phone number.')
+      return
+    }
+    const profile = {
+      name: checkoutName.trim(),
+      phone: checkoutPhone.trim(),
+      farmSize: checkoutLocation.trim(),
+    }
+    login(profile)
+    setShowLoginForm(false)
+    const url = generateWhatsAppUrl({
+      name: profile.name,
+      phone: profile.phone,
+      location: profile.farmSize,
+    })
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
@@ -63,7 +114,7 @@ export const CartDrawer: React.FC = () => {
             </div>
             <div>
               <h2 className="font-display text-base font-black text-[#14532D]">
-                Order & Quote Cart
+                Order &amp; Quote Cart
               </h2>
               <p className="text-xs text-[#14532D]/70 font-medium">
                 {totalItems} {totalItems === 1 ? 'item' : 'items'} selected
@@ -220,34 +271,106 @@ export const CartDrawer: React.FC = () => {
               </div>
               <p className="text-[11px] text-[#14532D]/60 flex items-center gap-1.5 pt-1">
                 <Truck className="h-3.5 w-3.5 text-[#166534] shrink-0" />
-                <span>Dispatched directly from Kasoa, Kumasi, Swedru & Nsawam.</span>
+                <span>Dispatched directly from Kasoa, Kumasi, Swedru &amp; Nsawam.</span>
               </p>
             </div>
 
-            {/* CTAs */}
-            <div className="space-y-2.5">
-              {/* WhatsApp Instant Checkout */}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#166534] py-3 px-4 text-xs sm:text-sm font-black text-white hover:bg-[#14532D] shadow-md transition-all active:scale-[0.99]"
-              >
-                <MessageSquare className="h-4 w-4 fill-white/20" />
-                <span>Confirm Order via WhatsApp</span>
-                <ArrowRight className="h-4 w-4" />
-              </a>
+            {/* Recognized Customer Chip */}
+            {isLoggedIn && user && !showLoginForm && (
+              <div className="flex items-center justify-between text-xs bg-[#DCFCE7]/70 border border-[#22C55E]/30 text-[#166534] px-3.5 py-2 rounded-xl">
+                <div className="flex items-center gap-2 truncate">
+                  <User className="h-3.5 w-3.5 shrink-0 text-[#166534]" />
+                  <span className="truncate">
+                    Ordering as: <strong>{user.name}</strong> ({user.phone})
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowLoginForm(true)}
+                  className="text-[11px] font-bold underline hover:text-[#14532D] shrink-0 ml-2"
+                >
+                  Edit
+                </button>
+              </div>
+            )}
 
-              {/* B2B Quote Alternative */}
-              <Link
-                to="/b2b"
-                onClick={closeCart}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FAF9F5] py-2.5 px-4 text-xs font-bold text-[#14532D] hover:bg-[#F4F1EA] border border-[#EAE6DC] transition-all"
-              >
-                <FileText className="h-3.5 w-3.5 text-[#166534]" />
-                <span>Request B2B Proforma Invoice</span>
-              </Link>
-            </div>
+            {/* CTAs / Login Gate Form */}
+            {showLoginForm ? (
+              <form onSubmit={handleLoginSubmit} className="rounded-2xl border border-[#22C55E]/40 bg-[#F0FDF4]/80 p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <User className="h-4 w-4 text-[#166534]" />
+                    <span className="text-xs font-bold text-[#14532D]">Contact Information</span>
+                  </div>
+                  {isLoggedIn && (
+                    <button
+                      type="button"
+                      onClick={() => setShowLoginForm(false)}
+                      className="text-xs text-neutral-400 hover:text-neutral-600 font-semibold"
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+                <p className="text-[11px] text-[#14532D]/70 leading-relaxed">
+                  Enter your details so our sales desk can address your order and arrange nationwide delivery.
+                </p>
+                <input
+                  type="text"
+                  placeholder="Your Name / Farm Name"
+                  value={checkoutName}
+                  onChange={(e) => { setCheckoutName(e.target.value); setLoginError('') }}
+                  className="w-full rounded-xl border border-neutral-200 px-3.5 py-2.5 text-xs text-neutral-800 placeholder:text-neutral-400 outline-none focus:border-[#22C55E] bg-white font-medium"
+                  required
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone Number (e.g. 0244 000 000)"
+                  value={checkoutPhone}
+                  onChange={(e) => { setCheckoutPhone(e.target.value); setLoginError('') }}
+                  className="w-full rounded-xl border border-neutral-200 px-3.5 py-2.5 text-xs text-neutral-800 placeholder:text-neutral-400 outline-none focus:border-[#22C55E] bg-white font-medium"
+                  required
+                />
+                <input
+                  type="text"
+                  placeholder="Farm Location / City (optional)"
+                  value={checkoutLocation}
+                  onChange={(e) => setCheckoutLocation(e.target.value)}
+                  className="w-full rounded-xl border border-neutral-200 px-3.5 py-2.5 text-xs text-neutral-800 placeholder:text-neutral-400 outline-none focus:border-[#22C55E] bg-white font-medium"
+                />
+                {loginError && <p className="text-[11px] text-red-500">{loginError}</p>}
+                <button
+                  type="submit"
+                  className="w-full rounded-full bg-[#166534] py-3 px-4 text-xs font-bold text-white hover:bg-[#14532D] transition-colors flex items-center justify-center gap-2 shadow-sm"
+                >
+                  <Check className="h-4 w-4" />
+                  <span>Confirm &amp; Open WhatsApp Order</span>
+                </button>
+              </form>
+            ) : (
+              <div className="space-y-2.5">
+                {/* WhatsApp Instant Checkout */}
+                <button
+                  type="button"
+                  onClick={handleConfirmOrder}
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#166534] py-3 px-4 text-xs sm:text-sm font-black text-white hover:bg-[#14532D] shadow-md transition-all active:scale-[0.99] cursor-pointer"
+                >
+                  <MessageSquare className="h-4 w-4 fill-white/20" />
+                  <span>Confirm Order via WhatsApp</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+
+                {/* B2B Quote Alternative */}
+                <Link
+                  to="/b2b"
+                  onClick={closeCart}
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FAF9F5] py-2.5 px-4 text-xs font-bold text-[#14532D] hover:bg-[#F4F1EA] border border-[#EAE6DC] transition-all"
+                >
+                  <FileText className="h-3.5 w-3.5 text-[#166534]" />
+                  <span>Request B2B Proforma Invoice</span>
+                </Link>
+              </div>
+            )}
 
             <div className="flex items-center justify-center gap-2 pt-1 text-[11px] text-[#14532D]/60 font-medium">
               <ShieldCheck className="h-3.5 w-3.5 text-[#166534]" />

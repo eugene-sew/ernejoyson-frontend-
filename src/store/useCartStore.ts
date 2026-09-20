@@ -21,7 +21,7 @@ interface CartState {
   getTotalPrice: () => number
   getQuoteItems: () => CartItem[]
   getPricedItems: () => CartItem[]
-  generateWhatsAppUrl: () => string
+  generateWhatsAppUrl: (userInfo?: { name?: string; phone?: string; location?: string }) => string
 }
 
 export const useCartStore = create<CartState>()(
@@ -91,9 +91,9 @@ export const useCartStore = create<CartState>()(
         return get().items.filter((item) => item.product.price !== null)
       },
 
-      generateWhatsAppUrl: () => {
+      generateWhatsAppUrl: (userInfo?: { name?: string; phone?: string; location?: string }) => {
         const { items } = get()
-        const phone = '233244000000' // ERNEJOYSON Official Sales Line
+        const phone = '233596709226' // ERNEJOYSON Official Sales Line from corporate profile
 
         if (items.length === 0) {
           const text = encodeURIComponent(
@@ -103,6 +103,11 @@ export const useCartStore = create<CartState>()(
         }
 
         let message = `*NEW ORDER / INQUIRY - ERNEJOYSON LIMITED*\n`
+        if (userInfo?.name) {
+          message += `*Customer:* ${userInfo.name}\n`
+          if (userInfo.phone) message += `*Contact:* ${userInfo.phone}\n`
+          if (userInfo.location) message += `*Location:* ${userInfo.location}\n`
+        }
         message += `--------------------------------------\n`
 
         items.forEach((item, index) => {

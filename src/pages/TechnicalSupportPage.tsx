@@ -12,12 +12,14 @@ import {
   ArrowRight,
   Lock,
 } from 'lucide-react'
+import { useAuthStore } from '@/store/useAuthStore'
 
 /* ─── Lead Capture Modal ─────────────────────────────────────────────── */
 function LeadCaptureModal({ onUnlock }: { onUnlock: () => void }) {
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
-  const [farmSize, setFarmSize] = useState('')
+  const { recordVaccinationResponse, user } = useAuthStore()
+  const [name, setName] = useState(user?.name || '')
+  const [phone, setPhone] = useState(user?.phone || '')
+  const [farmSize, setFarmSize] = useState(user?.farmSize || '')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -28,11 +30,7 @@ function LeadCaptureModal({ onUnlock }: { onUnlock: () => void }) {
       return
     }
     setSubmitting(true)
-    // Store lead in localStorage (swap for API call when backend is ready)
-    const leads = JSON.parse(localStorage.getItem('ej_leads') || '[]')
-    leads.push({ name: name.trim(), phone: phone.trim(), farmSize, timestamp: new Date().toISOString() })
-    localStorage.setItem('ej_leads', JSON.stringify(leads))
-    localStorage.setItem('ej_chart_unlocked', '1')
+    recordVaccinationResponse({ name: name.trim(), phone: phone.trim(), farmSize })
     setTimeout(() => onUnlock(), 300)
   }
 
@@ -326,10 +324,8 @@ export const TechnicalSupportPage: React.FC = () => {
 
   const currentSchedule = vaccinationSchedule[flockType]
 
-  // Lead gate state
-  const [chartUnlocked, setChartUnlocked] = useState(
-    () => localStorage.getItem('ej_chart_unlocked') === '1'
-  )
+  const { hasRespondedVaccination } = useAuthStore()
+  const [chartUnlocked, setChartUnlocked] = useState(hasRespondedVaccination)
 
   return (
     <>
