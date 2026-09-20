@@ -12,6 +12,11 @@ import {
   Sparkles,
   Layers,
   HeartPulse,
+  Wrench,
+  Pill,
+  MapPin,
+  Building2,
+  Truck,
 } from 'lucide-react'
 import { useCartStore } from '@/store/useCartStore'
 
@@ -113,78 +118,154 @@ export function Header() {
         {/* 2. Center Pill: Navigation Links + Search + Cart */}
         <nav className="hidden lg:flex flex-1 h-14 items-center justify-between gap-4 2xl:gap-6 rounded-full bg-white px-6 shadow-md border border-black/5">
           {/* Navigation Dropdowns */}
-          <div className="flex items-center gap-4 xl:gap-5 2xl:gap-6 text-sm font-bold text-[#14532D] shrink-0 h-full">
-            {/* Nav Item: Shop */}
+          <div className="flex items-center gap-3 xl:gap-4 2xl:gap-5 text-xs xl:text-sm font-bold text-[#14532D] shrink-0 h-full">
+            {/* Nav Item: Poultry Equipment */}
             <div
               className="relative flex items-center h-full"
-              onMouseEnter={() => handleMouseEnter('shop')}
+              onMouseEnter={() => handleMouseEnter('equipment')}
               onMouseLeave={handleMouseLeave}
             >
               <Link
-                to="/shop"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+                to="/shop?category=equipment"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
               >
-                Shop
+                Poultry Equipment
               </Link>
               <button
                 type="button"
-                onClick={() => setActiveDropdown(activeDropdown === 'shop' ? null : 'shop')}
+                onClick={() => setActiveDropdown(activeDropdown === 'equipment' ? null : 'equipment')}
                 className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
-                aria-label="Toggle shop menu"
+                aria-label="Toggle poultry equipment menu"
               >
                 <ChevronDown className="h-3.5 w-3.5" />
               </button>
-              {activeDropdown === 'shop' && (
+              {activeDropdown === 'equipment' && (
                 <div
-                  className="absolute top-full left-0 pt-2 z-50"
-                  onMouseEnter={() => handleMouseEnter('shop')}
+                  className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
+                  onMouseEnter={() => handleMouseEnter('equipment')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="w-72 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                  <div className="w-80 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
                     <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
-                      Product Categories
+                      Poultry &amp; Livestock Equipment
                     </span>
                     <Link
-                      to="/shop?category=antibiotics"
-                      className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
-                    >
-                      Veterinary Pharmaceuticals
-                    </Link>
-                    <Link
-                      to="/shop?category=anti-parasitics"
-                      className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
-                    >
-                      Dewormers &amp; Parasiticides
-                    </Link>
-                    <Link
-                      to="/shop?category=vitamins"
-                      className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
-                    >
-                      Vitamins &amp; Amino Acids
-                    </Link>
-                    <Link
                       to="/shop?category=feeders"
-                      className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm flex items-center justify-between"
                     >
-                      Poultry Feeders (Chicks to Layers)
-                    </Link>
-                    <Link
-                      to="/shop?category=drinkers"
-                      className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
-                    >
-                      Manual &amp; Automatic Drinkers
+                      <span>Feeding &amp; Drinking Systems</span>
+                      <span className="text-[10px] text-[#166534] bg-[#DCFCE7] px-2 py-0.5 rounded-full font-bold">Chicks–Layers</span>
                     </Link>
                     <Link
                       to="/shop?category=equipment"
-                      className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
                     >
-                      Debeakers, Brooders &amp; Crates
+                      Slaughtering &amp; Plucking Equipment
+                    </Link>
+                    <Link
+                      to="/shop?category=equipment"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Transport Cages &amp; Bird Crates
+                    </Link>
+                    <Link
+                      to="/shop?category=equipment"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Feed Processing Machines
+                    </Link>
+                    <Link
+                      to="/shop?category=equipment"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Incubators &amp; Hatchery Equipment
+                    </Link>
+                    <Link
+                      to="/shop?category=equipment"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Debeakers, Brooders &amp; Cages
+                    </Link>
+
+                    <div className="my-1 border-t border-black/5" />
+                    <Link
+                      to="/shop?category=equipment"
+                      className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between"
+                    >
+                      <span>Browse All Poultry Equipment</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Nav Item: Veterinary Drugs */}
+            <div
+              className="relative flex items-center h-full"
+              onMouseEnter={() => handleMouseEnter('veterinary')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                to="/shop?category=antibiotics"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
+              >
+                Veterinary Drugs
+              </Link>
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'veterinary' ? null : 'veterinary')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle veterinary drugs menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
+              {activeDropdown === 'veterinary' && (
+                <div
+                  className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
+                  onMouseEnter={() => handleMouseEnter('veterinary')}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="w-80 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
+                      Veterinary Pharmaceuticals &amp; Health
+                    </span>
+                    <Link
+                      to="/shop?category=antibiotics"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm flex items-center justify-between"
+                    >
+                      <span>Therapeutic Antibiotics</span>
+                      <span className="text-[10px] text-[#166534] bg-[#DCFCE7] px-2 py-0.5 rounded-full font-bold">Solubles &amp; Injectables</span>
+                    </Link>
+                    <Link
+                      to="/shop?category=vitamins"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Nutritional Supplements &amp; Amino Acids
+                    </Link>
+                    <Link
+                      to="/shop?category=anti-parasitics"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Dewormers &amp; Anthelmintics
+                    </Link>
+                    <Link
+                      to="/shop?category=injectables"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Anti-Parasitics &amp; Topical Sprays
                     </Link>
                     <Link
                       to="/shop?category=disinfectants"
-                      className="rounded-xl px-3 py-1.5 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
                     >
-                      Biosecurity &amp; Disinfectants
+                      Biosecurity &amp; Farm Disinfectants
+                    </Link>
+                    <Link
+                      to="/shop?category=feed-additives"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium text-xs sm:text-sm"
+                    >
+                      Feed Additives &amp; Performance Boosters
                     </Link>
 
                     <div className="my-1 border-t border-black/5" />
@@ -208,7 +289,7 @@ export function Header() {
             >
               <Link
                 to="/solutions"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
               >
                 Solutions
               </Link>
@@ -222,88 +303,41 @@ export function Header() {
               </button>
               {activeDropdown === 'solutions' && (
                 <div
-                  className="absolute top-full left-0 pt-2 z-50"
+                  className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
                   onMouseEnter={() => handleMouseEnter('solutions')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                  <div className="w-72 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
                     <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
-                      Operations Supported
+                      Farming Operations Supported
                     </span>
                     <Link
                       to="/solutions#poultry"
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5"
                     >
                       <Layers className="h-4 w-4 text-[#166534]" />
-                      <span>Poultry Broiler/Layer Health</span>
-                    </Link>
-                    <Link
-                      to="/solutions#disease-control"
-                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5"
-                    >
-                      <HeartPulse className="h-4 w-4 text-[#166534]" />
-                      <span>Disease Biosecurity</span>
+                      <span>Poultry Broiler &amp; Layer Health</span>
                     </Link>
                     <Link
                       to="/solutions#livestock-ruminants"
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5"
                     >
                       <Sparkles className="h-4 w-4 text-[#166534]" />
-                      <span>Ruminant &amp; Swine Care</span>
-                    </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Nav Item: Technical Support */}
-            <div
-              className="relative flex items-center h-full"
-              onMouseEnter={() => handleMouseEnter('support')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                to="/technical-support"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
-              >
-                Technical Support
-              </Link>
-              <button
-                type="button"
-                onClick={() => setActiveDropdown(activeDropdown === 'support' ? null : 'support')}
-                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
-                aria-label="Toggle support menu"
-              >
-                <ChevronDown className="h-3.5 w-3.5" />
-              </button>
-              {activeDropdown === 'support' && (
-                <div
-                  className="absolute top-full left-0 pt-2 z-50"
-                  onMouseEnter={() => handleMouseEnter('support')}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="w-68 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
-                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
-                      Farmer Assistance
-                    </span>
-                    <Link
-                      to="/technical-support#vaccination-chart"
-                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium"
-                    >
-                      Poultry Vaccination Schedule
+                      <span>Livestock &amp; Ruminant Management</span>
                     </Link>
                     <Link
-                      to="/technical-support"
-                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium"
+                      to="/solutions#disease-control"
+                      className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center gap-2.5"
                     >
-                      Flock Diagnosis Advice
+                      <HeartPulse className="h-4 w-4 text-[#166534]" />
+                      <span>Disease Control &amp; Biosecurity</span>
                     </Link>
                     <div className="my-1 border-t border-black/5" />
                     <Link
                       to="/technical-support"
                       className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between"
                     >
-                      <span>Talk to Our Veterinary Team</span>
+                      <span>Veterinary Technical Advisory</span>
                       <Headphones className="h-4 w-4" />
                     </Link>
                   </div>
@@ -311,41 +345,44 @@ export function Header() {
               )}
             </div>
 
-            {/* Nav Item: Locations */}
+            {/* Nav Item: Branches */}
             <div
               className="relative flex items-center h-full"
-              onMouseEnter={() => handleMouseEnter('locations')}
+              onMouseEnter={() => handleMouseEnter('branches')}
               onMouseLeave={handleMouseLeave}
             >
               <Link
                 to="/locations"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
               >
-                Locations
+                Branches
               </Link>
               <button
                 type="button"
-                onClick={() => setActiveDropdown(activeDropdown === 'locations' ? null : 'locations')}
+                onClick={() => setActiveDropdown(activeDropdown === 'branches' ? null : 'branches')}
                 className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
-                aria-label="Toggle locations menu"
+                aria-label="Toggle branches menu"
               >
                 <ChevronDown className="h-3.5 w-3.5" />
               </button>
-              {activeDropdown === 'locations' && (
+              {activeDropdown === 'branches' && (
                 <div
-                  className="absolute top-full left-0 pt-2 z-50"
-                  onMouseEnter={() => handleMouseEnter('locations')}
+                  className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
+                  onMouseEnter={() => handleMouseEnter('branches')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                  <div className="w-72 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
                     <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
-                      Ghana Distribution Network
+                      Nationwide Distribution Network
                     </span>
                     <Link
                       to="/locations"
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between"
                     >
-                      <span>Kasoa</span>
+                      <div>
+                        <span className="font-semibold block">Kasoa</span>
+                        <span className="text-[10px] text-[#14532D]/60">Wholesale Distribution</span>
+                      </div>
                       <span className="text-[10px] font-bold text-[#166534] bg-[#DCFCE7] px-2 py-0.5 rounded-full">
                         Head Office
                       </span>
@@ -354,29 +391,46 @@ export function Header() {
                       to="/locations"
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between"
                     >
-                      <span>Kumasi</span>
-                      <span className="text-[10px] text-[#14532D]/60">Middle &amp; North</span>
+                      <div>
+                        <span className="font-semibold block">Kumasi</span>
+                        <span className="text-[10px] text-[#14532D]/60">Ashanti &amp; Northern Corridor</span>
+                      </div>
+                      <span className="text-[10px] text-[#14532D]/60">Branch</span>
                     </Link>
                     <Link
                       to="/locations"
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between"
                     >
-                      <span>Swedru</span>
-                      <span className="text-[10px] text-[#14532D]/60">Regional Hub</span>
+                      <div>
+                        <span className="font-semibold block">Agona Swedru</span>
+                        <span className="text-[10px] text-[#14532D]/60">Central Region Hub</span>
+                      </div>
+                      <span className="text-[10px] text-[#14532D]/60">Branch</span>
                     </Link>
                     <Link
                       to="/locations"
                       className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium flex items-center justify-between"
                     >
-                      <span>Nsawam</span>
-                      <span className="text-[10px] text-[#14532D]/60">Regional Hub</span>
+                      <div>
+                        <span className="font-semibold block">Nsawam</span>
+                        <span className="text-[10px] text-[#14532D]/60">Eastern &amp; Greater Accra</span>
+                      </div>
+                      <span className="text-[10px] text-[#14532D]/60">Branch</span>
+                    </Link>
+                    <div className="my-1 border-t border-black/5" />
+                    <Link
+                      to="/locations"
+                      className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between"
+                    >
+                      <span>Branch Contacts &amp; Directions</span>
+                      <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Nav Item: B2B & Bulk */}
+            {/* Nav Item: B2B & Wholesale */}
             <div
               className="relative flex items-center h-full"
               onMouseEnter={() => handleMouseEnter('b2b')}
@@ -384,9 +438,9 @@ export function Header() {
             >
               <Link
                 to="/b2b"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
               >
-                B2B &amp; Bulk
+                B2B &amp; Wholesale
               </Link>
               <button
                 type="button"
@@ -398,22 +452,22 @@ export function Header() {
               </button>
               {activeDropdown === 'b2b' && (
                 <div
-                  className="absolute top-full left-0 pt-2 z-50"
+                  className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
                   onMouseEnter={() => handleMouseEnter('b2b')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="w-64 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                  <div className="w-72 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
                     <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
-                      Commercial &amp; Wholesale
+                      Commercial &amp; Agro-Dealers
                     </span>
                     <Link to="/b2b" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
                       Commercial Farm Supply
                     </Link>
                     <Link to="/b2b" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
-                      Agro-Vet Dealership
+                      Agro-Vet Dealership Programme
                     </Link>
                     <Link to="/b2b" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
-                      Master-Carton Wholesale
+                      Master-Carton Wholesale &amp; Waybill
                     </Link>
                     <div className="my-1 border-t border-black/5" />
                     <Link
@@ -428,15 +482,60 @@ export function Header() {
               )}
             </div>
 
-            {/* Link: Knowledge */}
-            <Link to="/knowledge" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap font-bold text-sm text-[#14532D]">
-              Knowledge
-            </Link>
-
-            {/* Link: About */}
-            <Link to="/about" className="hover:text-[#166534] transition-colors py-1 whitespace-nowrap font-bold text-sm text-[#14532D]">
-              About
-            </Link>
+            {/* Nav Item: About */}
+            <div
+              className="relative flex items-center h-full"
+              onMouseEnter={() => handleMouseEnter('about')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                to="/about"
+                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
+              >
+                About
+              </Link>
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'about' ? null : 'about')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle about menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
+              {activeDropdown === 'about' && (
+                <div
+                  className="absolute top-full right-0 pt-2 z-50 pointer-events-auto"
+                  onMouseEnter={() => handleMouseEnter('about')}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="w-68 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
+                      Company Profile
+                    </span>
+                    <Link to="/about" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Corporate Overview
+                    </Link>
+                    <Link to="/about" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Vision, Mission &amp; Values
+                    </Link>
+                    <Link to="/about" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Board &amp; Leadership Team
+                    </Link>
+                    <Link to="/about" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Branch &amp; Operations Staff
+                    </Link>
+                    <div className="my-1 border-t border-black/5" />
+                    <Link
+                      to="/knowledge"
+                      className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between"
+                    >
+                      <span>Farmer Knowledge Base</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right Group: Search Bar + Cart */}
@@ -448,7 +547,7 @@ export function Header() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search catalog..."
+                placeholder="Search drugs, equipment..."
                 className="w-full bg-transparent text-xs text-[#14532D] placeholder:text-[#14532D]/50 focus:outline-none truncate font-medium"
               />
             </form>
@@ -520,34 +619,99 @@ export function Header() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search products & equipment..."
+                placeholder="Search drugs, equipment..."
                 className="w-full bg-transparent text-sm text-[#14532D] placeholder:text-[#14532D]/60 focus:outline-none font-medium"
               />
             </form>
 
             {/* Navigation Sections */}
-            <div className="space-y-4 text-sm font-semibold text-[#14532D]">
-              <div className="grid grid-cols-2 gap-2 text-sm font-bold text-[#14532D] pt-1">
-                <Link to="/shop" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30">
-                  Shop Products
+            <div className="space-y-2">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50 px-1">
+                Core Scope of Work
+              </span>
+              <div className="space-y-1.5">
+                <Link
+                  to="/shop?category=equipment"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                    <Wrench className="h-4.5 w-4.5" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-bold text-[#14532D]">Poultry &amp; Farm Equipment</span>
+                    <span className="text-[11px] text-[#14532D]/60 font-normal">Feeders, drinkers, cages, feed mills &amp; incubators</span>
+                  </div>
                 </Link>
-                <Link to="/solutions" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30">
-                  Farm Solutions
+
+                <Link
+                  to="/shop?category=antibiotics"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                    <Pill className="h-4.5 w-4.5" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-bold text-[#14532D]">Veterinary Drugs &amp; Animal Health</span>
+                    <span className="text-[11px] text-[#14532D]/60 font-normal">Antibiotics, vitamins, dewormers &amp; biosecurity</span>
+                  </div>
                 </Link>
-                <Link to="/technical-support" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30">
-                  Technical Support
+
+                <Link
+                  to="/solutions"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                    <Layers className="h-4.5 w-4.5" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-bold text-[#14532D]">Farming Solutions</span>
+                    <span className="text-[11px] text-[#14532D]/60 font-normal">Broiler &amp; layer health, livestock &amp; disease control</span>
+                  </div>
                 </Link>
-                <Link to="/locations" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30">
-                  4 Ghana Hubs
+
+                <Link
+                  to="/locations"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                    <MapPin className="h-4.5 w-4.5" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-bold text-[#14532D]">4 Branch Network</span>
+                    <span className="text-[11px] text-[#14532D]/60 font-normal">Kasoa (HQ), Kumasi, Swedru, Nsawam</span>
+                  </div>
                 </Link>
-                <Link to="/b2b" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30">
-                  B2B & Wholesale
+
+                <Link
+                  to="/b2b"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                    <Truck className="h-4.5 w-4.5" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-bold text-[#14532D]">B2B &amp; Wholesale</span>
+                    <span className="text-[11px] text-[#14532D]/60 font-normal">Commercial farm supplies &amp; agro-dealer supply</span>
+                  </div>
                 </Link>
-                <Link to="/knowledge" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30">
-                  Farm Knowledge
-                </Link>
-                <Link to="/about" onClick={() => setMobileMenuOpen(false)} className="rounded-xl p-2 bg-[#FAF9F5] hover:bg-[#DCFCE7]/30 col-span-2 text-center">
-                  About ERNEJOYSON
+
+                <Link
+                  to="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+                >
+                  <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                    <Building2 className="h-4.5 w-4.5" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-bold text-[#14532D]">About ERNEJOYSON</span>
+                    <span className="text-[11px] text-[#14532D]/60 font-normal">Corporate profile, leadership team &amp; values</span>
+                  </div>
                 </Link>
               </div>
             </div>
