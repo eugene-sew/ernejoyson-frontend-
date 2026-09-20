@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 
 // ─── Staff Photo Imports ──────────────────────────────────────────────────────
-import photoDirector from '@/assets/staff/Director.jpeg'
+import photoDirector from '@/assets/staff/Directorr.jpeg'
 import photoJoseph from '@/assets/staff/Mr. Joseph.jpeg'
 import photoAccountant from '@/assets/staff/Accountant.jpeg'
 import photoWitty from '@/assets/staff/Mrs. Witty Biamah Ohemeng.jpeg'
