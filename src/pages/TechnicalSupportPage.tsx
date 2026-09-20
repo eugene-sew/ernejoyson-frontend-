@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   HeartPulse,
   PhoneCall,
-  MessageSquare,
   ArrowRight,
   Lock,
 } from 'lucide-react'
@@ -352,13 +351,11 @@ export const TechnicalSupportPage: React.FC = () => {
               <span>View Interactive Vaccination Chart</span>
             </a>
             <a
-              href="https://wa.me/233244000000?text=Hello%20ERNEJOYSON%20Veterinary%20Support!%20I%20need%20help%20with%20a%20vaccination%20and%20medication%20question%20for%20my%20flock."
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:0596709226"
               className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
             >
-              <MessageSquare className="h-4 w-4" />
-              <span>WhatsApp Veterinary Hotline</span>
+              <PhoneCall className="h-4 w-4" />
+              <span>Call Veterinary Hotline (059 670 9226)</span>
             </a>
           </div>
         </div>
@@ -581,30 +578,28 @@ export const TechnicalSupportPage: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
           <a
-            href="https://wa.me/233244000000?text=Hello%20ERNEJOYSON%20Veterinary%20Support!%20I%20have%20an%20urgent%20flock%20health%20question."
-            target="_blank"
-            rel="noopener noreferrer"
+            href="tel:0596709226"
             className="flex items-center gap-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 p-4 transition-colors"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#22C55E] text-[#0A2614] shrink-0 font-bold">
-              <MessageSquare className="h-5 w-5" />
+              <PhoneCall className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs font-bold text-white">WhatsApp Technical Line</p>
-              <p className="text-[11px] text-[#DCFCE7]/80">+233 24 400 0000</p>
+              <p className="text-xs font-bold text-white">Direct Technical Line</p>
+              <p className="text-[11px] text-[#DCFCE7]/80">059 670 9226</p>
             </div>
           </a>
 
           <a
-            href="tel:+233244000000"
+            href="tel:0241604926"
             className="flex items-center gap-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 p-4 transition-colors"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#166534] shrink-0 font-bold">
               <PhoneCall className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-xs font-bold text-white">Direct Phone Call</p>
-              <p className="text-[11px] text-[#DCFCE7]/80">Mon – Sat: 7:30 AM – 6:00 PM</p>
+              <p className="text-xs font-bold text-white">Advisory Line 2</p>
+              <p className="text-[11px] text-[#DCFCE7]/80">024 160 4926 (Mon – Sat)</p>
             </div>
           </a>
 

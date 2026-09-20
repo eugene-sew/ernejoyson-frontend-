@@ -6,7 +6,7 @@ import {
   Clock,
   Truck,
   ShieldCheck,
-  MessageSquare,
+  Mail,
   ArrowRight,
   Building2,
 } from 'lucide-react'
@@ -220,23 +220,19 @@ export const LocationsPage: React.FC = () => {
               {/* Actions */}
               <div className="pt-2 flex items-center gap-3">
                 <a
-                  href={`https://wa.me/${b.whatsapp}?text=${encodeURIComponent(
-                    `Hello ERNEJOYSON ${b.name}! I would like to check stock availability and place an order for pickup or delivery.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={`tel:${b.phone}`}
                   className="flex-1 flex items-center justify-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white py-2.5 px-4 text-xs font-bold transition-all shadow-xs"
                 >
-                  <MessageSquare className="h-3.5 w-3.5" />
-                  <span>Chat with {b.name.split(' ')[0]}</span>
+                  <PhoneCall className="h-3.5 w-3.5" />
+                  <span>Call {b.name.split(' ')[0]} Desk</span>
                 </a>
 
                 <a
-                  href={`tel:${b.phone}`}
+                  href={`mailto:${b.email}`}
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF9F5] hover:bg-[#F4F1EA] text-[#14532D] border border-[#EAE6DC] transition-colors shrink-0"
-                  title="Direct Call"
+                  title="Send Email"
                 >
-                  <PhoneCall className="h-4 w-4" />
+                  <Mail className="h-4 w-4" />
                 </a>
               </div>
             </div>

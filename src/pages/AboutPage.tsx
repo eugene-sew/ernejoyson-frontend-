@@ -4,7 +4,6 @@ import {
   ArrowRight,
   MapPin,
   Phone,
-  MessageSquare,
   Quote,
   Wrench,
   Pill,
@@ -146,13 +145,11 @@ export const AboutPage: React.FC = () => {
                 <span>059 670 9226</span>
               </a>
               <a
-                href="https://wa.me/233596709226"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="tel:0241604926"
                 className="inline-flex items-center gap-2 rounded-full border border-[#14532D]/20 text-[#166534] px-6 py-3 text-sm font-bold hover:bg-[#DCFCE7] transition-colors"
               >
-                <MessageSquare className="h-4 w-4" />
-                <span>WhatsApp Sales Desk</span>
+                <Phone className="h-4 w-4" />
+                <span>024 160 4926</span>
               </a>
             </div>
           </div>
@@ -482,12 +479,11 @@ export const AboutPage: React.FC = () => {
               Browse Products
             </Link>
             <a
-              href="https://wa.me/233596709226?text=Hello%20ERNEJOYSON!%20I%20am%20interested%20in%20your%20products."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-[#14532D]/20 text-[#166534] px-7 py-3.5 text-sm font-bold hover:bg-[#DCFCE7] transition-colors"
+              href="tel:0596709226"
+              className="rounded-full border border-[#14532D]/20 text-[#166534] px-7 py-3.5 text-sm font-bold hover:bg-[#DCFCE7] transition-colors inline-flex items-center gap-2"
             >
-              WhatsApp Us
+              <Phone className="h-4 w-4" />
+              <span>Call Sales Desk (059 670 9226)</span>
             </a>
           </div>
         </div>

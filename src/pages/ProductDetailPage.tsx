@@ -7,7 +7,7 @@ import {
   ShieldCheck,
   Truck,
   MapPin,
-  MessageSquare,
+  Phone,
   ChevronRight,
   Info,
 } from 'lucide-react'
@@ -53,10 +53,6 @@ export const ProductDetailPage: React.FC = () => {
   const relatedProducts = PRODUCTS.filter(
     (p) => p.categorySlug === product.categorySlug && p.id !== product.id
   ).slice(0, 4)
-
-  const whatsappInquiryUrl = `https://wa.me/233244000000?text=${encodeURIComponent(
-    `Hello ERNEJOYSON! I have an inquiry regarding: ${product.name} (Ref: #${product.refCode || 'N/A'}, Price: ${product.priceDisplay}). Is this available for delivery to my farm?`
-  )}`
 
   return (
     <div className="pt-24 pb-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -234,15 +230,13 @@ export const ProductDetailPage: React.FC = () => {
               </button>
             </div>
 
-            {/* Direct WhatsApp Inquiry */}
+            {/* Direct Veterinary Advisory Inquiry */}
             <a
-              href={whatsappInquiryUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="tel:0596709226"
               className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FAF9F5] hover:bg-[#F4F1EA] text-[#14532D] border border-[#EAE6DC] py-3 text-xs sm:text-sm font-bold transition-colors"
             >
-              <MessageSquare className="h-4 w-4 text-[#166534]" />
-              <span>Ask Veterinary Specialist About This Item on WhatsApp</span>
+              <Phone className="h-4 w-4 text-[#166534]" />
+              <span>Ask Veterinary Specialist About This Item (059 670 9226)</span>
             </a>
           </div>
 

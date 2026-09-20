@@ -21,7 +21,6 @@ interface CartState {
   getTotalPrice: () => number
   getQuoteItems: () => CartItem[]
   getPricedItems: () => CartItem[]
-  generateWhatsAppUrl: (userInfo?: { name?: string; phone?: string; location?: string }) => string
 }
 
 export const useCartStore = create<CartState>()(
@@ -89,48 +88,6 @@ export const useCartStore = create<CartState>()(
 
       getPricedItems: () => {
         return get().items.filter((item) => item.product.price !== null)
-      },
-
-      generateWhatsAppUrl: (userInfo?: { name?: string; phone?: string; location?: string }) => {
-        const { items } = get()
-        const phone = '233596709226' // ERNEJOYSON Official Sales Line from corporate profile
-
-        if (items.length === 0) {
-          const text = encodeURIComponent(
-            'Hello ERNEJOYSON team! I am interested in inquiring about your veterinary pharmaceuticals and livestock equipment.'
-          )
-          return `https://wa.me/${phone}?text=${text}`
-        }
-
-        let message = `*NEW ORDER / INQUIRY - ERNEJOYSON LIMITED*\n`
-        if (userInfo?.name) {
-          message += `*Customer:* ${userInfo.name}\n`
-          if (userInfo.phone) message += `*Contact:* ${userInfo.phone}\n`
-          if (userInfo.location) message += `*Location:* ${userInfo.location}\n`
-        }
-        message += `--------------------------------------\n`
-
-        items.forEach((item, index) => {
-          const ref = item.product.refCode ? ` (Ref: #${item.product.refCode})` : ''
-          const price =
-            item.product.price !== null
-              ? `GHS ${(item.product.price * item.quantity).toFixed(2)} (@ GHS ${item.product.price.toFixed(2)})`
-              : 'Quote on Request'
-          message += `${index + 1}. *${item.product.name}* x${item.quantity}${ref}\n   Price: ${price}\n`
-        })
-
-        message += `--------------------------------------\n`
-        const subtotal = get().getTotalPrice()
-        if (subtotal > 0) {
-          message += `*Subtotal (Priced Items): GHS ${subtotal.toFixed(2)}*\n`
-        }
-        const quoteCount = get().getQuoteItems().length
-        if (quoteCount > 0) {
-          message += `*Items Requiring Quotation: ${quoteCount}*\n`
-        }
-        message += `\nPlease confirm availability and delivery to my farm location.`
-
-        return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
       },
     }),
     {

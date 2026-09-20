@@ -12,6 +12,8 @@ import {
   Truck,
   Check,
   ShoppingBag,
+  Home,
+  Wrench,
 } from 'lucide-react'
 import { useCartStore } from '@/store/useCartStore'
 import { useAuthStore } from '@/store/useAuthStore'
@@ -114,9 +116,21 @@ export function Header() {
         </Link>
 
         {/* 2. Center Pill: Navigation Links + Search + Cart */}
-        <nav className="hidden lg:flex flex-1 h-14 items-center justify-between gap-4 2xl:gap-6 rounded-full bg-white px-6 shadow-md border border-black/5">
-          {/* Navigation Dropdowns */}
-          <div className="flex items-center gap-5 xl:gap-6 2xl:gap-8 text-sm font-bold text-[#14532D] shrink-0 h-full">
+        <nav className="hidden lg:flex flex-1 h-14 items-center justify-between gap-3 xl:gap-4 rounded-full bg-white px-4 xl:px-6 shadow-md border border-black/5">
+          {/* Navigation Dropdowns: Spaced out evenly to occupy the full available space */}
+          <div className="flex-1 flex items-center justify-between gap-1 xl:gap-2 text-sm font-bold text-[#14532D] h-full pr-2">
+            {/* Nav Item: Home */}
+            <Link
+              to="/"
+              className={`flex items-center px-3 xl:px-4 py-1.5 rounded-full transition-all whitespace-nowrap text-sm font-bold ${
+                location.pathname === '/'
+                  ? 'text-[#166534] font-black bg-[#DCFCE7]/70'
+                  : 'text-[#14532D] hover:text-[#166534] hover:bg-[#FAF9F5]'
+              }`}
+            >
+              Home
+            </Link>
+
             {/* Nav Item: Shop */}
             <div
               className="relative flex items-center h-full"
@@ -125,7 +139,11 @@ export function Header() {
             >
               <Link
                 to="/shop"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-sm text-[#14532D]"
+                className={`flex items-center gap-1 px-3 xl:px-4 py-1.5 rounded-full transition-all whitespace-nowrap text-sm font-bold ${
+                  location.pathname.startsWith('/shop')
+                    ? 'text-[#166534] font-black bg-[#DCFCE7]/70'
+                    : 'text-[#14532D] hover:text-[#166534] hover:bg-[#FAF9F5]'
+                }`}
               >
                 Shop
               </Link>
@@ -197,7 +215,7 @@ export function Header() {
               )}
             </div>
 
-            {/* Nav Item: B2B & Wholesale */}
+            {/* Nav Item: B2B Wholesales */}
             <div
               className="relative flex items-center h-full"
               onMouseEnter={() => handleMouseEnter('b2b')}
@@ -205,9 +223,13 @@ export function Header() {
             >
               <Link
                 to="/b2b"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
+                className={`flex items-center gap-1 px-3 xl:px-4 py-1.5 rounded-full transition-all whitespace-nowrap text-sm font-bold ${
+                  location.pathname === '/b2b'
+                    ? 'text-[#166534] font-black bg-[#DCFCE7]/70'
+                    : 'text-[#14532D] hover:text-[#166534] hover:bg-[#FAF9F5]'
+                }`}
               >
-                B2B &amp; Wholesale
+                B2B Wholesales
               </Link>
               <button
                 type="button"
@@ -249,6 +271,65 @@ export function Header() {
               )}
             </div>
 
+            {/* Nav Item: Technical Support */}
+            <div
+              className="relative flex items-center h-full"
+              onMouseEnter={() => handleMouseEnter('support')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                to="/technical-support"
+                className={`flex items-center gap-1 px-3 xl:px-4 py-1.5 rounded-full transition-all whitespace-nowrap text-sm font-bold ${
+                  location.pathname === '/technical-support'
+                    ? 'text-[#166534] font-black bg-[#DCFCE7]/70'
+                    : 'text-[#14532D] hover:text-[#166534] hover:bg-[#FAF9F5]'
+                }`}
+              >
+                Technical Support
+              </Link>
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'support' ? null : 'support')}
+                className="ml-0.5 flex items-center text-[#14532D]/60 hover:text-[#166534] cursor-pointer"
+                aria-label="Toggle technical support menu"
+              >
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
+              {activeDropdown === 'support' && (
+                <div
+                  className="absolute top-full left-0 pt-2 z-50 pointer-events-auto"
+                  onMouseEnter={() => handleMouseEnter('support')}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="w-80 rounded-2xl bg-white p-3 shadow-2xl border border-black/5 flex flex-col gap-1 text-sm animate-in fade-in zoom-in-95 duration-150">
+                    <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-[#14532D]/50">
+                      Advisory &amp; Field Support
+                    </span>
+                    <Link to="/technical-support" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Farm Advisory &amp; Field Consultations
+                    </Link>
+                    <Link to="/technical-support#vaccination-chart" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Flock Vaccination Schedules &amp; Dosing
+                    </Link>
+                    <Link to="/technical-support" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Equipment Calibration &amp; Servicing
+                    </Link>
+                    <Link to="/technical-support" className="rounded-xl px-3 py-2 text-[#14532D] hover:bg-[#FAF9F5] font-medium">
+                      Biosecurity &amp; Disease Prevention
+                    </Link>
+                    <div className="my-1 border-t border-black/5" />
+                    <Link
+                      to="/technical-support"
+                      className="rounded-xl px-3 py-2 text-[#166534] hover:bg-[#DCFCE7]/40 font-bold text-xs flex items-center justify-between"
+                    >
+                      <span>Explore Technical Support Desk</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Nav Item: About */}
             <div
               className="relative flex items-center h-full"
@@ -257,7 +338,11 @@ export function Header() {
             >
               <Link
                 to="/about"
-                className="flex items-center gap-1 hover:text-[#166534] transition-colors py-1 whitespace-nowrap h-full font-bold text-[#14532D]"
+                className={`flex items-center gap-1 px-3 xl:px-4 py-1.5 rounded-full transition-all whitespace-nowrap text-sm font-bold ${
+                  location.pathname === '/about'
+                    ? 'text-[#166534] font-black bg-[#DCFCE7]/70'
+                    : 'text-[#14532D] hover:text-[#166534] hover:bg-[#FAF9F5]'
+                }`}
               >
                 About
               </Link>
@@ -407,6 +492,20 @@ export function Header() {
             {/* Navigation Sections */}
             <div className="space-y-1.5 pt-1">
               <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+              >
+                <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                  <Home className="h-4.5 w-4.5" />
+                </div>
+                <div>
+                  <span className="block text-sm font-bold text-[#14532D]">Home</span>
+                  <span className="text-[11px] text-[#14532D]/60 font-normal">Welcome to ERNEJOYSON homepage</span>
+                </div>
+              </Link>
+
+              <Link
                 to="/shop"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
@@ -429,8 +528,22 @@ export function Header() {
                   <Truck className="h-4.5 w-4.5" />
                 </div>
                 <div>
-                  <span className="block text-sm font-bold text-[#14532D]">B2B &amp; Wholesale</span>
+                  <span className="block text-sm font-bold text-[#14532D]">B2B Wholesales</span>
                   <span className="text-[11px] text-[#14532D]/60 font-normal">Commercial farm supplies &amp; agro-dealer supply</span>
+                </div>
+              </Link>
+
+              <Link
+                to="/technical-support"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+              >
+                <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0">
+                  <Wrench className="h-4.5 w-4.5" />
+                </div>
+                <div>
+                  <span className="block text-sm font-bold text-[#14532D]">Technical Support</span>
+                  <span className="text-[11px] text-[#14532D]/60 font-normal">Farm advisory, vaccination plans &amp; equipment service</span>
                 </div>
               </Link>
 

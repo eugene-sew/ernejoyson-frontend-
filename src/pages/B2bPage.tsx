@@ -7,7 +7,6 @@ import {
   FileSpreadsheet,
   ArrowRight,
   Send,
-  MessageSquare,
   PhoneCall,
   Check,
 } from 'lucide-react'
@@ -238,23 +237,21 @@ export const B2bPage: React.FC = () => {
               <PhoneCall className="h-5 w-5 text-[#166534] shrink-0" />
               <div>
                 <span>Corporate Sales Hotline:</span>
-                <a href="tel:+233244000000" className="block font-mono font-bold text-[#166534] text-sm">
-                  +233 24 400 0000
+                <a href="tel:0596709226" className="block font-mono font-bold text-[#166534] text-sm">
+                  059 670 9226 / 024 160 4926
                 </a>
               </div>
             </div>
 
             <div className="flex items-center gap-3 rounded-2xl bg-white p-4 border border-[#EAE6DC] text-xs font-semibold text-[#14532D]">
-              <MessageSquare className="h-5 w-5 text-[#166534] shrink-0" />
+              <PhoneCall className="h-5 w-5 text-[#166534] shrink-0" />
               <div>
-                <span>Fast WhatsApp B2B Support:</span>
+                <span>Official Sales Email:</span>
                 <a
-                  href="https://wa.me/233244000000?text=Hello%20ERNEJOYSON%20Corporate%20Sales!%20I%20would%20like%20to%20request%20a%20commercial%20B2B%20quotation."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block font-bold text-[#166534] hover:underline"
+                  href="mailto:sales@ernejoyson.com"
+                  className="block font-bold text-[#166534] hover:underline text-xs sm:text-sm font-mono"
                 >
-                  Chat with Wholesale Rep &rarr;
+                  sales@ernejoyson.com
                 </a>
               </div>
             </div>
@@ -272,8 +269,8 @@ export const B2bPage: React.FC = () => {
                 <h3 className="font-display text-2xl font-black text-[#14532D]">
                   RFQ Successfully Received!
                 </h3>
-                <p className="text-xs sm:text-sm text-[#14532D]/75 max-w-md mx-auto font-medium">
-                  Thank you, <strong>{contactName || 'Valued Farmer'}</strong>. Our B2B sales desk is reviewing your requirements and will contact you via phone or WhatsApp with your formal quotation shortly.
+                <p className="text-xs text-[#14532D]/70 max-w-sm">
+                  Thank you, <strong>{contactName || 'Valued Farmer'}</strong>. Our B2B sales desk is reviewing your requirements and will contact you via phone or email with your formal quotation shortly.
                 </p>
               </div>
             ) : (
@@ -299,7 +296,7 @@ export const B2bPage: React.FC = () => {
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold text-[#14532D]">
-                      Phone / WhatsApp Number *
+                      Phone Number *
                     </label>
                     <input
                       type="tel"
