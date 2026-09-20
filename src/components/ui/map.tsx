@@ -149,11 +149,11 @@ export type MapProps = {
 
 function DefaultLoader() {
   return (
-    <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-xs">
-      <div className="flex gap-1">
-        <span className="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full" />
-        <span className="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full [animation-delay:150ms]" />
-        <span className="bg-muted-foreground/60 size-1.5 animate-pulse rounded-full [animation-delay:300ms]" />
+    <div className="bg-white/30 absolute inset-0 z-10 flex items-center justify-center pointer-events-none transition-opacity duration-300">
+      <div className="flex gap-1.5 p-3 rounded-full bg-white/90 shadow-sm border border-neutral-200">
+        <span className="bg-[#166534] size-2 animate-pulse rounded-full" />
+        <span className="bg-[#166534] size-2 animate-pulse rounded-full [animation-delay:150ms]" />
+        <span className="bg-[#166534] size-2 animate-pulse rounded-full [animation-delay:300ms]" />
       </div>
     </div>
   );
@@ -236,8 +236,14 @@ export const Map = forwardRef<MapRef, MapProps>(function Map(
     const styleLoadHandler = () => {
       styleSwapInFlightRef.current = false;
       setIsStyleLoaded(true);
+      map.resize();
     };
-    const loadHandler = () => setIsLoaded(true);
+
+    const loadHandler = () => {
+      setIsLoaded(true);
+      setIsStyleLoaded(true);
+      map.resize();
+    };
 
     const handleMove = () => {
       if (internalUpdateRef.current) return;
@@ -247,9 +253,31 @@ export const Map = forwardRef<MapRef, MapProps>(function Map(
     map.on("load", loadHandler);
     map.on("style.load", styleLoadHandler);
     map.on("move", handleMove);
+
+    if (map.loaded()) {
+      setIsLoaded(true);
+      setIsStyleLoaded(true);
+    }
+    if (map.isStyleLoaded()) {
+      setIsStyleLoaded(true);
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      map.resize();
+    });
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+
     setMapInstance(map);
 
+    // Initial resize trigger to guarantee crisp rendering
+    requestAnimationFrame(() => {
+      map.resize();
+    });
+
     return () => {
+      resizeObserver.disconnect();
       map.off("load", loadHandler);
       map.off("style.load", styleLoadHandler);
       map.off("move", handleMove);

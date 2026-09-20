@@ -88,7 +88,7 @@ export const GhanaMap: React.FC<GhanaMapProps> = ({
               Interactive Ghana Hub Map
             </h3>
             <span className="text-[11px] text-[#14532D]/70 font-medium">
-              Powered by <span className="font-semibold text-[#166534]">mapcn</span> • Click pin for manager hotline
+              Click any pin or button to view branch manager hotline &amp; details
             </span>
           </div>
         </div>
@@ -137,6 +137,7 @@ export const GhanaMap: React.FC<GhanaMapProps> = ({
       <div className="relative w-full h-[460px] sm:h-[520px] rounded-2xl overflow-hidden border border-[#EAE6DC] bg-[#FAF9F5]">
         <Map
           ref={mapRef}
+          theme="light"
           center={GHANA_CENTER}
           zoom={GHANA_ZOOM}
           minZoom={5.5}
