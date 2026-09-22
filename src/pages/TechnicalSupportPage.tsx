@@ -1,348 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import {
   FileText,
-  Printer,
   ShieldCheck,
   Calendar,
-  AlertTriangle,
   HeartPulse,
   PhoneCall,
-  ArrowRight,
-  Lock,
   Download,
-  Eye,
+  ExternalLink,
 } from 'lucide-react'
-import { useAuthStore } from '@/store/useAuthStore'
 import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
 
-/* ─── Lead Capture Modal ─────────────────────────────────────────────── */
-function LeadCaptureModal({ onUnlock }: { onUnlock: () => void }) {
-  const { recordVaccinationResponse, user } = useAuthStore()
-  const [name, setName] = useState(user?.name || '')
-  const [phone, setPhone] = useState(user?.phone || '')
-  const [farmSize, setFarmSize] = useState(user?.farmSize || '')
-  const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState('')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!name.trim() || !phone.trim()) {
-      setError('Please fill in your name and phone number.')
-      return
-    }
-    setSubmitting(true)
-    recordVaccinationResponse({ name: name.trim(), phone: phone.trim(), farmSize })
-    setTimeout(() => onUnlock(), 300)
-  }
-
-  return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="lead-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-    >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
-
-      {/* Card */}
-      <div className="relative z-10 w-full max-w-sm bg-white rounded-2xl shadow-2xl p-8 flex flex-col gap-5">
-        {/* Icon + headline */}
-        <div className="flex flex-col items-center text-center gap-2">
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#F0FDF4] text-[#166534]">
-            <Lock className="h-5 w-5" />
-          </span>
-          <h2 id="lead-modal-title" className="font-display text-xl font-extrabold text-[#14532D] tracking-tight">
-            Get Your Free Vaccination Chart
-          </h2>
-          <p className="text-xs text-neutral-500 leading-relaxed">
-            Enter a few quick details and we'll unlock the full schedule for you.
-          </p>
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
-          <input
-            id="lead-name"
-            type="text"
-            placeholder="Your name"
-            value={name}
-            onChange={e => { setName(e.target.value); setError('') }}
-            className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-800 placeholder:text-neutral-400 outline-none focus:border-[#22C55E] focus:ring-2 focus:ring-[#22C55E]/20 transition"
-            required
-          />
-          <input
-            id="lead-phone"
-            type="tel"
-            placeholder="Phone number (e.g. 0244 000 000)"
-            value={phone}
-            onChange={e => { setPhone(e.target.value); setError('') }}
-            className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-800 placeholder:text-neutral-400 outline-none focus:border-[#22C55E] focus:ring-2 focus:ring-[#22C55E]/20 transition"
-            required
-          />
-          <select
-            id="lead-farm-size"
-            value={farmSize}
-            onChange={e => setFarmSize(e.target.value)}
-            className="w-full rounded-xl border border-neutral-200 px-4 py-3 text-sm text-neutral-800 outline-none focus:border-[#22C55E] focus:ring-2 focus:ring-[#22C55E]/20 transition bg-white"
-          >
-            <option value="">Flock size (optional)</option>
-            <option value="1-500">1 – 500 birds</option>
-            <option value="500-2000">500 – 2,000 birds</option>
-            <option value="2000+">2,000+ birds</option>
-          </select>
-
-          {error && (
-            <p className="text-xs text-red-500">{error}</p>
-          )}
-
-          <button
-            type="submit"
-            disabled={submitting}
-            className="mt-1 w-full rounded-xl bg-[#14532D] text-white text-sm font-bold py-3 hover:bg-[#166534] active:scale-[0.98] transition-all disabled:opacity-60"
-          >
-            {submitting ? 'Unlocking…' : 'View Vaccination Chart →'}
-          </button>
-        </form>
-
-        <p className="text-center text-[10px] text-neutral-400 leading-relaxed">
-          We respect your privacy. No spam, ever.
-        </p>
-      </div>
-    </div>
-  )
-}
-
 export const TechnicalSupportPage: React.FC = () => {
-  const [flockType, setFlockType] = useState<'layers' | 'broilers'>('layers')
-
-  const vaccinationSchedule = {
-    layers: [
-      {
-        day: 'Day 1',
-        age: 'Day-Old Arrival',
-        disease: "Marek's Disease + Anti-Stress",
-        method: 'Hatchery Sub-Q / Drinking Water',
-        recommendedProduct: 'Joy Amino 100g + Glucose / Electrolytes',
-        productRef: '7974',
-        purpose: 'Rehydrate chicks after transit; kickstart gut flora and early immune response.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 2 – 5',
-        age: 'Early Brooding',
-        disease: 'Early Chick Mortality & Bacterial Enteritis',
-        method: 'Drinking Water',
-        recommendedProduct: 'Emtrisul 100g or Doxy Tylo 100g + Joyvet AD3E',
-        productRef: '8064 / 8063',
-        purpose: 'Prevent salmonella, E. coli, and omphalitis (yolk sac infection) during brooding.',
-        importance: 'High',
-      },
-      {
-        day: 'Day 7 – 8',
-        age: 'Week 1',
-        disease: 'Newcastle Disease (1st Dose - Hitchner B1 / ND Clone)',
-        method: 'Eye Drop or Clean Non-Chlorinated Water',
-        recommendedProduct: 'Joyvet Multivitamin Pwd (post-vaccine stress relief)',
-        productRef: '7976',
-        purpose: 'First primary immunization against Newcastle virus.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 10 – 12',
-        age: 'Week 2',
-        disease: 'Infectious Bursal Disease (Gumboro - 1st Dose / Intermediate Strain)',
-        method: 'Drinking Water (skimmilk powder stabilizer)',
-        recommendedProduct: 'Joyvet Vitamin AD3E pwd 100g',
-        productRef: '8011',
-        purpose: 'Protect the bursa of Fabricius from immunosuppression.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 14 – 16',
-        age: 'Week 2',
-        disease: 'Coccidiosis Prevention (1st Prophylactic Window)',
-        method: 'Drinking Water for 48 Hours',
-        recommendedProduct: 'Ernzuril 2.5% 100ml or Erncox 20% 100g',
-        productRef: '7980 / 7994',
-        purpose: 'Knock out Eimeria tenella & necatrix oocysts before bloody droppings appear.',
-        importance: 'High',
-      },
-      {
-        day: 'Day 18 – 20',
-        age: 'Week 3',
-        disease: 'Newcastle Booster (ND Lasota)',
-        method: 'Drinking Water',
-        recommendedProduct: 'Joy Amino 100g (anti-stress before and after)',
-        productRef: '7974',
-        purpose: 'Consolidate mucosal and circulatory Newcastle immunity.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 24 – 26',
-        age: 'Week 4',
-        disease: 'Gumboro Booster (IBD 2nd Dose)',
-        method: 'Drinking Water',
-        recommendedProduct: 'Livertonic Oral Solution 1L',
-        productRef: '7987',
-        purpose: 'Solidify lifetime humoral immunity before bursal involution.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 30 – 35',
-        age: 'Week 5',
-        disease: 'Internal Parasite Cleanse (Deworming 1st Round)',
-        method: 'Drinking Water or Feed',
-        recommendedProduct: 'Ern-Leva 100g or Joyvet Albermectin pwd 100g',
-        productRef: '7995 / 7972',
-        purpose: 'Expel roundworms (Ascaridia galli) and cecal worms to maximize feed conversion.',
-        importance: 'High',
-      },
-      {
-        day: 'Day 42 – 49',
-        age: 'Week 6 – 7',
-        disease: 'Fowl Pox Vaccination + Debeaking Procedure',
-        method: 'Wing Web Stab (Fowl Pox) / Debeaker (8041)',
-        recommendedProduct: 'Vitamin K Soluble + Vitamin C pwd 100g',
-        productRef: '8014',
-        purpose: 'Prevent cutaneous dry pox; stop cannibalism and feather pecking with cauterization.',
-        importance: 'High',
-      },
-      {
-        day: 'Day 56 – 63',
-        age: 'Week 8 – 9',
-        disease: 'Infectious Coryza (1st Injection)',
-        method: 'Subcutaneous or Intramuscular Injection',
-        recommendedProduct: 'Bolai Penstrep 100ml / Continuous Syringe',
-        productRef: '7929',
-        purpose: 'Protect against Avibacterium paragallinarum (facial swelling and foul odor).',
-        importance: 'High',
-      },
-      {
-        day: 'Week 14 – 16',
-        age: 'Point of Lay Prep',
-        disease: 'Pre-Lay Booster & Mineral Bone Fortification',
-        method: 'Feed & Water Routine',
-        recommendedProduct: 'Egg Booster 1kg + More Eggs 1kg + Joyvet Mineral Block',
-        productRef: '8055 / 8013 / 8038',
-        purpose: 'Calcium-phosphorus equilibrium, oviduct development, and strong eggshell matrix.',
-        importance: 'High',
-      },
-      {
-        day: 'Every 6 Weeks',
-        age: 'Throughout Lay',
-        disease: 'Routine Deworming & Newcastle/IB In-Lay Boosters',
-        method: 'Water / Feed Rotation',
-        recommendedProduct: 'Ern-Leva kg / Albermectin kg + Joy Supa Combo kg',
-        productRef: '7983 / 8105',
-        purpose: 'Sustain peak lay percentage (85%+), prevent egg drop syndrome, and control worms.',
-        importance: 'High',
-      },
-    ],
-    broilers: [
-      {
-        day: 'Day 1',
-        age: 'Day-Old Arrival',
-        disease: "Marek's Disease + Anti-Stress Rehydration",
-        method: 'Hatchery Sub-Q / Drinking Water',
-        recommendedProduct: 'Joy Amino 100g + Glucose / Electrolytes',
-        productRef: '7974',
-        purpose: 'Immediate rehydration after transit; activate rapid yolk absorption and early appetite.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 2 – 5',
-        age: 'Early Brooding',
-        disease: 'Early Mortality & Omphalitis Shield',
-        method: 'Drinking Water',
-        recommendedProduct: 'Emtrisul 100g or Doxy Tylo 100g + Joyvet AD3E',
-        productRef: '8064 / 8063',
-        purpose: 'Keep day-old mortality under 1% by suppressing hatchery-borne bacteria.',
-        importance: 'High',
-      },
-      {
-        day: 'Day 7 – 8',
-        age: 'Week 1',
-        disease: 'Newcastle Disease (ND Hitchner B1)',
-        method: 'Eye Drop or Clean Water',
-        recommendedProduct: 'Joyvet Multivitamin Pwd 100g',
-        productRef: '7976',
-        purpose: 'Primary Newcastle protection.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 11 – 13',
-        age: 'Week 2',
-        disease: 'Gumboro Disease (IBD Intermediate)',
-        method: 'Drinking Water',
-        recommendedProduct: 'Joy Amino 100g',
-        productRef: '7974',
-        purpose: 'Prevent Gumboro bursal destruction and secondary respiratory outbreaks.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 16 – 18',
-        age: 'Week 3',
-        disease: 'Newcastle Booster (ND Lasota)',
-        method: 'Drinking Water',
-        recommendedProduct: 'Joyvet Vitamin AD3E pwd 100g',
-        productRef: '8011',
-        purpose: 'Secondary booster protection lasting through broiler market slaughter age.',
-        importance: 'Critical',
-      },
-      {
-        day: 'Day 20 – 22',
-        age: 'Week 3 – 4',
-        disease: 'Coccidiosis Treatment & Weight Acceleration',
-        method: 'Drinking Water for 48 Hours',
-        recommendedProduct: 'Ernzuril 2.5% 100ml or Cocci Killer 1L',
-        productRef: '7980 / 7990',
-        purpose: 'Maintain healthy intestinal villi during peak feed intake to drive FCR under 1.6.',
-        importance: 'High',
-      },
-      {
-        day: 'Day 25 – 28',
-        age: 'Week 4',
-        disease: 'Gumboro 2nd Dose (If in High Challenge Area)',
-        method: 'Drinking Water',
-        recommendedProduct: 'Livertonic Oral Solution 1L + Probiotics 1kg',
-        productRef: '7987 / 8009',
-        purpose: 'Detoxify liver and maintain gut microflora during rapid muscle deposition.',
-        importance: 'High',
-      },
-      {
-        day: 'Day 30 – Finish',
-        age: 'Week 5 – 7 (Finishing)',
-        disease: 'Growth Booster & Heat Stress Management',
-        method: 'Drinking Water / Feed',
-        recommendedProduct: 'Growth Promoter 1kg / 2kg + Vitamin C Soluble Pwd',
-        productRef: '8005 / 8007 / 8013',
-        purpose: 'Reach 2.2kg - 2.8kg live market weight with solid breast meat and zero carcass blemishes.',
-        importance: 'High',
-      },
-    ],
-  }
-
-  const currentSchedule = vaccinationSchedule[flockType]
-
-  const { hasRespondedVaccination } = useAuthStore()
-  const [chartUnlocked, setChartUnlocked] = useState(hasRespondedVaccination)
-
   return (
-    <>
-    {!chartUnlocked && <LeadCaptureModal onUnlock={() => setChartUnlocked(true)} />}
     <div className="pt-24 pb-20 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       {/* 1. Header Banner */}
       <div className="rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-8 sm:p-12 lg:p-14 text-white relative overflow-hidden shadow-xl border border-white/10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#22C55E]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-3xl space-y-4">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22C55E]/20 border border-[#22C55E]/40 text-[#86efac] text-xs font-bold uppercase tracking-wider">
+            Official Farm Advisory
+          </span>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1]">
             Poultry Vaccination Schedule & Technical Farmer Support
           </h1>
 
           <p className="text-sm sm:text-base text-[#DCFCE7]/85 font-medium leading-relaxed">
-            Protecting your flock against Newcastle, Gumboro, and Coccidiosis starts with the right timing and genuine pharmaceutical potency. Use our verified Ghana schedule below and talk to our technical vets whenever you need guidance.
+            Protecting your flock against Newcastle, Gumboro, and Coccidiosis starts with the right timing and genuine pharmaceutical potency. View and download our verified official vaccination chart below, or contact our technical veterinary team for tailored dosage support.
           </p>
 
           <div className="pt-2 flex flex-wrap gap-3">
@@ -351,7 +35,7 @@ export const TechnicalSupportPage: React.FC = () => {
               className="inline-flex items-center gap-2 rounded-full bg-[#22C55E] px-6 py-3 text-xs sm:text-sm font-black text-[#0A2614] hover:bg-[#4ADE80] transition-colors shadow-sm"
             >
               <Calendar className="h-4 w-4" />
-              <span>View Interactive Vaccination Chart</span>
+              <span>View Vaccination Chart</span>
             </a>
             <a
               href={vaccinationChartPdf}
@@ -374,212 +58,96 @@ export const TechnicalSupportPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Interactive Vaccination Chart Component */}
-      <div id="vaccination-chart" className={`scroll-mt-28 space-y-6 transition-all duration-500 ${!chartUnlocked ? 'select-none pointer-events-none' : ''}`}>
+      {/* 2. Official Vaccination Chart PDF Display */}
+      <div id="vaccination-chart" className="scroll-mt-28 space-y-4">
         <div className="rounded-3xl bg-white border border-[#EAE6DC] p-6 sm:p-8 shadow-xs space-y-6">
+          {/* Header Bar */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#EAE6DC] pb-6">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#DCFCE7] text-[#166534]">
-                  <FileText className="h-4 w-4" />
-                </span>
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#DCFCE7] text-[#166534] shrink-0 mt-0.5">
+                <FileText className="h-5 w-5" />
+              </div>
+              <div>
                 <h2 className="font-display text-xl sm:text-2xl font-black text-[#14532D]">
-                  Standard Ghana Poultry Medication & Vaccination Schedule
+                  ERNEJOYSON Poultry Vaccination & Medication Chart
                 </h2>
-              </div>
-              <p className="text-xs sm:text-sm text-[#14532D]/75 font-medium mt-1">
-                Calibrated for Ghana climatic conditions, brooding heat, and local disease pressure.
-              </p>
-            </div>
-
-            {/* Flock Type Switcher + Print Button */}
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="flex items-center rounded-full bg-[#FAF9F5] p-1 border border-[#EAE6DC]">
-                <button
-                  onClick={() => setFlockType('layers')}
-                  className={`rounded-full px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-                    flockType === 'layers'
-                      ? 'bg-[#166534] text-white shadow-xs'
-                      : 'text-[#14532D] hover:text-[#166534]'
-                  }`}
-                >
-                  Commercial Layers & Pullets
-                </button>
-                <button
-                  onClick={() => setFlockType('broilers')}
-                  className={`rounded-full px-4 py-2 text-xs font-black transition-all cursor-pointer ${
-                    flockType === 'broilers'
-                      ? 'bg-[#166534] text-white shadow-xs'
-                      : 'text-[#14532D] hover:text-[#166534]'
-                  }`}
-                >
-                  Commercial Broilers
-                </button>
-              </div>
-
-              <a
-                href={vaccinationChartPdf}
-                download="ERNEJOYSON_VACCINATION_CHART.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white px-4 py-2 text-xs font-bold transition-colors cursor-pointer shadow-xs"
-                title="Download official PDF chart"
-              >
-                <Download className="h-4 w-4 text-[#86efac]" />
-                <span>Download Official PDF</span>
-              </a>
-
-              <button
-                onClick={() => window.print()}
-                className="flex items-center gap-2 rounded-full bg-[#FAF9F5] hover:bg-[#F4F1EA] text-[#14532D] border border-[#EAE6DC] px-4 py-2 text-xs font-bold transition-colors cursor-pointer"
-                title="Print chart for farm noticeboard"
-              >
-                <Printer className="h-4 w-4 text-[#166534]" />
-                <span>Print Schedule</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Alert Callout on Vaccine Administration */}
-          <div className="rounded-2xl bg-[#FEF3C7]/60 border border-amber-200/80 p-4 text-xs text-amber-950 flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-700 shrink-0 mt-0.5" />
-            <div className="space-y-0.5 font-medium">
-              <strong className="font-extrabold text-amber-900 block">
-                Crucial Veterinary Rule on Live Vaccines:
-              </strong>
-              <span>
-                Always withdraw chlorinated tap water 24 hours prior to vaccine administration. Mix live vaccines (Newcastle & Gumboro) in clean borehole/well water with skim milk powder stabilizer. Administer vaccines early morning before 8:00 AM.
-              </span>
-            </div>
-          </div>
-
-          {/* Schedule Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse">
-              <thead>
-                <tr className="border-b border-[#EAE6DC] bg-[#FAF9F5] text-[11px] font-black uppercase tracking-wider text-[#14532D]/70">
-                  <th className="py-3.5 px-4 rounded-l-xl">Timeline</th>
-                  <th className="py-3.5 px-4">Disease / Target</th>
-                  <th className="py-3.5 px-4">Method</th>
-                  <th className="py-3.5 px-4">Recommended Product (ERNEJOYSON)</th>
-                  <th className="py-3.5 px-4 rounded-r-xl">Objective & Field Advice</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#FAF9F5]">
-                {currentSchedule.map((row, idx) => (
-                  <tr
-                    key={idx}
-                    className="hover:bg-[#DCFCE7]/20 transition-colors group"
-                  >
-                    <td className="py-4 px-4 font-mono font-bold text-[#14532D] whitespace-nowrap">
-                      <span className="block text-xs font-black text-[#166534]">
-                        {row.day}
-                      </span>
-                      <span className="text-[11px] text-[#14532D]/60 font-sans">
-                        {row.age}
-                      </span>
-                    </td>
-
-                    <td className="py-4 px-4 font-extrabold text-[#14532D]">
-                      <span>{row.disease}</span>
-                      {row.importance === 'Critical' && (
-                        <span className="ml-2 inline-block rounded-full bg-red-100 text-red-800 text-[10px] font-black px-2 py-0.2">
-                          Mandatory
-                        </span>
-                      )}
-                    </td>
-
-                    <td className="py-4 px-4 text-[#14532D]/80 font-medium whitespace-nowrap">
-                      {row.method}
-                    </td>
-
-                    <td className="py-4 px-4">
-                      <div className="space-y-1">
-                        <span className="font-bold text-[#166534] block">
-                          {row.recommendedProduct}
-                        </span>
-                        {row.productRef && (
-                          <Link
-                            to={`/shop?q=${row.productRef.split('/')[0].trim()}`}
-                            className="inline-flex items-center gap-1 text-[10px] font-display font-bold bg-[#DCFCE7] text-[#14532D] px-2 py-0.5 rounded hover:bg-[#166534] hover:text-white transition-colors"
-                          >
-                            <span>View in Shop</span>
-                            <ArrowRight className="h-3 w-3" />
-                          </Link>
-                        )}
-                      </div>
-                    </td>
-
-                    <td className="py-4 px-4 text-xs text-[#14532D]/80 font-medium max-w-xs sm:max-w-sm">
-                      {row.purpose}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Schedule Footer Action */}
-          <div className="pt-4 border-t border-[#EAE6DC] flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#14532D]">
-              <ShieldCheck className="h-4 w-4 text-[#166534]" />
-              <span>All mentioned pharmaceuticals and vitamins are in stock at Kasoa, Kumasi, Swedru & Nsawam.</span>
-            </div>
-
-            <Link
-              to="/shop?category=antibiotics"
-              className="inline-flex items-center gap-2 rounded-full bg-[#166534] text-white px-5 py-2.5 text-xs font-bold hover:bg-[#14532D] transition-colors shadow-sm shrink-0"
-            >
-              <span>Order Schedule Medications in Shop</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Official Chart Download & Noticeboard Poster Card */}
-        <div className="rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-6 sm:p-8 text-white relative overflow-hidden border border-white/10 shadow-lg">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
-            <div className="flex items-start gap-4">
-              <div className="h-14 w-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center shrink-0 text-[#22C55E]">
-                <FileText className="h-7 w-7" />
-              </div>
-              <div className="space-y-1.5 max-w-2xl">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[10px] font-black uppercase tracking-wider bg-[#22C55E] text-[#0A2614] px-2.5 py-0.5 rounded-full font-sans">
-                    Official Veterinary Document
-                  </span>
-                  <span className="text-xs text-[#DCFCE7]/75 font-mono">PDF Format · Print Ready</span>
-                </div>
-                <h3 className="font-display text-lg sm:text-xl font-bold text-white">
-                  ERNEJOYSON Poultry Medication & Vaccination Wall Chart
-                </h3>
-                <p className="text-xs sm:text-sm text-[#DCFCE7]/80 leading-relaxed font-sans">
-                  The verified field chart distributed to commercial poultry farms and hatcheries across Ghana. Contains official age timelines, disease targets, and dilution parameters for Newcastle, Gumboro, and Coccidiosis.
+                <p className="text-xs sm:text-sm text-[#14532D]/75 font-medium mt-1">
+                  Official veterinary schedule calibrated for Ghana poultry operations and commercial flocks.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 shrink-0 flex-wrap sm:flex-nowrap">
+            {/* Quick Actions */}
+            <div className="flex items-center gap-3 flex-wrap">
               <a
                 href={vaccinationChartPdf}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-5 py-3 text-xs font-bold text-white transition-colors"
+                className="flex items-center gap-2 rounded-full bg-[#FAF9F5] hover:bg-[#F4F1EA] text-[#14532D] border border-[#EAE6DC] px-4 py-2.5 text-xs font-bold transition-colors shadow-xs"
               >
-                <Eye className="h-4 w-4 text-[#86efac]" />
-                <span>Preview Document</span>
+                <ExternalLink className="h-4 w-4 text-[#166534]" />
+                <span>Open in New Tab</span>
               </a>
+
               <a
                 href={vaccinationChartPdf}
                 download="ERNEJOYSON_VACCINATION_CHART.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#22C55E] hover:bg-[#4ADE80] px-6 py-3 text-xs font-black text-[#0A2614] transition-colors shadow-sm"
+                className="flex items-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white px-5 py-2.5 text-xs font-bold transition-colors shadow-sm"
               >
-                <Download className="h-4 w-4" />
-                <span>Download PDF Chart</span>
+                <Download className="h-4 w-4 text-[#86efac]" />
+                <span>Download PDF</span>
               </a>
             </div>
+          </div>
+
+          {/* PDF Viewer Container */}
+          <div className="w-full bg-[#FAF9F5] rounded-2xl border border-[#EAE6DC] overflow-hidden shadow-inner">
+            <object
+              data={`${vaccinationChartPdf}#toolbar=1&navpanes=0`}
+              type="application/pdf"
+              className="w-full h-[750px] md:h-[1050px] rounded-2xl"
+            >
+              <div className="p-8 text-center space-y-4">
+                <FileText className="w-12 h-12 text-[#166534] mx-auto" />
+                <h3 className="text-lg font-bold text-[#14532D]">Vaccination Chart PDF</h3>
+                <p className="text-sm text-neutral-600 max-w-md mx-auto">
+                  Your browser does not support inline PDF viewing. You can view or download the complete vaccination chart directly below:
+                </p>
+                <div className="flex items-center justify-center gap-3">
+                  <a
+                    href={vaccinationChartPdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 bg-[#166534] text-white font-bold text-xs rounded-xl shadow"
+                  >
+                    Open PDF Document
+                  </a>
+                  <a
+                    href={vaccinationChartPdf}
+                    download="ERNEJOYSON_VACCINATION_CHART.pdf"
+                    className="px-5 py-2.5 bg-neutral-200 text-neutral-800 font-bold text-xs rounded-xl hover:bg-neutral-300"
+                  >
+                    Download PDF
+                  </a>
+                </div>
+              </div>
+            </object>
+          </div>
+
+          {/* Footer note */}
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#14532D]/80">
+            <div className="flex items-center gap-2 font-semibold">
+              <ShieldCheck className="h-4 w-4 text-[#166534]" />
+              <span>All mentioned genuine poultry medications and vitamins are in stock across our branches.</span>
+            </div>
+            <Link
+              to="/shop"
+              className="font-bold text-[#166534] hover:underline"
+            >
+              Browse Veterinary Catalog →
+            </Link>
           </div>
         </div>
       </div>
@@ -690,6 +258,5 @@ export const TechnicalSupportPage: React.FC = () => {
         </div>
       </div>
     </div>
-    </>
   )
 }
