@@ -218,3 +218,6 @@ EnerJoyson/
 - Social icons: TikTok (`https://www.tiktok.com/@ernejoyson`) and WhatsApp only. Removed LinkedIn, X, and Instagram.
 - Cookie preference manager & Legal/Privacy/Terms page (`LegalPrivacyPage.tsx`).
 - Christopher's team picture updated to `christopher.jpeg` on the About page.
+
+### Vercel Deployment & SPA Routing
+- Created `frontend/vercel.json` and `admin/vercel.json` with standard SPA rewrites (`"source": "/(.*)", "destination": "/index.html"`), clean URLs, asset caching (`/assets/*`, `/products/*`), and security headers. Resolves the Vercel `404 NOT_FOUND` on deep links/page reloads.
