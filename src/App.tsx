@@ -17,15 +17,6 @@ import { KnowledgePage } from '@/pages/KnowledgePage'
 import { AboutPage } from '@/pages/AboutPage'
 import { LegalPrivacyPage } from '@/pages/LegalPrivacyPage'
 
-// Admin Portal Pages
-import { AdminLoginPage } from '@/pages/admin/AdminLoginPage'
-import { AdminLayout } from '@/pages/admin/AdminLayout'
-import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage'
-import { AdminOrdersPage } from '@/pages/admin/AdminOrdersPage'
-import { AdminProductsPage } from '@/pages/admin/AdminProductsPage'
-import { AdminCustomersPage } from '@/pages/admin/AdminCustomersPage'
-import { AdminSettingsPage } from '@/pages/admin/AdminSettingsPage'
-
 /**
  * ScrollToTop helper:
  * Scrolls to the top of the viewport on route transitions,
@@ -80,19 +71,7 @@ export function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        {/* Admin Login Route */}
-        <Route path="/admin/login" element={<AdminLoginPage />} />
-
-        {/* Admin Protected Dashboard Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboardPage />} />
-          <Route path="orders" element={<AdminOrdersPage />} />
-          <Route path="products" element={<AdminProductsPage />} />
-          <Route path="customers" element={<AdminCustomersPage />} />
-          <Route path="settings" element={<AdminSettingsPage />} />
-        </Route>
-
-        {/* Public Storefront Routes */}
+        {/* Public Storefront Routes (the admin portal is a separate app in ../admin) */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />

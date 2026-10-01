@@ -1,7 +1,7 @@
 # PROJECT MEMORY & ARCHITECTURAL KNOWLEDGE BASE
 **Project Name**: ERNEJOYSON Company Limited (Enterprise E-Commerce & Agricultural Distribution Platform)  
-**Last Updated**: October 1, 2026  
-**Primary Repository**: `frontend/.git` (`origin/main`)  
+**Last Updated**: October 1, 2026 (Django API port, Docker staging/prod, admin split into its own app)  
+**Primary Repository**: `frontend/.git` (`origin/main`). `admin/` and `backend-django/` are **not yet in git**.  
 **Workspace Root**: `/Users/eugenedev/Documents/Partners/EnerJoyson`
 
 ---
@@ -26,37 +26,45 @@
 
 ## 2. System Architecture & Tech Stack
 
+Three deployables:
+
 ```mermaid
 graph TD
-    Client[Public Browser / Farmer Frontend - Port 5174] -->|React 19 / Vite 8| Proxy[Vite /api Proxy]
-    Admin[Admin Browser / Executive Portal /admin/*] -->|React Router v7 / Zustand| Proxy
-    Proxy -->|HTTP REST| Backend[Node.js / Express API - Port 5001]
-    Backend -->|better-sqlite3 WAL Mode| DB[(SQLite DB: backend/data/ernejoyson.sqlite)]
-    Client -->|Paystack Inline JS| Paystack[Paystack Ghana Gateway]
+    Shop[Storefront - frontend/ - :5174 / ernejoyson.com] -->|/api proxy in dev| API
+    Admin[Admin app - admin/ - :5175 / admin.ernejoyson.com] -->|/api proxy in dev, CORS in prod| API
+    API[Django + DRF - backend-django/ - :5001 / api.ernejoyson.com] -->|WAL| DB[(SQLite: backend-django/data/db.sqlite3)]
+    API -->|verify + webhook| Paystack
+    API -->|transactional email| Resend
+    Admin -.->|signed direct upload, planned| Cloudinary
+    Shop -->|Paystack Inline JS| Paystack
 ```
 
-### Technology Matrix:
-| Layer | Technologies & Libraries | Ports / Locations |
+| Layer | Technologies | Location / Port |
 |---|---|---|
-| **Frontend** | React 19, Vite 8, React Router v7, TypeScript, Tailwind CSS v4, Lucide React, Zustand 5, MapLibre GL | Port `5174` (`frontend/`) |
-| **Backend API** | Node.js, Express, TypeScript, Zod, JWT (`jsonwebtoken`), `bcryptjs`, `cors`, `dotenv` | Port `5001` (`backend/`) |
-| **Database** | SQLite via `better-sqlite3` running in **WAL mode** | `backend/data/ernejoyson.sqlite` |
-| **Payment Gateway** | Paystack Ghana Gateway (`@paystack/inline-js`) for MoMo & Cards | Client-side integration |
-| **Source Control** | Git (`main` branch) | `frontend/.git` pushing to `origin` |
+| **Storefront** | React 19, Vite 8, React Router 7, TS, Tailwind 4, Zustand, MapLibre, Paystack inline | `frontend/`, `:5174` |
+| **Admin** | Same stack minus maps/Paystack; routes at root (`/login`, `/orders`, ...) | `admin/`, `:5175` |
+| **API** | Django 6.1, DRF, SimpleJWT, drf-spectacular (Swagger `/api/docs`), Resend, Paystack, gunicorn, WhiteNoise; managed by `uv` (Python 3.12) | `backend-django/`, `:5001` |
+| **Database** | SQLite WAL (Postgres later if needed) | `backend-django/data/` |
+| **Deploy** | Docker: one compose per app, env chosen by `--env-file .env.staging|.env.production`; Caddy in front for TLS | see each app's README |
+| **Legacy** | Old Node/Express API, kept until Django is confirmed in prod. Do not develop on it. | `backend/` |
 
 ---
 
 ## 3. Credentials & Core Services
 
-### Admin Portal Credentials:
-- **URL**: `http://localhost:5174/admin/login`
+### Admin Portal Credentials (local dev):
+- **URL**: `http://localhost:5175/login` (prod: `https://admin.ernejoyson.com`)
 - **Email**: `admin@ernejoyson.com`
-- **Password**: `Ernejoyson@2026!`
+- **Password**: local dev password is kept out of this repo (it is public). Set real ones per env with `createsuperuser`.
 - **Role**: `superadmin`
-- **JWT Storage**: `localStorage.getItem('ej_admin_token')` & `localStorage.getItem('ej_admin_user')`
+- **JWT Storage**: `localStorage` keys `ej_admin_token` / `ej_admin_user` on the **admin origin only** (7-day token).
+
+### Integration keys (all unset locally; features degrade gracefully):
+- `backend-django/.env`: `PAYSTACK_SECRET_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`, `ADMIN_NOTIFY_EMAILS`, `CLOUDINARY_*`.
+- `frontend`: `VITE_PAYSTACK_PUBLIC_KEY` (unset = sandbox fake-pay), `VITE_API_URL` (empty in dev).
 
 ### NPM Install Permissions Note (macOS Host):
-When installing packages in `backend/` or `frontend/`, always run with `--cache /tmp/.npm-cache` to avoid `EACCES` permission errors on `/Users/eugenedev/.npm`:
+When installing packages in `frontend/` or `admin/`, always run with `--cache /tmp/.npm-cache` to avoid `EACCES` permission errors on `/Users/eugenedev/.npm`:
 ```bash
 npm install <pkg> --cache /tmp/.npm-cache
 ```
@@ -65,7 +73,7 @@ npm install <pkg> --cache /tmp/.npm-cache
 
 ## 4. Database Schema & Data Models
 
-Database schema is located at [`backend/src/db/schema.sql`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/backend/src/db/schema.sql).
+Django models: `apps/accounts` (User, email login), `apps/catalog` (Product), `apps/customers` (Customer), `apps/orders` (Order, OrderItem). Seed with `loaddata products` (+ `legacy_orders`). Field names below are unchanged from the legacy schema.
 
 ### Key Tables:
 1. `admins`:
@@ -88,17 +96,18 @@ Database schema is located at [`backend/src/db/schema.sql`](file:///Users/eugene
    - Customer adds items to cart in storefront.
    - Opens [`frontend/src/components/common/CartDrawer.tsx`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/frontend/src/components/common/CartDrawer.tsx).
    - Checkout sends payload to `POST /api/orders`.
-   - The backend creates the order, inserts line items, and updates/upserts the customer record in SQLite.
+   - The API re-prices every line from the catalog (client prices ignored), verifies the Paystack reference server-side, rejects reused references / unknown / out-of-stock products, upserts the customer, and emails customer + ops via Resend.
+   - **Known bug (open)**: `CartDrawer.completeOrder` swallows API errors and still shows a success receipt.
 2. **Admin Verification & Fulfillment**:
-   - Navigates to `/admin/orders` or views urgent alert banner on `/admin`.
+   - Navigates to `/orders` in the admin app or views the urgent alert banner on the dashboard (`/`).
    - One-click phone dialing (`tel:`) to verify delivery address with the farmer.
    - Status updated to `CONFIRMED`.
 3. **Regional Waybill Assignment & Dispatch**:
    - Admin opens the slide-over drawer, inputs Consignment / Waybill number (e.g., `WB-GSO-2026-009`) and courier (e.g., *VIP Express Cargo* or *OA Express*).
-   - Backend sets `order_status = 'DISPATCHED'`.
+   - Backend sets `order_status = 'DISPATCHED'` and emails the customer the waybill.
    - Admin clicks **"Print Cargo Waybill"** to generate physical manifest for vehicle loading.
 4. **Product Inventory & Real-Time Stock Control**:
-   - In `/admin/products`, admins can toggle stock between `In Stock` and `Out of Stock` with a single click (`PATCH /api/products/:id/stock`), instantly updating the store.
+   - In `/products` (admin app), admins can toggle stock between `In Stock` and `Out of Stock` with a single click (`PATCH /api/products/:id/stock`), instantly updating the store.
    - Price and package specifications can be updated inline.
 
 ---
@@ -107,8 +116,8 @@ Database schema is located at [`backend/src/db/schema.sql`](file:///Users/eugene
 
 ### Navigation & Layout Architecture:
 - Handled in [`frontend/src/App.tsx`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/frontend/src/App.tsx):
-  - `PublicLayout`: Renders Header, Cart Drawer, Outlet, and Mega Footer for storefront routes (`/`, `/shop`, `/solutions`, `/technical-support`, `/locations`, `/b2b`, `/knowledge`, `/about`).
-  - `AdminLayout`: Protected dashboard wrapper for `/admin/*` routes. Completely isolates Admin from storefront navigation.
+  - `PublicLayout`: Renders Header, Cart Drawer, Cookie Consent, Outlet, and Mega Footer for storefront routes (`/`, `/shop`, `/solutions`, `/technical-support`, `/locations`, `/b2b`, `/knowledge`, `/about`, legal pages).
+  - The admin portal is **no longer in this app**. It lives in `admin/` (`admin/src/App.tsx`, `AdminLayout` guards all routes). The storefront `api.ts` only exposes `orders.create`.
 - Fixed 3-Pill Header: Links configured to: *Home*, *Shop*, *B2B Wholesales*, and *About*, with live Cart trigger pill and Technical Support shortcut.
 
 ### Vaccination Chart Policy:
@@ -139,40 +148,23 @@ Database schema is located at [`backend/src/db/schema.sql`](file:///Users/eugene
 
 ## 7. Useful Operational Commands
 
-### Start Backend API:
 ```bash
-cd /Users/eugenedev/Documents/Partners/EnerJoyson/backend
-npm run dev
-# Listens on http://localhost:5001
-```
+# API (Django) on :5001
+cd backend-django && uv run manage.py runserver 5001
+uv run manage.py test apps                 # backend tests
+uv run manage.py loaddata products         # seed catalog into a fresh DB
 
-### Start Frontend Dev Server:
-```bash
-cd /Users/eugenedev/Documents/Partners/EnerJoyson/frontend
-npm run dev
-# Listens on http://localhost:5174
-```
+# Storefront on :5174 / Admin on :5175 (both proxy /api -> :5001)
+cd frontend && npm run dev
+cd admin && npm run dev
+npm run build                              # in either app: tsc + vite build, must be 0 errors
 
-### Build & Typecheck Frontend:
-```bash
-cd /Users/eugenedev/Documents/Partners/EnerJoyson/frontend
-npm run build
-# Must output 0 errors
-```
+# Docker (each of backend-django/ and admin/)
+docker compose --env-file .env.staging up -d --build
+docker compose --env-file .env.production up -d --build
 
-### Database Seeding / Reset:
-```bash
-cd /Users/eugenedev/Documents/Partners/EnerJoyson/backend
-npm run seed
-# Runs backend/src/db/seed.ts against SQLite DB
-```
-
-### Commit & Push Git Changes:
-```bash
-cd /Users/eugenedev/Documents/Partners/EnerJoyson/frontend
-git add -A
-git commit -m "your message"
-git push origin main
+# Git (frontend repo only, for now)
+cd frontend && git add -A && git commit -m "msg" && git push origin main
 ```
 
 ---
@@ -180,53 +172,24 @@ git push origin main
 ## 8. Directory Sitemap
 
 ```
-/Users/eugenedev/Documents/Partners/EnerJoyson/
-├── memory.md                           # This persistent memory file
-├── backend/
-│   ├── data/
-│   │   └── ernejoyson.sqlite          # SQLite WAL database
-│   ├── src/
-│   │   ├── controllers/               # auth, orders, products, customers, analytics
-│   │   ├── db/
-│   │   │   ├── index.ts               # SQLite connection (WAL mode)
-│   │   │   ├── schema.sql             # DB Schema definitions
-│   │   │   └── seed.ts                # Seeder for 107 products & admin
-│   │   ├── middleware/                # auth.ts (JWT verification)
-│   │   ├── routes/                    # API route definitions
-│   │   └── index.ts                   # Express server entry point
-│   ├── package.json
-│   └── tsconfig.json
-└── frontend/
-    ├── public/
-    │   └── ERNEJOYSON_VACCINATION_CHART.pdf
-    ├── src/
-    │   ├── assets/
-    │   │   ├── ERNEJOYSON VACCINATION CHART.pdf
-    │   │   └── staff/
-    │   │       └── Directorr.jpeg     # Managing Director Richard's photo
-    │   ├── components/
-    │   │   ├── common/                # Header, CartDrawer
-    │   │   └── sections/              # Footer, Hero, B2B, Maps
-    │   ├── data/
-    │   │   └── products.ts            # 107 Catalog items
-    │   ├── pages/
-    │   │   ├── admin/                 # AdminLayout, Login, Dashboard, Orders, Products, Customers, Settings
-    │   │   ├── HomePage.tsx
-    │   │   ├── ShopPage.tsx
-    │   │   ├── ProductDetailPage.tsx
-    │   │   ├── SolutionsPage.tsx
-    │   │   ├── TechnicalSupportPage.tsx # Vaccination Chart PDF Viewer
-    │   │   ├── LocationsPage.tsx       # Ghana MapCN depot map
-    │   │   ├── B2bPage.tsx
-    │   │   ├── KnowledgePage.tsx
-    │   │   └── AboutPage.tsx
-    │   ├── services/
-    │   │   └── api.ts                 # Type-safe API client for backend
-    │   ├── store/
-    │   │   ├── useAdminAuthStore.ts   # Zustand admin authentication
-    │   │   ├── useAuthStore.ts        # Customer state
-    │   │   └── useCartStore.ts        # Shopping cart state
-    │   ├── App.tsx                    # Route definitions (Public + Admin)
-    │   └── vite.config.ts             # Proxy config (/api -> :5001)
-    └── package.json
+EnerJoyson/
+├── memory.md                    # copy of this file
+├── frontend/                    # PUBLIC storefront (git repo)
+│   ├── src/pages/               # Home, Shop, ProductDetail, Solutions, TechnicalSupport, Locations, B2b, Knowledge, About, LegalPrivacy
+│   ├── src/components/          # common/ (Header, CartDrawer, CookieConsent, GhanaMap), sections/, ui/
+│   ├── src/services/api.ts      # storefront API client (orders.create only)
+│   ├── src/store/               # useCartStore, useAuthStore (customer), useAppStore
+│   └── vite.config.ts           # :5174, /api -> :5001
+├── admin/                       # ADMIN app (separate deploy, admin.ernejoyson.com)
+│   ├── src/pages/               # AdminLayout, Login, Dashboard, Orders, Products, Customers, Settings
+│   ├── src/services/api.ts      # admin API client (VITE_API_URL prefix)
+│   ├── src/store/useAdminAuthStore.ts
+│   ├── nginx/default.conf.template  # SPA + CSP (connect-src = API origin)
+│   └── Dockerfile, compose.yaml, .env.{staging,production}.example
+├── backend-django/              # API (Django + DRF)
+│   ├── config/                  # settings (env-driven), urls, error envelope, swagger helper
+│   ├── apps/                    # accounts, catalog, customers, orders, payments, notifications, uploads, analytics
+│   ├── templates/emails/order.html
+│   └── Dockerfile, compose.yaml, docker-entrypoint.sh, .env.{staging,production}.example
+└── backend/                     # LEGACY Express API (pending deletion)
 ```
