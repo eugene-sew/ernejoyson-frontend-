@@ -61,9 +61,9 @@ export interface BackendProduct {
   ref_code?: string
   spec?: string
   notes?: string
-  in_stock: number
+  in_stock: boolean
   stock_quantity: number
-  featured: number
+  featured: boolean
   image?: string
   description?: string
   created_at: string

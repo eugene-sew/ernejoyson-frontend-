@@ -1,16 +1,12 @@
 import { Link } from 'react-router-dom'
 import { 
-  ArrowUpRight, 
   ShieldCheck, 
   Mail, 
   Phone, 
-  MapPin, 
-  FileText, 
   SlidersHorizontal,
-  Download,
-  Clock
+  Clock,
+  MapPin
 } from 'lucide-react'
-import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
 
 // Crisp, high-end SVG Social Icons
 function WhatsAppIcon({ className = 'h-4 w-4' }: { className?: string }) {
@@ -59,113 +55,110 @@ export function Footer() {
   }
 
   return (
-    <footer id="contact" className="mt-14 bg-[#082011] text-white pt-16 pb-8 px-4 sm:px-6 lg:px-12 rounded-t-[40px] sm:rounded-t-[52px] border-t border-[#1e4828]/50 overflow-hidden font-sans">
-      <div className="max-w-[1380px] mx-auto w-full space-y-14">
+    <footer id="contact" className="mt-14 bg-[#082011] text-white pt-14 pb-8 px-4 sm:px-6 lg:px-12 rounded-t-[36px] sm:rounded-t-[48px] border-t border-[#1e4828]/50 overflow-hidden font-sans">
+      <div className="max-w-[1380px] mx-auto w-full space-y-12">
         
-        {/* Top Header & Brand Bar */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-10 border-b border-white/10">
-          <div className="space-y-2 max-w-xl">
-            <Link to="/" className="inline-flex items-center gap-2.5 font-display text-2xl sm:text-3xl font-black tracking-tight text-white group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#166534] to-[#22C55E] text-[#082011] shadow-lg shadow-green-950/50 group-hover:scale-105 transition-transform">
-                <ShieldCheck className="h-6 w-6 stroke-[2.5]" />
+        {/* Top Header & Socials Bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-white/10">
+          <div className="space-y-1 max-w-lg">
+            <Link to="/" className="inline-flex items-center gap-2.5 font-display text-2xl font-black tracking-tight text-white group">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-[#166534] to-[#22C55E] text-[#082011] shadow-md group-hover:scale-105 transition-transform">
+                <ShieldCheck className="h-5 w-5 stroke-[2.5]" />
               </div>
               <span className="group-hover:text-[#86efac] transition-colors">ERNEJOYSON</span>
             </Link>
-            <p className="text-xs sm:text-sm text-neutral-300 font-medium leading-relaxed">
-              Ghana's premier agricultural input, veterinary pharmaceutical, foliar nutrition, and automated farm machinery distribution network.
+            <p className="text-xs text-neutral-300 font-medium">
+              Ghana's trusted agricultural input, veterinary pharmaceutical, and farm machinery distributor.
             </p>
           </div>
 
-          {/* Socials & Live Hotline Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 shrink-0">
-            {/* Social Icons */}
-            <div className="flex items-center gap-2">
+          {/* Social Icons & Hotline */}
+          <div className="flex items-center gap-3 sm:gap-4 shrink-0 flex-wrap">
+            <div className="flex items-center gap-1.5">
               <a
                 href="https://wa.me/233596709226"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp Business Desk"
-                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
-                title="Chat with Technical Vet on WhatsApp"
+                className="h-9 w-9 rounded-xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all hover:scale-105"
+                title="WhatsApp Hotline"
               >
-                <WhatsAppIcon className="h-4.5 w-4.5" />
+                <WhatsAppIcon className="h-4 w-4" />
               </a>
               <a
                 href="https://facebook.com/ernejoyson"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook Page"
-                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
-                title="Follow on Facebook"
+                aria-label="Facebook"
+                className="h-9 w-9 rounded-xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all hover:scale-105"
+                title="Facebook"
               >
-                <FacebookIcon className="h-4.5 w-4.5" />
+                <FacebookIcon className="h-4 w-4" />
               </a>
               <a
                 href="https://instagram.com/ernejoyson"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram Profile"
-                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
-                title="Follow on Instagram"
+                aria-label="Instagram"
+                className="h-9 w-9 rounded-xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all hover:scale-105"
+                title="Instagram"
               >
-                <InstagramIcon className="h-4.5 w-4.5" />
+                <InstagramIcon className="h-4 w-4" />
               </a>
               <a
                 href="https://linkedin.com/company/ernejoyson"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="LinkedIn Company Profile"
-                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
-                title="Connect on LinkedIn"
+                aria-label="LinkedIn"
+                className="h-9 w-9 rounded-xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all hover:scale-105"
+                title="LinkedIn"
               >
-                <LinkedInIcon className="h-4.5 w-4.5" />
+                <LinkedInIcon className="h-4 w-4" />
               </a>
               <a
                 href="https://x.com/ernejoyson"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X Profile"
-                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
-                title="Follow on X"
+                className="h-9 w-9 rounded-xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all hover:scale-105"
+                title="X (Twitter)"
               >
-                <XTwitterIcon className="h-4 w-4" />
+                <XTwitterIcon className="h-3.5 w-3.5" />
               </a>
             </div>
 
-            {/* Quick Hotline Pill */}
             <a
               href="tel:0596709226"
-              className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#112d19] hover:bg-[#183d23] text-white border border-[#1e4828] text-xs font-bold transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#112d19] hover:bg-[#183d23] text-white border border-[#1e4828] text-xs font-bold transition-all"
             >
-              <Phone className="h-4 w-4 text-[#22C55E]" />
-              <span>Hotline: 059 670 9226</span>
+              <Phone className="h-3.5 w-3.5 text-[#22C55E]" />
+              <span>059 670 9226</span>
             </a>
           </div>
         </div>
 
-        {/* 4 Clean Columns: Real Activities, No Walls of Text */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* 4 Clean, Concise Columns (No Overwhelming Text) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-xs">
           
-          {/* Column 1: Core Agrochemical & Veterinary Divisions */}
-          <div className="space-y-4">
-            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
-              Agricultural Divisions
+          {/* Column 1: Products */}
+          <div className="space-y-3">
+            <h4 className="font-display font-black uppercase tracking-wider text-[#86efac] text-[11px]">
+              Core Products
             </h4>
-            <ul className="space-y-2.5 text-xs text-neutral-300 font-medium">
+            <ul className="space-y-2 text-neutral-300 font-medium">
               <li>
-                <Link to="/shop?category=insecticides" className="hover:text-white transition-colors flex items-center justify-between group">
-                  <span>Crop Protection &amp; Agrochemicals</span>
-                  <span className="text-[10px] text-neutral-500 group-hover:text-[#86efac]">100+</span>
+                <Link to="/shop?category=insecticides" className="hover:text-white transition-colors">
+                  Crop Protection &amp; Agrochemicals
                 </Link>
               </li>
               <li>
                 <Link to="/shop?category=antibiotics" className="hover:text-white transition-colors">
-                  Veterinary Pharmaceuticals &amp; Vaccines
+                  Veterinary Drugs &amp; Vaccines
                 </Link>
               </li>
               <li>
                 <Link to="/shop?category=foliar" className="hover:text-white transition-colors">
-                  Foliar Fertilizers (Joy Amino &amp; Nutrients)
+                  Foliar Fertilizers (Joy Amino)
                 </Link>
               </li>
               <li>
@@ -175,176 +168,107 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/shop?category=equipment" className="hover:text-white transition-colors">
-                  Knapsack &amp; Motorized Farm Sprayers
-                </Link>
-              </li>
-              <li>
-                <Link to="/shop?category=brooders" className="hover:text-white transition-colors">
-                  Commercial Incubators &amp; Brooding Units
+                  Knapsack Sprayers &amp; Farm Machinery
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Farmer Support & Logistics */}
-          <div className="space-y-4">
-            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
-              Services &amp; Supply
+          {/* Column 2: Farmer Services */}
+          <div className="space-y-3">
+            <h4 className="font-display font-black uppercase tracking-wider text-[#86efac] text-[11px]">
+              Services &amp; Advisory
             </h4>
-            <ul className="space-y-2.5 text-xs text-neutral-300 font-medium">
+            <ul className="space-y-2 text-neutral-300 font-medium">
               <li>
-                <Link to="/technical-support#vaccination-chart" className="hover:text-white transition-colors font-semibold text-[#DCFCE7] flex items-center gap-1.5">
-                  <FileText className="h-3.5 w-3.5 text-[#22C55E]" />
-                  <span>Poultry Vaccination Schedule (PDF)</span>
+                <Link to="/technical-support#vaccination-chart" className="hover:text-white transition-colors text-[#DCFCE7] font-semibold">
+                  Official Vaccination Chart (PDF)
                 </Link>
               </li>
               <li>
                 <Link to="/knowledge#dosage-calculator" className="hover:text-white transition-colors">
-                  Water Tank Medication Calculator
+                  Medication Dosage Calculator
                 </Link>
               </li>
               <li>
                 <Link to="/b2b" className="hover:text-white transition-colors">
-                  B2B Bulk Wholesale &amp; Cooperatives
+                  B2B Wholesale &amp; Cooperatives
                 </Link>
               </li>
               <li>
                 <Link to="/technical-support" className="hover:text-white transition-colors">
-                  Disease Diagnosis &amp; Post-Mortem Support
+                  Disease Diagnosis &amp; Post-Mortem
                 </Link>
               </li>
               <li>
                 <Link to="/locations" className="hover:text-white transition-colors">
-                  Nationwide Waybill Freight Dispatch
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="hover:text-white transition-colors">
-                  Corporate Profile &amp; Leadership
+                  Nationwide Waybill Freight
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Column 3: Regional Depots */}
-          <div className="space-y-4">
-            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
-              Distribution Network
+          <div className="space-y-3">
+            <h4 className="font-display font-black uppercase tracking-wider text-[#86efac] text-[11px]">
+              Regional Depots
             </h4>
-            <ul className="space-y-2.5 text-xs text-neutral-300 font-medium">
-              <li className="flex items-start gap-2">
-                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold text-white block">Kumasi Central Depot</span>
-                  <span className="text-[11px] text-neutral-400">Adum Agrochemical Market, Ashanti Region</span>
-                </div>
+            <ul className="space-y-2 text-neutral-300 font-medium">
+              <li>
+                <Link to="/locations" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <MapPin className="h-3 w-3 text-[#22C55E] shrink-0" />
+                  <span>Kumasi Central Depot (Adum)</span>
+                </Link>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold text-white block">Kasoa Administrative HQ</span>
-                  <span className="text-[11px] text-neutral-400">Commercial Import &amp; Wholesale Terminal</span>
-                </div>
+              <li>
+                <Link to="/locations" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <MapPin className="h-3 w-3 text-[#22C55E] shrink-0" />
+                  <span>Kasoa HQ &amp; Main Terminal</span>
+                </Link>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold text-white block">Sunyani &amp; Techiman Transit</span>
-                  <span className="text-[11px] text-neutral-400">Bono &amp; Bono East Transit Depots</span>
-                </div>
+              <li>
+                <Link to="/locations" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <MapPin className="h-3 w-3 text-[#22C55E] shrink-0" />
+                  <span>Sunyani &amp; Techiman Depots</span>
+                </Link>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
-                <div>
-                  <span className="font-bold text-white block">Goaso Cocoa Belt Station</span>
-                  <span className="text-[11px] text-neutral-400">Ahafo Regional Input Distribution Hub</span>
-                </div>
+              <li>
+                <Link to="/locations" className="hover:text-white transition-colors flex items-center gap-1.5">
+                  <MapPin className="h-3 w-3 text-[#22C55E] shrink-0" />
+                  <span>Goaso Cocoa Belt Station</span>
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Contact & Operational Desks */}
-          <div className="space-y-4">
-            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
-              Direct Inquiries
+          {/* Column 4: Contact Lines */}
+          <div className="space-y-3">
+            <h4 className="font-display font-black uppercase tracking-wider text-[#86efac] text-[11px]">
+              Contact Desk
             </h4>
-            <div className="space-y-3 text-xs text-neutral-300">
-              <div className="flex items-start gap-2.5">
-                <Phone className="h-4 w-4 text-[#22C55E] shrink-0 mt-0.5" />
-                <div className="space-y-0.5">
-                  <a href="tel:0596709226" className="font-bold text-white hover:text-[#86efac] transition-colors block">
-                    059 670 9226 (Technical Hotline)
-                  </a>
-                  <a href="tel:0241604926" className="text-neutral-400 hover:text-white transition-colors block text-[11px]">
-                    024 160 4926 (Sales Desk)
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2.5">
-                <Mail className="h-4 w-4 text-[#22C55E] shrink-0 mt-0.5" />
-                <div>
-                  <a href="mailto:sales@ernejoyson.com" className="font-semibold text-white hover:text-[#86efac] transition-colors block">
-                    sales@ernejoyson.com
-                  </a>
-                  <span className="text-[11px] text-neutral-400">info@ernejoyson.com</span>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2.5 pt-1">
-                <Clock className="h-4 w-4 text-[#22C55E] shrink-0 mt-0.5" />
-                <span className="text-[11px] text-neutral-400 leading-tight">
-                  Monday – Saturday: 7:30 AM – 6:00 PM GMT<br />
-                  Waybill consignments loaded daily
-                </span>
+            <div className="space-y-2 text-neutral-300 font-medium">
+              <a href="tel:0596709226" className="hover:text-[#86efac] transition-colors flex items-center gap-1.5">
+                <Phone className="h-3 w-3 text-[#22C55E] shrink-0" />
+                <span>059 670 9226 / 024 160 4926</span>
+              </a>
+              <a href="mailto:sales@ernejoyson.com" className="hover:text-[#86efac] transition-colors flex items-center gap-1.5">
+                <Mail className="h-3 w-3 text-[#22C55E] shrink-0" />
+                <span>sales@ernejoyson.com</span>
+              </a>
+              <div className="flex items-center gap-1.5 text-neutral-400 text-[11px] pt-0.5">
+                <Clock className="h-3 w-3 text-[#22C55E] shrink-0" />
+                <span>Mon – Sat: 7:30 AM – 6:00 PM GMT</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* High-Impact Middle Action Banner */}
-        <div className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#112d19] via-[#143d22] to-[#112d19] border border-[#235331] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-1">
-            <span className="text-[10px] font-black uppercase tracking-wider text-[#86efac] font-mono">
-              Official Poultry Husbandry Protocol
-            </span>
-            <h3 className="font-display text-lg sm:text-xl font-black text-white">
-              Official ERNEJOYSON Poultry Medication &amp; Vaccination Wall Chart
-            </h3>
-            <p className="text-xs text-neutral-300 max-w-xl leading-relaxed">
-              Print-ready field document calibrated for Newcastle, Gumboro, and Coccidiosis schedules under Ghana climatic conditions.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3 w-full md:w-auto shrink-0 flex-wrap sm:flex-nowrap">
-            <Link
-              to="/locations"
-              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/15 transition-colors"
-            >
-              <span>View Depots</span>
-              <ArrowUpRight className="h-3.5 w-3.5 text-[#86efac]" />
-            </Link>
-            <a
-              href={vaccinationChartPdf}
-              download="ERNEJOYSON_VACCINATION_CHART.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-[#22C55E] hover:bg-[#4ADE80] text-[#082011] font-black text-xs transition-all shadow-md active:scale-95"
-            >
-              <Download className="h-4 w-4" />
-              <span>Download PDF Chart</span>
-            </a>
-          </div>
-        </div>
-
         {/* Bottom Legal, Privacy & Cookie Governance Bar */}
-        <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
-          <div>
-            <p>© 2026 ERNEJOYSON Company Limited. All rights reserved. Registered in Ghana.</p>
-          </div>
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
+          <p>© 2026 ERNEJOYSON Company Limited. All rights reserved.</p>
 
           {/* Legal Links + Cookie Manager */}
-          <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center text-[11px] font-medium">
+          <div className="flex items-center gap-4 sm:gap-5 flex-wrap justify-center text-[11px] font-medium">
             <Link to="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
@@ -364,7 +288,7 @@ export function Footer() {
             <button
               type="button"
               onClick={triggerCookieModal}
-              className="inline-flex items-center gap-1.5 hover:text-[#86efac] text-neutral-300 transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 hover:text-[#86efac] text-neutral-300 transition-colors cursor-pointer"
             >
               <SlidersHorizontal className="h-3 w-3 text-[#22C55E]" />
               <span>Cookie Settings</span>
