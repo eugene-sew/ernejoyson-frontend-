@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom'
 import { Header } from '@/components/common/Header'
 import { CartDrawer } from '@/components/common/CartDrawer'
+import { CookieConsent } from '@/components/common/CookieConsent'
 import { Footer } from '@/components/sections/Footer'
 
 // Dedicated Public Pages
@@ -14,6 +15,7 @@ import { LocationsPage } from '@/pages/LocationsPage'
 import { B2bPage } from '@/pages/B2bPage'
 import { KnowledgePage } from '@/pages/KnowledgePage'
 import { AboutPage } from '@/pages/AboutPage'
+import { LegalPrivacyPage } from '@/pages/LegalPrivacyPage'
 
 // Admin Portal Pages
 import { AdminLoginPage } from '@/pages/admin/AdminLoginPage'
@@ -48,7 +50,7 @@ function ScrollToTop() {
 
 /**
  * Public Layout Wrapper:
- * Renders customer storefront with sticky 3-pill navbar, cart drawer, and footer.
+ * Renders customer storefront with sticky 3-pill navbar, cart drawer, cookie consent, and footer.
  */
 function PublicLayout() {
   return (
@@ -59,12 +61,15 @@ function PublicLayout() {
       {/* Global Order & B2B Inquiry Slide-Over Drawer */}
       <CartDrawer />
 
+      {/* Ghana Data Protection Act Compliant Cookie Pop-up */}
+      <CookieConsent />
+
       {/* Routed Platform Content */}
       <main className="flex-1 pt-12">
         <Outlet />
       </main>
 
-      {/* Mega Forest Green Footer */}
+      {/* Modern Forest Green Footer */}
       <Footer />
     </div>
   )
@@ -98,6 +103,14 @@ export function App() {
           <Route path="/b2b" element={<B2bPage />} />
           <Route path="/knowledge" element={<KnowledgePage />} />
           <Route path="/about" element={<AboutPage />} />
+          
+          {/* Legal, Privacy & Compliance Routes */}
+          <Route path="/privacy" element={<LegalPrivacyPage />} />
+          <Route path="/terms" element={<LegalPrivacyPage />} />
+          <Route path="/cookies" element={<LegalPrivacyPage />} />
+          <Route path="/compliance" element={<LegalPrivacyPage />} />
+          <Route path="/legal" element={<LegalPrivacyPage />} />
+
           <Route path="*" element={<HomePage />} />
         </Route>
       </Routes>

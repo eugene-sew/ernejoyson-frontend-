@@ -1,112 +1,374 @@
 import { Link } from 'react-router-dom'
-import { ArrowUpRight, ShieldCheck, Mail, Phone, MapPin } from 'lucide-react'
+import { 
+  ArrowUpRight, 
+  ShieldCheck, 
+  Mail, 
+  Phone, 
+  MapPin, 
+  FileText, 
+  SlidersHorizontal,
+  Download,
+  Clock
+} from 'lucide-react'
+import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
+
+// Crisp, high-end SVG Social Icons
+function WhatsAppIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.34C9.36 7.34 9.09 7.4 8.87 7.65C8.65 7.89 8.02 8.48 8.02 9.7C8.02 10.91 8.91 12.08 9.03 12.24C9.16 12.4 10.74 14.84 13.16 15.89C15.18 16.75 15.59 16.58 16.03 16.54C16.47 16.5 17.46 15.95 17.66 15.38C17.87 14.81 17.87 14.33 17.8 14.22C17.74 14.12 17.58 14.06 17.33 13.93C17.08 13.81 15.86 13.21 15.63 13.13C15.41 13.04 15.24 13 15.08 13.25C14.91 13.5 14.43 14.07 14.28 14.24C14.14 14.4 14 14.42 13.75 14.3C13.5 14.17 12.7 13.91 11.75 13.06C11.01 12.4 10.51 11.58 10.36 11.33C10.22 11.09 10.34 10.95 10.47 10.83C10.58 10.72 10.72 10.54 10.85 10.39C10.98 10.25 11.02 10.14 11.11 9.98C11.19 9.81 11.15 9.67 11.09 9.55C11.02 9.43 10.54 8.24 10.33 7.76C10.14 7.28 9.94 7.35 9.79 7.34C9.64 7.34 9.48 7.34 9.53 7.34Z"/>
+    </svg>
+  )
+}
+
+function FacebookIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+function InstagramIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+function LinkedInIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd" />
+    </svg>
+  )
+}
+
+function XTwitterIcon({ className = 'h-4 w-4' }: { className?: string }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  )
+}
 
 export function Footer() {
+  const triggerCookieModal = () => {
+    window.dispatchEvent(new CustomEvent('open-cookie-settings'))
+  }
+
   return (
-    <footer id="contact" className="mt-14 bg-[#0E3B20] text-white pt-16 pb-10 px-4 sm:px-6 lg:px-12 rounded-t-[44px] sm:rounded-t-[56px] overflow-hidden">
-      <div className="max-w-[1380px] mx-auto w-full space-y-16">
-        {/* Top Grid */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
-          {/* Col 1: Brand & Overview */}
-          <div className="lg:col-span-4 space-y-5">
-            <Link to="/" className="flex items-center gap-2.5 font-display text-xl sm:text-2xl font-extrabold tracking-tight text-white">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#22C55E] text-[#0E3B20]">
-                <ShieldCheck className="h-5 w-5" />
+    <footer id="contact" className="mt-14 bg-[#082011] text-white pt-16 pb-8 px-4 sm:px-6 lg:px-12 rounded-t-[40px] sm:rounded-t-[52px] border-t border-[#1e4828]/50 overflow-hidden font-sans">
+      <div className="max-w-[1380px] mx-auto w-full space-y-14">
+        
+        {/* Top Header & Brand Bar */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-10 border-b border-white/10">
+          <div className="space-y-2 max-w-xl">
+            <Link to="/" className="inline-flex items-center gap-2.5 font-display text-2xl sm:text-3xl font-black tracking-tight text-white group">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-[#166534] to-[#22C55E] text-[#082011] shadow-lg shadow-green-950/50 group-hover:scale-105 transition-transform">
+                <ShieldCheck className="h-6 w-6 stroke-[2.5]" />
               </div>
-              <span>ERNEJOYSON LIMITED</span>
+              <span className="group-hover:text-[#86efac] transition-colors">ERNEJOYSON</span>
             </Link>
-
-            <p className="text-sm text-white/80 leading-relaxed max-w-sm font-medium">
-              Ghanaian-owned veterinary pharmaceutical and poultry/livestock equipment importation and distribution company. Providing quality products and practical technical support for farmers across Ghana.
+            <p className="text-xs sm:text-sm text-neutral-300 font-medium leading-relaxed">
+              Ghana's premier agricultural input, veterinary pharmaceutical, foliar nutrition, and automated farm machinery distribution network.
             </p>
+          </div>
 
-            {/* Direct Contact Points */}
-            <div className="space-y-2.5 pt-2 text-xs font-semibold text-white/85">
-              <div className="flex items-center gap-2.5">
-                <MapPin className="h-4 w-4 text-[#22C55E] shrink-0" />
-                <span>Head Office: Kasoa, Central Region, Ghana</span>
+          {/* Socials & Live Hotline Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 lg:gap-6 shrink-0">
+            {/* Social Icons */}
+            <div className="flex items-center gap-2">
+              <a
+                href="https://wa.me/233596709226"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp Business Desk"
+                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
+                title="Chat with Technical Vet on WhatsApp"
+              >
+                <WhatsAppIcon className="h-4.5 w-4.5" />
+              </a>
+              <a
+                href="https://facebook.com/ernejoyson"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook Page"
+                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
+                title="Follow on Facebook"
+              >
+                <FacebookIcon className="h-4.5 w-4.5" />
+              </a>
+              <a
+                href="https://instagram.com/ernejoyson"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram Profile"
+                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
+                title="Follow on Instagram"
+              >
+                <InstagramIcon className="h-4.5 w-4.5" />
+              </a>
+              <a
+                href="https://linkedin.com/company/ernejoyson"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn Company Profile"
+                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
+                title="Connect on LinkedIn"
+              >
+                <LinkedInIcon className="h-4.5 w-4.5" />
+              </a>
+              <a
+                href="https://x.com/ernejoyson"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X Profile"
+                className="h-10 w-10 rounded-2xl bg-[#112d19] hover:bg-[#22C55E] text-[#86efac] hover:text-[#082011] border border-[#1e4828] flex items-center justify-center transition-all shadow-sm hover:scale-105"
+                title="Follow on X"
+              >
+                <XTwitterIcon className="h-4 w-4" />
+              </a>
+            </div>
+
+            {/* Quick Hotline Pill */}
+            <a
+              href="tel:0596709226"
+              className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-[#112d19] hover:bg-[#183d23] text-white border border-[#1e4828] text-xs font-bold transition-all shadow-sm"
+            >
+              <Phone className="h-4 w-4 text-[#22C55E]" />
+              <span>Hotline: 059 670 9226</span>
+            </a>
+          </div>
+        </div>
+
+        {/* 4 Clean Columns: Real Activities, No Walls of Text */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          
+          {/* Column 1: Core Agrochemical & Veterinary Divisions */}
+          <div className="space-y-4">
+            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
+              Agricultural Divisions
+            </h4>
+            <ul className="space-y-2.5 text-xs text-neutral-300 font-medium">
+              <li>
+                <Link to="/shop?category=insecticides" className="hover:text-white transition-colors flex items-center justify-between group">
+                  <span>Crop Protection &amp; Agrochemicals</span>
+                  <span className="text-[10px] text-neutral-500 group-hover:text-[#86efac]">100+</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/shop?category=antibiotics" className="hover:text-white transition-colors">
+                  Veterinary Pharmaceuticals &amp; Vaccines
+                </Link>
+              </li>
+              <li>
+                <Link to="/shop?category=foliar" className="hover:text-white transition-colors">
+                  Foliar Fertilizers (Joy Amino &amp; Nutrients)
+                </Link>
+              </li>
+              <li>
+                <Link to="/shop?category=seeds" className="hover:text-white transition-colors">
+                  Certified Hybrid &amp; Vegetable Seeds
+                </Link>
+              </li>
+              <li>
+                <Link to="/shop?category=equipment" className="hover:text-white transition-colors">
+                  Knapsack &amp; Motorized Farm Sprayers
+                </Link>
+              </li>
+              <li>
+                <Link to="/shop?category=brooders" className="hover:text-white transition-colors">
+                  Commercial Incubators &amp; Brooding Units
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 2: Farmer Support & Logistics */}
+          <div className="space-y-4">
+            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
+              Services &amp; Supply
+            </h4>
+            <ul className="space-y-2.5 text-xs text-neutral-300 font-medium">
+              <li>
+                <Link to="/technical-support#vaccination-chart" className="hover:text-white transition-colors font-semibold text-[#DCFCE7] flex items-center gap-1.5">
+                  <FileText className="h-3.5 w-3.5 text-[#22C55E]" />
+                  <span>Poultry Vaccination Schedule (PDF)</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/knowledge#dosage-calculator" className="hover:text-white transition-colors">
+                  Water Tank Medication Calculator
+                </Link>
+              </li>
+              <li>
+                <Link to="/b2b" className="hover:text-white transition-colors">
+                  B2B Bulk Wholesale &amp; Cooperatives
+                </Link>
+              </li>
+              <li>
+                <Link to="/technical-support" className="hover:text-white transition-colors">
+                  Disease Diagnosis &amp; Post-Mortem Support
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations" className="hover:text-white transition-colors">
+                  Nationwide Waybill Freight Dispatch
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-white transition-colors">
+                  Corporate Profile &amp; Leadership
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Regional Depots */}
+          <div className="space-y-4">
+            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
+              Distribution Network
+            </h4>
+            <ul className="space-y-2.5 text-xs text-neutral-300 font-medium">
+              <li className="flex items-start gap-2">
+                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-white block">Kumasi Central Depot</span>
+                  <span className="text-[11px] text-neutral-400">Adum Agrochemical Market, Ashanti Region</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-white block">Kasoa Administrative HQ</span>
+                  <span className="text-[11px] text-neutral-400">Commercial Import &amp; Wholesale Terminal</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-white block">Sunyani &amp; Techiman Transit</span>
+                  <span className="text-[11px] text-neutral-400">Bono &amp; Bono East Transit Depots</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin className="h-3.5 w-3.5 text-[#22C55E] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-white block">Goaso Cocoa Belt Station</span>
+                  <span className="text-[11px] text-neutral-400">Ahafo Regional Input Distribution Hub</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Contact & Operational Desks */}
+          <div className="space-y-4">
+            <h4 className="font-display text-xs font-black uppercase tracking-widest text-[#86efac]">
+              Direct Inquiries
+            </h4>
+            <div className="space-y-3 text-xs text-neutral-300">
+              <div className="flex items-start gap-2.5">
+                <Phone className="h-4 w-4 text-[#22C55E] shrink-0 mt-0.5" />
+                <div className="space-y-0.5">
+                  <a href="tel:0596709226" className="font-bold text-white hover:text-[#86efac] transition-colors block">
+                    059 670 9226 (Technical Hotline)
+                  </a>
+                  <a href="tel:0241604926" className="text-neutral-400 hover:text-white transition-colors block text-[11px]">
+                    024 160 4926 (Sales Desk)
+                  </a>
+                </div>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Phone className="h-4 w-4 text-[#22C55E] shrink-0" />
-                <span>Regional Hubs: Kumasi • Swedru • Nsawam</span>
+
+              <div className="flex items-start gap-2.5">
+                <Mail className="h-4 w-4 text-[#22C55E] shrink-0 mt-0.5" />
+                <div>
+                  <a href="mailto:sales@ernejoyson.com" className="font-semibold text-white hover:text-[#86efac] transition-colors block">
+                    sales@ernejoyson.com
+                  </a>
+                  <span className="text-[11px] text-neutral-400">info@ernejoyson.com</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2.5">
-                <Mail className="h-4 w-4 text-[#22C55E] shrink-0" />
-                <span>info@ernejoyson.com • sales@ernejoyson.com</span>
+
+              <div className="flex items-start gap-2.5 pt-1">
+                <Clock className="h-4 w-4 text-[#22C55E] shrink-0 mt-0.5" />
+                <span className="text-[11px] text-neutral-400 leading-tight">
+                  Monday – Saturday: 7:30 AM – 6:00 PM GMT<br />
+                  Waybill consignments loaded daily
+                </span>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Col 2: Product Categories */}
-          <div className="lg:col-span-3 space-y-3.5">
-            <h4 className="font-display text-base font-bold tracking-wider text-white uppercase text-xs">
-              Product Categories
-            </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-white/75 font-medium">
-              <li><Link to="/shop?category=antibiotics" className="hover:text-[#DCFCE7] transition-colors">Veterinary Pharmaceuticals</Link></li>
-              <li><Link to="/shop?category=anti-parasitics" className="hover:text-[#DCFCE7] transition-colors">Anti-Parasitics & Anthelmintics</Link></li>
-              <li><Link to="/shop?category=vitamins" className="hover:text-[#DCFCE7] transition-colors">Nutritional Supplements</Link></li>
-              <li><Link to="/shop?category=feeders" className="hover:text-[#DCFCE7] transition-colors">Feeding & Drinking Systems</Link></li>
-              <li><Link to="/shop?category=equipment" className="hover:text-[#DCFCE7] transition-colors">Incubators & Brooder Units</Link></li>
-              <li><Link to="/shop?category=equipment" className="hover:text-[#DCFCE7] transition-colors">Feed Processing Machines</Link></li>
-              <li><Link to="/shop?category=equipment" className="hover:text-[#DCFCE7] transition-colors">Slaughtering Equipment</Link></li>
-              <li><Link to="/shop?category=equipment" className="hover:text-[#DCFCE7] transition-colors">Transport Cages</Link></li>
-            </ul>
+        {/* High-Impact Middle Action Banner */}
+        <div className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#112d19] via-[#143d22] to-[#112d19] border border-[#235331] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
+          <div className="space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-wider text-[#86efac] font-mono">
+              Official Poultry Husbandry Protocol
+            </span>
+            <h3 className="font-display text-lg sm:text-xl font-black text-white">
+              Official ERNEJOYSON Poultry Medication &amp; Vaccination Wall Chart
+            </h3>
+            <p className="text-xs text-neutral-300 max-w-xl leading-relaxed">
+              Print-ready field document calibrated for Newcastle, Gumboro, and Coccidiosis schedules under Ghana climatic conditions.
+            </p>
           </div>
 
-          {/* Col 3: B2B & Commercial Supply */}
-          <div className="lg:col-span-2 space-y-3.5">
-            <h4 className="font-display text-base font-bold tracking-wider text-white uppercase text-xs">
-              Commercial & B2B
-            </h4>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-white/75 font-medium">
-              <li><Link to="/b2b" className="hover:text-[#DCFCE7] transition-colors">Bulk Orders</Link></li>
-              <li><Link to="/b2b" className="hover:text-[#DCFCE7] transition-colors">Commercial Supply</Link></li>
-              <li><Link to="/b2b" className="hover:text-[#DCFCE7] transition-colors">Wholesale Enquiries</Link></li>
-              <li><Link to="/b2b" className="hover:text-[#DCFCE7] transition-colors">Equipment Sourcing</Link></li>
-              <li><Link to="/b2b#rfq-form" className="hover:text-[#DCFCE7] transition-colors font-bold text-[#DCFCE7]">Request a Quote</Link></li>
-            </ul>
-          </div>
-
-          {/* Col 4: Technical Support & Hubs */}
-          <div className="lg:col-span-3 space-y-3.5">
-            <h4 className="font-display text-base font-bold tracking-wider text-white uppercase text-xs">
-              Support & Locations
-            </h4>
-            <ul className="space-y-2.5 text-xs sm:text-sm text-white/75 font-medium">
-              <li><Link to="/technical-support" className="hover:text-[#DCFCE7] transition-colors">Technical Farmer Support</Link></li>
-              <li><Link to="/technical-support#vaccination-chart" className="hover:text-[#DCFCE7] transition-colors">Poultry Vaccination Schedule</Link></li>
-              <li><Link to="/knowledge" className="hover:text-[#DCFCE7] transition-colors">Farm Knowledge Hub</Link></li>
-              <li><Link to="/locations" className="hover:text-[#DCFCE7] transition-colors">Kasoa Central Hub</Link></li>
-              <li><Link to="/locations" className="hover:text-[#DCFCE7] transition-colors">Kumasi Branch (Ashanti & North)</Link></li>
-              <li><Link to="/locations" className="hover:text-[#DCFCE7] transition-colors">Swedru & Nsawam Regional Hubs</Link></li>
-              <li><Link to="/about" className="hover:text-[#DCFCE7] transition-colors">About ERNEJOYSON</Link></li>
-            </ul>
+          <div className="flex items-center gap-3 w-full md:w-auto shrink-0 flex-wrap sm:flex-nowrap">
+            <Link
+              to="/locations"
+              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-1.5 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/15 transition-colors"
+            >
+              <span>View Depots</span>
+              <ArrowUpRight className="h-3.5 w-3.5 text-[#86efac]" />
+            </Link>
+            <a
+              href={vaccinationChartPdf}
+              download="ERNEJOYSON_VACCINATION_CHART.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-[#22C55E] hover:bg-[#4ADE80] text-[#082011] font-black text-xs transition-all shadow-md active:scale-95"
+            >
+              <Download className="h-4 w-4" />
+              <span>Download PDF Chart</span>
+            </a>
           </div>
         </div>
 
-        {/* Giant Display Wordmark with Free Vaccination Chart Button */}
-        <div className="relative pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden">
-          <span className="font-display text-4xl sm:text-6xl lg:text-[92px] font-black tracking-tight text-white/90 select-none leading-none">
-            ERNEJOYSON
-          </span>
+        {/* Bottom Legal, Privacy & Cookie Governance Bar */}
+        <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
+          <div>
+            <p>© 2026 ERNEJOYSON Company Limited. All rights reserved. Registered in Ghana.</p>
+          </div>
 
-          <Link
-            to="/technical-support#vaccination-chart"
-            className="inline-flex items-center gap-2 rounded-full bg-[#22C55E] px-8 py-4 text-sm font-extrabold text-[#0E3B20] shadow-xl transition-all hover:bg-[#DCFCE7] active:scale-95 cursor-pointer shrink-0"
-          >
-            <span>Free Vaccination Chart</span>
-            <ArrowUpRight className="h-4.5 w-4.5" />
-          </Link>
-        </div>
-
-        {/* Sub-footer copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 text-xs text-white/60 border-t border-white/5">
-          <p>© 2026 ERNEJOYSON LIMITED. All rights reserved. Registered in Ghana.</p>
-          <div className="flex items-center gap-6">
-            <Link to="/locations" className="hover:text-white transition-colors">Ghana Distribution Network</Link>
-            <Link to="/technical-support" className="hover:text-white transition-colors">Technical Farmer Advisory</Link>
-            <Link to="/b2b" className="hover:text-white transition-colors">Wholesale & B2B</Link>
+          {/* Legal Links + Cookie Manager */}
+          <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center text-[11px] font-medium">
+            <Link to="/privacy" className="hover:text-white transition-colors">
+              Privacy Policy
+            </Link>
+            <span>•</span>
+            <Link to="/terms" className="hover:text-white transition-colors">
+              Terms of Supply
+            </Link>
+            <span>•</span>
+            <Link to="/cookies" className="hover:text-white transition-colors">
+              Cookie Policy
+            </Link>
+            <span>•</span>
+            <Link to="/compliance" className="hover:text-white transition-colors">
+              EPA Safety
+            </Link>
+            <span>•</span>
+            <button
+              type="button"
+              onClick={triggerCookieModal}
+              className="inline-flex items-center gap-1.5 hover:text-[#86efac] text-neutral-300 transition-colors cursor-pointer"
+            >
+              <SlidersHorizontal className="h-3 w-3 text-[#22C55E]" />
+              <span>Cookie Settings</span>
+            </button>
           </div>
         </div>
       </div>
