@@ -1,7 +1,7 @@
 # PROJECT MEMORY & ARCHITECTURAL KNOWLEDGE BASE
 **Project Name**: ERNEJOYSON Company Limited (Enterprise E-Commerce & Agricultural Distribution Platform)  
 **Last Updated**: October 1, 2026 (Django API port, Docker staging/prod, admin split into its own app)  
-**Primary Repository**: `frontend/.git` (`origin/main`). `admin/` and `backend-django/` are **not yet in git**.  
+**Primary Repository**: `frontend/.git` (`origin/main`). Repos (all `eugene-sew`): `ernejoyson-frontend-` (public), `ernejoyson-admin` (private), `ernejoyson-backend` (private, from `backend-django/`). Legacy `backend/` is not in git.  
 **Workspace Root**: `/Users/eugenedev/Documents/Partners/EnerJoyson`
 
 ---
@@ -163,7 +163,7 @@ npm run build                              # in either app: tsc + vite build, mu
 docker compose --env-file .env.staging up -d --build
 docker compose --env-file .env.production up -d --build
 
-# Git (frontend repo only, for now)
+# Git: each of frontend/, admin/, backend-django/ is its own repo
 cd frontend && git add -A && git commit -m "msg" && git push origin main
 ```
 
