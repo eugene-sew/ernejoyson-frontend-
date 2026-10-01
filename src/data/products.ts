@@ -51,7 +51,7 @@ export const PRODUCTS: Product[] = [
     spec: 'Day old chick feeding tray',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8066.jpg',
     description: 'Durable plastic feeding tray designed for day-old chicks to minimize feed wastage and encourage early intake.',
   },
   {
@@ -64,7 +64,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8075',
     spec: '1.5kg capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8075.jpg',
     description: 'Standard 1.5kg chick feeder with anti-scratch grill to prevent feed spillage.',
   },
   {
@@ -77,7 +77,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8074',
     spec: '3kg capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8074.jpg',
     description: 'Medium 3kg chick and grower feeder with ergonomic base.',
   },
   {
@@ -90,7 +90,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8016',
     spec: '14 holes linear pair',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8016.jpg',
     description: 'Linear 14-hole feeder pair for young chicks, facilitating uniform feeding access.',
   },
   {
@@ -103,7 +103,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8019',
     spec: '21 holes linear pair',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8019.jpg',
     description: 'Extended 21-hole feeder pair for brooding units and higher density pens.',
   },
   {
@@ -116,7 +116,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8071',
     spec: '2kg red poultry feeder',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8071.jpg',
     description: 'High visibility red 2kg feeder to attract chicks to feed during early brooding.',
   },
   {
@@ -129,7 +129,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8017',
     spec: 'Maxi size grower capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8017.jpg',
     description: 'Specialized feeder for transition from brooding stage to active growing.',
   },
   {
@@ -142,7 +142,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8043',
     spec: '6kg capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8043.jpg',
     description: 'Robust 6kg grower feeder suitable for small to mid-sized pens.',
   },
   {
@@ -156,7 +156,7 @@ export const PRODUCTS: Product[] = [
     spec: '9kg capacity',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8031.jpg',
     description: 'Heavy duty hanging/floor feeder with 9kg capacity for broilers and layers.',
   },
   {
@@ -169,7 +169,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8032 / 8038',
     spec: '12kg capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8032.jpg',
     description: '12kg commercial feeder with feed adjustment ring and hanging loop.',
   },
   {
@@ -182,7 +182,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8033',
     spec: '8kg red commercial feeder',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8033.jpg',
     description: 'Reinforced 8kg feeder engineered for active broiler flocks.',
   },
   {
@@ -195,7 +195,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8036',
     spec: '12 Litre volume',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8036.jpg',
     description: 'Premium Compacta 12L feeder design for commercial poultry housing.',
   },
   {
@@ -207,7 +207,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 130.00',
     spec: '12kg heavy red',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8036.jpg',
     description: 'Extra sturdy red feeder designed for large broiler operations.',
   },
   {
@@ -221,7 +221,7 @@ export const PRODUCTS: Product[] = [
     spec: '22 Litre high volume',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8037.jpg',
     description: 'Maximum capacity 22L Compacta feeder reducing refill frequency in large flocks.',
   },
   {
@@ -233,7 +233,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'Contact for Price',
     spec: '10kg with integrated elevated stand',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8039.jpg',
     description: 'Feeder with elevated stand to keep feed clean from litter debris.',
   },
   {
@@ -246,7 +246,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8035',
     spec: '16kg heavy duty',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8035.jpg',
     description: '16kg jumbo commercial feeder for intensive broiler/layer houses.',
   },
   {
@@ -258,7 +258,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'Contact for Price',
     spec: 'Arcus design',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+    image: '/products/67959989-2977-42AB-B165-208325B64A02.png',
     description: 'Advanced anti-spill Arcus poultry feeder for modern poultry management.',
   },
 
@@ -273,7 +273,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8076',
     spec: '1.5 Litre capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8076.jpg',
     description: 'Inverted manual drinker for day-old chicks with shallow drinking rim.',
   },
   {
@@ -286,7 +286,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8042 / 8044',
     spec: '3 Litre capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8042.jpg',
     description: 'Standard 3L chick drinker with twist-lock base.',
   },
   {
@@ -299,7 +299,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8046',
     spec: '5 Litre capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8046.jpg',
     description: '5L drinker suitable for larger brooding batches.',
   },
   {
@@ -311,7 +311,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 40.00',
     spec: '6 Litre capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8026.jpg',
     description: '6L capacity drinker for growers and large brooding pens.',
   },
   {
@@ -325,7 +325,7 @@ export const PRODUCTS: Product[] = [
     spec: '11 Litre capacity',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8040.jpg',
     description: '11L heavy-duty drinker for broilers and layers, easy to clean and refill.',
   },
   {
@@ -338,7 +338,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8029',
     spec: '14 Litre capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8029.jpg',
     description: '14L high-volume poultry drinker with sturdy hanging handle.',
   },
   {
@@ -351,7 +351,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8025',
     spec: '16 Litre capacity',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8025.jpg',
     description: '16L maximum volume floor drinker ensuring continuous water supply.',
   },
   {
@@ -365,7 +365,7 @@ export const PRODUCTS: Product[] = [
     spec: 'Complete automatic bell assembly',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8020.jpg',
     description: 'Automatic bell drinker with suspension cord, ballast tank, and self-regulating water valve.',
   },
   {
@@ -378,7 +378,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8030',
     spec: '10 Litre Italian imported',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8030.jpg',
     description: 'Imported high grade virgin plastic 10L drinker from Italy.',
   },
 
@@ -394,7 +394,7 @@ export const PRODUCTS: Product[] = [
     spec: '5 pieces pack / Stainless steel',
     notes: '5 pcs pack',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7914.jpg',
     description: 'Durable stainless steel pig drinking nipples with internal mesh filter and spring valve.',
   },
   {
@@ -407,7 +407,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7919',
     spec: 'Duck-bill contoured tip',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7919.jpg',
     description: 'Duckbill design pig watering nipple for comfortable bite and clean shutoff.',
   },
   {
@@ -420,7 +420,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8088',
     spec: 'Replacement valve with spring',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8088.jpg',
     description: 'High sensitivity replacement valve for automatic bell drinkers and water lines.',
   },
   {
@@ -433,7 +433,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7927',
     spec: '0.1g - 500g precision LCD',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7927.jpg',
     description: 'Precision electronic measuring spoon for accurate weighing of veterinary powders, vitamins, and supplements.',
   },
   {
@@ -447,7 +447,7 @@ export const PRODUCTS: Product[] = [
     spec: 'High-density plastic / 10-14 birds',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8079.jpg',
     description: 'Large perforated live poultry transport crate with sliding top door and interlocking stackable design.',
   },
   {
@@ -460,7 +460,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8082',
     spec: 'Standard stackable crate',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8082.jpg',
     description: 'Reinforced transport crate designed for high ventilation and safety during transport across Ghana.',
   },
   {
@@ -472,7 +472,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 450.00',
     spec: '50ml adjustable dosage drenching/injection',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/a0ae7dc1-cfd8-4e2f-9960-0615f87e0206.jpg',
     description: 'Heavy duty automatic repeating veterinary syringe for vaccination and mass herd/flock treatment.',
   },
   {
@@ -486,7 +486,7 @@ export const PRODUCTS: Product[] = [
     spec: '1500cc infrared heating capacity (600-1000 chicks)',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8027.jpg',
     description: 'Infrared gas brooder for brooding chicks, providing constant and even thermal radiation.',
   },
   {
@@ -500,7 +500,7 @@ export const PRODUCTS: Product[] = [
     spec: 'Electric heated cauterizing blade with digital counter',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8041.jpg',
     description: 'Automated electric beak trimming machine with cautery action and built-in counter for precise flock counts.',
   },
   {
@@ -512,7 +512,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 2,800.00',
     spec: '2500cc high output (1500-2500 chicks)',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=600&q=80',
+    image: '/products/162c2ba2-6929-49d6-98da-f12245166b6e.jpg',
     description: 'Commercial capacity gas brooder for large brooding houses, delivering reliable temperature control.',
   },
   {
@@ -525,7 +525,7 @@ export const PRODUCTS: Product[] = [
     spec: 'Stainless steel centrifugal drum (30-50 birds/hr)',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
+    image: '/products/c459530d-1000-4b04-a3a6-0f9c3a6ce0dc.jpg',
     description: 'Rotary poultry feather plucker machine with rubber fingers for rapid, clean defeathering.',
   },
   {
@@ -538,7 +538,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8061',
     spec: 'Heat-resistant porcelain E27',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8061.jpg',
     description: 'Heat resistant porcelain socket for infrared brooding bulbs.',
   },
   {
@@ -551,7 +551,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8068',
     spec: 'Aluminum dome reflector with protective guard',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8068.jpg',
     description: 'Aluminum brooding lamp reflector maximizing downward heat focus.',
   },
   {
@@ -564,7 +564,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8059',
     spec: 'Dual temperature and humidity probe display',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8059.jpg',
     description: 'Digital temperature and humidity monitor essential for incubator and brooder climate regulation.',
   },
   {
@@ -592,7 +592,7 @@ export const PRODUCTS: Product[] = [
     spec: '1 strip / Box available',
     notes: '1 box available',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7977.jpg',
     description: 'Multivitamin formulation for sheep, goats, and cattle recovery and vitality.',
   },
   {
@@ -605,7 +605,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7974',
     spec: '100g sachet',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7974.jpg',
     description: 'Soluble amino acid and vitamin blend for rapid flock recovery and appetite stimulation.',
   },
   {
@@ -619,7 +619,7 @@ export const PRODUCTS: Product[] = [
     spec: '1kg pack',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7982.jpg',
     description: 'Commercial 1kg pack of essential amino acids and vitamins for poultry and livestock.',
   },
   {
@@ -632,7 +632,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7978',
     spec: '1 Litre bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7978.jpg',
     description: 'Liquid oral amino acids and chelated trace elements for drinking water supplementation.',
   },
   {
@@ -645,7 +645,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7976',
     spec: '100g sachet',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7976.jpg',
     description: 'Water-soluble multivitamin formula for daily flock maintenance and stress reduction.',
   },
   {
@@ -657,7 +657,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 18.00',
     spec: '100g powder',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/332E6C81-DC76-4650-B401-239172E865F7.png',
     description: 'Concentrated Vitamins A, D3, and E for bone development, immunity, and fertility.',
   },
   {
@@ -671,7 +671,7 @@ export const PRODUCTS: Product[] = [
     spec: '1kg tub',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7993.jpg',
     description: 'Bulk 1kg multivitamin formulation for commercial layer and broiler farms.',
   },
   {
@@ -684,7 +684,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8011',
     spec: '1kg pack',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8011.jpg',
     description: 'Commercial 1kg AD3E formula to support eggshell quality and laying rates.',
   },
   {
@@ -697,7 +697,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8022',
     spec: '15kg commercial drum',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8022.jpg',
     description: 'Large commercial drum for feed millers and high volume agribusinesses.',
   },
 
@@ -712,7 +712,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8102',
     spec: '1 strip / Box available',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8102.jpg',
     description: 'Targeted antibiotic tablets for respiratory infections in sheep, goats, and cattle.',
   },
   {
@@ -726,7 +726,7 @@ export const PRODUCTS: Product[] = [
     spec: '100g sachet',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8063.jpg',
     description: 'Synergistic combination of Doxycycline and Tylosin for chronic respiratory disease (CRD) and bacterial infections.',
   },
   {
@@ -738,7 +738,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 150.00',
     spec: '1 Litre bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/08CEAA8B-41C8-4EBD-AAF8-9EE8F6802938.png',
     description: 'Mucolytic and bronchodilator oral liquid for respiratory relief and clearing mucus in poultry.',
   },
   {
@@ -752,7 +752,7 @@ export const PRODUCTS: Product[] = [
     spec: '1 Litre oral solution',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8101.jpg',
     description: 'Concentrated 20% Enrofloxacin solution for colibacillosis, salmonellosis, and bacterial enteritis.',
   },
   {
@@ -765,7 +765,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7981',
     spec: '1kg tub',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7981.jpg',
     description: 'Potentiated sulfonamide formula for gastrointestinal and systemic bacterial infections.',
   },
   {
@@ -778,7 +778,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7985',
     spec: '1kg commercial tub',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7985.jpg',
     description: 'Bulk commercial pack of Doxycycline and Tylosin for large poultry enterprises.',
   },
   {
@@ -791,7 +791,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8064',
     spec: '100g pack',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8064.jpg',
     description: 'Anti-infective formula enriched with vitamins for rapid recovery.',
   },
   {
@@ -804,7 +804,7 @@ export const PRODUCTS: Product[] = [
     spec: '100g sachet',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8006.jpg',
     description: 'Antibiotic and vitamin booster to stimulate peak egg production and maintain laying health.',
   },
   {
@@ -817,7 +817,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7978',
     spec: '100g sachet',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7978.jpg',
     description: 'Broad spectrum therapeutic combination for brooding chicks and growing birds.',
   },
   {
@@ -830,7 +830,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8065',
     spec: '100g sachet',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8065.jpg',
     description: 'High strength antibiotic-vitamin blend for acute disease outbreaks.',
   },
   {
@@ -843,7 +843,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8055',
     spec: '1kg tub',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7987.jpg',
     description: '1kg commercial layer booster formula to sustain high lay percentages.',
   },
   {
@@ -856,7 +856,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7987',
     spec: '1kg commercial pack',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7987.jpg',
     description: 'Commercial 1kg Ernseryl formulation for large scale flock medication.',
   },
   {
@@ -869,7 +869,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7992',
     spec: '1kg powder',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7992.jpg',
     description: 'Penicillin and Streptomycin combination for bacterial enteritis and respiratory complex.',
   },
   {
@@ -882,7 +882,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8105',
     spec: '1kg commercial pack',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8105.jpg',
     description: 'High efficiency multi-antimicrobial formulation for commercial operations.',
   },
   {
@@ -896,7 +896,7 @@ export const PRODUCTS: Product[] = [
     spec: '1 Litre liquid',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8000.jpg',
     description: 'Herbal antiviral and immunostimulant liquid to boost resistance against viral challenges.',
   },
 
@@ -912,7 +912,7 @@ export const PRODUCTS: Product[] = [
     spec: '100ml Toltrazuril 2.5%',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7980.jpg',
     description: 'Toltrazuril 2.5% oral solution for rapid control of coccidiosis in broilers and replacement pullets.',
   },
   {
@@ -925,7 +925,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7994',
     spec: '100g Amprolium 20%',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7994.jpg',
     description: 'Amprolium 20% water soluble powder for prevention and treatment of coccidial infections.',
   },
   {
@@ -938,7 +938,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7990',
     spec: '1 Litre liquid',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7990.jpg',
     description: 'Potent coccidiocidal liquid for active blood in droppings and severe outbreaks.',
   },
   {
@@ -951,7 +951,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7998',
     spec: '1kg tub',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7998.jpg',
     description: 'Commercial 1kg Amprolium 20% for regular preventative protocols.',
   },
   {
@@ -965,7 +965,7 @@ export const PRODUCTS: Product[] = [
     spec: '1 Litre bottle',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7999.jpg',
     description: 'Commercial 1L Toltrazuril solution for large scale poultry flocks.',
   },
   {
@@ -978,7 +978,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7986',
     spec: '1kg pure grade Amprolium',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7986.jpg',
     description: 'High grade Amprolium water soluble powder for drinking water treatment.',
   },
   {
@@ -991,7 +991,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8095',
     spec: '1 strip / 1 box available',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8095.jpg',
     description: 'Broad spectrum deworming tablets for stomach, intestinal, and lung worms in livestock.',
   },
   {
@@ -1004,7 +1004,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7995',
     spec: '100g Levamisole powder',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7995.jpg',
     description: 'Levamisole HCl powder for internal roundworm control in poultry and swine.',
   },
   {
@@ -1017,7 +1017,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7983',
     spec: '1kg Levamisole pack',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7983.jpg',
     description: 'Bulk commercial Levamisole anthelmintic for routine flock deworming.',
   },
   {
@@ -1031,7 +1031,7 @@ export const PRODUCTS: Product[] = [
     spec: '1 Litre oral drench',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7952.jpg',
     description: 'Broad-spectrum oral Ivermectin controlling internal nematodes and external parasites.',
   },
   {
@@ -1044,7 +1044,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7972',
     spec: '100g Albendazole + Ivermectin',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7972.jpg',
     description: 'Dual action anthelmintic powder eradicating both roundworms and tapeworms.',
   },
   {
@@ -1057,7 +1057,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7977',
     spec: '1kg tub',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7977.jpg',
     description: '1kg dual action Albendazole and Ivermectin powder for livestock herds and poultry.',
   },
 
@@ -1072,7 +1072,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7969 / 8060',
     spec: '100ml emulsifiable concentrate',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7969.jpg',
     description: 'High potency insecticide for spraying poultry housing, cattle dips, and eradicating red mites and lice.',
   },
   {
@@ -1086,7 +1086,7 @@ export const PRODUCTS: Product[] = [
     spec: '2kg dusting powder',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8008.jpg',
     description: 'Dusting powder for poultry pens, nest boxes, and direct bird application to eliminate lice and fleas.',
   },
   {
@@ -1099,7 +1099,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7954-56',
     spec: '500ml pour-on bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7954.jpg',
     description: 'Convenient backline pour-on for cattle, sheep, and goats to control ticks, lice, and mange mites.',
   },
   {
@@ -1112,7 +1112,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7968',
     spec: '1 Litre bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7968.jpg',
     description: 'Commercial 1L Cypermethrin for premise spraying and tick dips.',
   },
   {
@@ -1125,7 +1125,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8106',
     spec: '1 Litre bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8107.jpg',
     description: 'Amitraz acaricide for control of ticks, mange mites, and lice on livestock.',
   },
 
@@ -1140,7 +1140,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8038 / 8013',
     spec: 'Compressed mineral block',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8038.jpg',
     description: 'Essential macro and micro mineral lick block for ruminants providing daily calcium, phosphorus, and salt.',
   },
   {
@@ -1154,7 +1154,7 @@ export const PRODUCTS: Product[] = [
     spec: '1kg feed mix powder',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8005.jpg',
     description: 'Nutritional feed premix accelerating broiler weight gain and feed conversion efficiency.',
   },
   {
@@ -1167,7 +1167,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8013',
     spec: '1kg pure ascorbic acid powder',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8013.jpg',
     description: 'Anti-heat stress ascorbic acid supplement critical for hot Ghanaian weather conditions.',
   },
   {
@@ -1181,7 +1181,7 @@ export const PRODUCTS: Product[] = [
     spec: '1kg layer premix',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8013.jpg',
     description: 'Specialized egg booster premix improving yolk color, shell thickness, and laying persistence.',
   },
   {
@@ -1194,7 +1194,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8007',
     spec: '2kg pack',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8001.jpg',
     description: '2kg grower and broiler weight enhancer.',
   },
   {
@@ -1207,7 +1207,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7987',
     spec: '1 Litre bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7989.jpg',
     description: 'Hepato-protective tonic detoxifying the liver after intensive antibiotic or mycotoxin exposure.',
   },
   {
@@ -1220,7 +1220,7 @@ export const PRODUCTS: Product[] = [
     refCode: '8073 / 8072',
     spec: '15kg commercial bag',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8073.jpg',
     description: 'Bulk commercial bag for farm feed mills mixing on-site rations.',
   },
 
@@ -1235,7 +1235,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7946',
     spec: '100ml sterile injectable vial',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7946.jpg',
     description: 'Injectable Vitamin B Complex for animal convalescence, neurological disorders, and metabolic support.',
   },
   {
@@ -1248,7 +1248,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7931',
     spec: '50ml injectable vial',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7931.jpg',
     description: 'Sterile 2% Ivermectin injection for gastrointestinal nematodes, lungworms, and mange in livestock.',
   },
   {
@@ -1261,7 +1261,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7943',
     spec: '100ml Oxytetracycline 10%',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7943.jpg',
     description: 'Oxytetracycline 10% injection for systemic bacterial infections, wound infections, and foot rot.',
   },
   {
@@ -1274,7 +1274,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7938',
     spec: '100ml Sulfadimidine injection',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7938.jpg',
     description: 'Sulfadimidine sodium 33.3% injection for coccidiosis, mastitis, and respiratory infections.',
   },
   {
@@ -1287,7 +1287,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7947',
     spec: '100ml injectable vial',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7947.jpg',
     description: 'Sterile multivitamin injection providing rapid bioavailability during illness recovery.',
   },
   {
@@ -1301,7 +1301,7 @@ export const PRODUCTS: Product[] = [
     spec: '100ml Long-Acting 20%',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7940.jpg',
     description: 'Long-acting Oxytetracycline 20% providing therapeutic blood levels for up to 72 hours with a single shot.',
   },
   {
@@ -1314,7 +1314,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7935',
     spec: '100ml vial',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7935.jpg',
     description: 'Essential iron supplementation with Vitamin B12 for piglets, calves, and anemic animals.',
   },
   {
@@ -1327,7 +1327,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7945',
     spec: '100ml Long Acting',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7945.jpg',
     description: 'Broad-spectrum bactericidal penicillin injection for skin, soft tissue, and urogenital tract infections.',
   },
   {
@@ -1341,7 +1341,7 @@ export const PRODUCTS: Product[] = [
     spec: '100ml injectable suspension',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7939.jpg',
     description: 'Procaine penicillin and dihydrostreptomycin suspension for mixed bacterial infections.',
   },
   {
@@ -1355,7 +1355,7 @@ export const PRODUCTS: Product[] = [
     spec: '200ml aerosol spray can',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7948.jpg',
     description: 'Topical antibacterial wound spray with violet marker for wounds, cuts, castration, and dehorning.',
   },
 
@@ -1371,7 +1371,7 @@ export const PRODUCTS: Product[] = [
     spec: '1kg broad-spectrum biocide',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7965.jpg',
     description: 'Powerful disinfectant active against viruses, bacteria, and fungi in poultry houses and equipment.',
   },
   {
@@ -1385,7 +1385,7 @@ export const PRODUCTS: Product[] = [
     notes: '100 GHC for 6pcs and above',
     spec: '2 Litre container',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8069.jpg',
     description: 'High-level biosecurity terminal disinfectant for footbaths, aerial fogging, and pen washdowns.',
   },
   {
@@ -1399,7 +1399,7 @@ export const PRODUCTS: Product[] = [
     spec: '5 Litre jerrycan',
     inStock: true,
     featured: true,
-    image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_8070.jpg',
     description: 'Commercial 5L biosecurity disinfectant for large farm facilities, processing units, and hatcheries.',
   },
 
@@ -1414,7 +1414,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7997',
     spec: 'Official health passport',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7997.jpg',
     description: 'Official canine health record booklet for tracking rabies, DHPP vaccinations, and deworming dates.',
   },
   {
@@ -1427,7 +1427,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7959',
     spec: '100ml pump spray',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7959.jpg',
     description: 'Fast acting spray killing fleas, ticks, and chewing lice on dogs and puppies.',
   },
   {
@@ -1440,7 +1440,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7957',
     spec: '250ml spray bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7957.jpg',
     description: 'Extended coverage anti-tick and flea spray for kennels and larger canine breeds.',
   },
   {
@@ -1453,7 +1453,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7960-62',
     spec: '500ml bottle',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7960.jpg',
     description: 'Antiseptic and antipruritic dog wash treating fungal skin conditions, odor, and coat dander.',
   },
   {
@@ -1466,7 +1466,7 @@ export const PRODUCTS: Product[] = [
     refCode: '7963-64',
     spec: '500ml bottle with neem extract',
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80',
+    image: '/products/IMG_7963.jpg',
     description: 'Natural neem oil insect repellent shampoo soothing sensitive skin and repelling biting insects.',
   },
 ]

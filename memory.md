@@ -193,3 +193,28 @@ EnerJoyson/
 │   └── Dockerfile, compose.yaml, docker-entrypoint.sh, .env.{staging,production}.example
 └── backend/                     # LEGACY Express API (pending deletion)
 ```
+
+---
+
+## 9. Recent Product Catalog & Assets Updates
+
+### Product Catalog Images (`frontend/public/products/`)
+- Authentic photography sourced from `frontend/src/Ernejoyson Limited Products/` (159 total original images).
+- Copied directly into `frontend/public/products/` and referenced cleanly via `/products/<filename>`.
+- **Mapping Strategy**:
+  - **106 of 107 products** successfully mapped to authentic photography.
+  - **90 items** mapped directly via the 4-digit code in their product ID (e.g., `fdr-8066` -> `/products/IMG_8066.jpg`).
+  - **16 items** mapped via visual and OCR validation (feeders with stands, gas brooders, pluckers, multi-dose continuous syringes, Bolai Penstrep, Patholyte 5L, Bolai Amitraz, Bolai Polypeptide Fatten Prime, Livertonic, etc.).
+  - **1 item** (`eq-grain-crush` - Grain Crushing Machine) retains its fallback machinery photo as it is heavy industrial equipment without an in-store bottle/box photo.
+- **Synchronized across 3 data sources**:
+  1. `frontend/src/data/products.ts` (Storefront static data)
+  2. `backend-django/apps/catalog/fixtures/products.json` (Django catalog fixtures)
+  3. `backend-django/data/db.sqlite3` (`catalog_product` table in SQLite)
+
+### Technical Support Vaccination Chart
+- Exclusively displays the official `ERNEJOYSON VACCINATION CHART.pdf` via an interactive canvas / PDF viewer with download and zoom controls. All unrelated generic schedules removed.
+
+### Footer & Brand Assets
+- Social icons: TikTok (`https://www.tiktok.com/@ernejoyson`) and WhatsApp only. Removed LinkedIn, X, and Instagram.
+- Cookie preference manager & Legal/Privacy/Terms page (`LegalPrivacyPage.tsx`).
+- Christopher's team picture updated to `christopher.jpeg` on the About page.
