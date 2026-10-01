@@ -26,6 +26,7 @@ import photoYakubu from '@/assets/staff/Yakubu.jpeg'
 import photoMillicent from '@/assets/staff/Millicent.jpeg'
 import photoFrancis from '@/assets/staff/Francis.jpeg'
 import photoManager from '@/assets/staff/Manager.jpeg'
+import photoChristopher from '@/assets/staff/christopher.jpeg'
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -102,7 +103,7 @@ const TEAM: Array<{
     name: 'Abinga Christopher Kwadwo',
     role: 'Technical Sales Executive',
     branch: 'Kasoa',
-    photo: null,
+    photo: photoChristopher,
   },
 ]
 
