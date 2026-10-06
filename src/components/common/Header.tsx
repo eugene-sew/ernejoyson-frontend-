@@ -6,7 +6,6 @@ import {
   ShoppingCart,
   Menu,
   X,
-  ShieldPlus,
   ArrowRight,
   Building2,
   Truck,
@@ -15,6 +14,7 @@ import {
   Home,
   Wrench,
 } from 'lucide-react'
+import logoImg from '@/assets/logo.jpeg'
 import { useCartStore } from '@/store/useCartStore'
 import { useAuthStore } from '@/store/useAuthStore'
 
@@ -102,9 +102,11 @@ export function Header() {
           to="/"
           className="flex h-12 lg:h-14 items-center gap-2.5 rounded-full bg-white px-4 sm:px-6 shadow-md border border-black/5 shrink-0 transition-all duration-200 hover:scale-[1.01] active:scale-95"
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#DCFCE7] text-[#166534]">
-            <ShieldPlus className="h-4.5 w-4.5 stroke-[2.2]" />
-          </div>
+          <img
+            src={logoImg}
+            alt="ERNEJOYSON"
+            className="h-8 w-8 rounded-full object-cover shadow-sm shrink-0"
+          />
           <div className="flex flex-col">
             <span className="font-display text-xs sm:text-sm font-black tracking-tight text-[#14532D] whitespace-nowrap">
               ERNEJOYSON
