@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ShoppingBag, FileText, Check, ShieldCheck, Layers, ArrowRight } from 'lucide-react'
+import logoImg from '@/assets/logo.jpeg'
 
 interface Product {
   id: string
@@ -182,6 +183,12 @@ export function FeaturedProductsSection() {
                 alt={product.name}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
+
+              {/* ERNEJOYSON Logo Watermark */}
+              <div className="absolute bottom-2 left-2 flex items-center gap-1 opacity-70 pointer-events-none select-none">
+                <img src={logoImg} alt="ERNEJOYSON" className="h-5 w-5 rounded-full object-cover shadow-sm ring-1 ring-white/60" />
+                <span className="text-[8px] font-black tracking-widest text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">ERNEJOYSON</span>
+              </div>
 
               {/* Bulk Pricing Badge */}
               {product.hasBulkPricing && (

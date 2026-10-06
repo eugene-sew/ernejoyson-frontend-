@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { PRODUCTS } from '@/data/products'
 import { useCartStore } from '@/store/useCartStore'
+import logoImg from '@/assets/logo.jpeg'
 
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -88,6 +89,13 @@ export const ProductDetailPage: React.FC = () => {
               alt={product.name}
               className="h-full w-full object-cover"
             />
+
+            {/* ERNEJOYSON Logo Watermark */}
+            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 opacity-75 pointer-events-none select-none">
+              <img src={logoImg} alt="ERNEJOYSON" className="h-6 w-6 rounded-full object-cover shadow ring-1 ring-white/70" />
+              <span className="text-[9px] font-black tracking-widest text-white uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">ERNEJOYSON</span>
+            </div>
+
             <div className="absolute top-4 right-4">
               {product.inStock ? (
                 <span className="rounded-full bg-[#DCFCE7] px-3 py-1 text-xs font-black text-[#14532D] shadow-xs">
