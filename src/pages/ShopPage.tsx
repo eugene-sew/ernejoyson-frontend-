@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 import { PRODUCTS, CATEGORY_FILTERS, type Product } from '@/data/products'
 import { useCartStore } from '@/store/useCartStore'
-import logoImg from '@/assets/logo.jpeg'
+import logoWatermark from '@/assets/logo-watermark.png'
 
 export const ShopPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -244,9 +244,12 @@ export const ShopPage: React.FC = () => {
                     />
 
                     {/* ERNEJOYSON Logo Watermark */}
-                    <div className="absolute bottom-2 left-2 flex items-center gap-1 opacity-70 pointer-events-none select-none">
-                      <img src={logoImg} alt="ERNEJOYSON" className="h-5 w-5 rounded-full object-cover shadow-sm ring-1 ring-white/60" />
-                      <span className="text-[8px] font-black tracking-widest text-white uppercase drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">ERNEJOYSON</span>
+                    <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 pointer-events-none select-none z-10">
+                      <img
+                        src={logoWatermark}
+                        alt="ERNEJOYSON"
+                        className="h-10 sm:h-11 w-auto max-w-[120px] object-contain opacity-70 drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)]"
+                      />
                     </div>
 
                     <div className="absolute top-2.5 right-2.5">
