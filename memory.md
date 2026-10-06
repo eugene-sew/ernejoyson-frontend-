@@ -221,3 +221,25 @@ EnerJoyson/
 
 ### Vercel Deployment & SPA Routing
 - Created `frontend/vercel.json` and `admin/vercel.json` with standard SPA rewrites (`"source": "/(.*)", "destination": "/index.html"`), clean URLs, asset caching (`/assets/*`, `/products/*`), and security headers. Resolves the Vercel `404 NOT_FOUND` on deep links/page reloads.
+
+---
+
+## 10. Work Log & Decisions (Oct 1, 2026)
+
+1. **Backend ported to Django** (`backend-django/`, repo `ernejoyson-backend`): same URLs and `{success, ...}` envelopes as Express, so neither frontend needed API changes. The server now prices orders from the DB, verifies Paystack server-side (amount + GHS + one order per reference), takes a signed webhook (`/api/payments/paystack/webhook`), sends Resend emails after commit (failures never break checkout), and signs Cloudinary uploads (`POST /api/uploads/cloudinary/signature`). 12 tests: `uv run manage.py test apps`.
+2. **Docker staging/production** for the API and admin. `--env-file` picks the environment; each environment gets its own container and DB volume. Staging uses Paystack test keys, has docs on and tags emails `[STAGING]`; production has docs off and HSTS on. HTTPS redirects need `X-Forwarded-Proto` from the proxy.
+3. **Admin split** into `admin/` (repo `ernejoyson-admin`, private). Routes moved from `/admin/*` to the root. The guard renders `<Navigate>` (calling `navigate()` during render caused a white screen) and validates the stored token on load. Storefront `/admin` now shows the homepage.
+4. **End-to-end verified** through the Vite proxy (26 API checks) and with headless Chromium on the admin (12 checks). Playwright is not a project dependency; it was installed in a scratch dir.
+5. **Frontend hosting moved to Vercel** (`vercel.json` in `frontend/` and `admin/`). The API stays on Docker behind Caddy/Nginx.
+
+### Open Issues (priority order)
+1. **Checkout false success**: `CartDrawer.completeOrder` catches API errors and still shows a receipt. With live Paystack keys a customer can be charged with no order. Fix: validate the cart with the API before opening Paystack and surface save errors.
+2. **Admin product images broken**: catalog `image` values are now storefront-relative (`/products/IMG_xxxx.jpg`). The admin app on its own domain resolves them against itself. Fix: store absolute URLs (storefront origin or Cloudinary), or prefix with a `VITE_STOREFRONT_URL` asset base in the admin. Also, `Product.image` is a `URLField`, so editing a product with a relative image via the API fails validation.
+3. **Admin CSP missing on Vercel**: `admin/vercel.json` lacks the `Content-Security-Policy` that `admin/nginx/default.conf.template` sets. Add it with `connect-src 'self' https://api.ernejoyson.com` (staging: staging-api).
+4. **Leaked local admin password**: the original local dev password is in the public `ernejoyson-frontend-` history (commit 549e016). Never use it for staging or prod. Rewriting history needs a force-push, so only do it if the owner asks.
+5. **Stale legal copy**: `LegalPrivacyPage.tsx` says cookies keep "admin login sessions" on the storefront. That is no longer true.
+6. **Not built yet**: Cloudinary upload UI in the admin (also add `https://api.cloudinary.com` to the admin CSP), per-depot staff roles, Paystack initialize endpoint, Postgres, background email queue, backups cron.
+7. **Legacy `backend/`** (Express) can be deleted once Django is live.
+
+### Local dev gotcha
+Background dev servers started by Claude are killed after a 2-hour maximum. Run long-lived servers in your own terminal.
