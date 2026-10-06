@@ -3,6 +3,22 @@
 // Empty in dev (Vite proxies /api); the API origin in staging/production builds.
 const API_URL = import.meta.env.VITE_API_URL ?? ''
 
+export interface BackendProduct {
+  id: string
+  name: string
+  category: string
+  category_slug: string
+  price: number | null
+  price_display: string
+  ref_code?: string | null
+  spec?: string | null
+  notes?: string | null
+  in_stock: boolean
+  featured: boolean
+  image?: string | null
+  description?: string
+}
+
 export interface BackendOrderItem {
   id: string
   order_id: string
@@ -46,6 +62,10 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
 }
 
 export const api = {
+  products: {
+    list: () => request<{ success: boolean; products: BackendProduct[]; total: number }>('/api/products'),
+  },
+
   orders: {
     create: (body: {
       customerName: string

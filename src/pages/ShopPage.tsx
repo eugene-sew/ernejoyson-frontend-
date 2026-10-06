@@ -8,7 +8,8 @@ import {
   ArrowRight,
   ExternalLink,
 } from 'lucide-react'
-import { PRODUCTS, CATEGORY_FILTERS, type Product } from '@/data/products'
+import { CATEGORY_FILTERS, type Product } from '@/data/products'
+import { useCatalog } from '@/store/useCatalogStore'
 import { useCartStore } from '@/store/useCartStore'
 import logoWatermark from '@/assets/logo-watermark.png'
 
@@ -22,6 +23,7 @@ export const ShopPage: React.FC = () => {
   const [addedItemMap, setAddedItemMap] = useState<Record<string, boolean>>({})
 
   const { addItem, openCart } = useCartStore()
+  const products = useCatalog()
 
   const handleCategoryChange = (slug: string) => {
     const newParams = new URLSearchParams(searchParams)
@@ -44,7 +46,7 @@ export const ShopPage: React.FC = () => {
   }
 
   const filteredProducts = useMemo(() => {
-    return PRODUCTS.filter((product) => {
+    return products.filter((product) => {
       // Category filter
       if (selectedCategory !== 'all' && product.categorySlug !== selectedCategory) {
         return false
@@ -83,7 +85,7 @@ export const ShopPage: React.FC = () => {
       }
       return 0
     })
-  }, [selectedCategory, inStockOnly, searchTerm, sortBy])
+  }, [products, selectedCategory, inStockOnly, searchTerm, sortBy])
 
   const handleAddToCart = (product: Product) => {
     addItem(product, 1)

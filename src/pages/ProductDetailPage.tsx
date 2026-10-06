@@ -11,18 +11,19 @@ import {
   ChevronRight,
   Info,
 } from 'lucide-react'
-import { PRODUCTS } from '@/data/products'
+import { useCatalog } from '@/store/useCatalogStore'
 import { useCartStore } from '@/store/useCartStore'
 import logoWatermark from '@/assets/logo-watermark.png'
 
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const { addItem } = useCartStore()
+  const products = useCatalog()
 
   const [quantity, setQuantity] = useState(1)
   const [isAdded, setIsAdded] = useState(false)
 
-  const product = PRODUCTS.find((p) => p.id === id)
+  const product = products.find((p) => p.id === id)
 
   if (!product) {
     return (
@@ -51,7 +52,7 @@ export const ProductDetailPage: React.FC = () => {
   }
 
   // Related products from same category (excluding this one)
-  const relatedProducts = PRODUCTS.filter(
+  const relatedProducts = products.filter(
     (p) => p.categorySlug === product.categorySlug && p.id !== product.id
   ).slice(0, 4)
 
