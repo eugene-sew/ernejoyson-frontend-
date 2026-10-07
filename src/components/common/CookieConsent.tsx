@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Cookie, Shield, Check, X, SlidersHorizontal, ArrowLeft } from 'lucide-react'
+import { Cookie, X } from 'lucide-react'
 
 export interface CookiePreferences {
-  essential: boolean // always true
+  essential: boolean
   analytics: boolean
-  marketing: boolean
 }
 
 const STORAGE_KEY = 'ej_cookie_consent_v1'
@@ -13,22 +12,17 @@ const STORAGE_KEY = 'ej_cookie_consent_v1'
 export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false)
   const [showPreferences, setShowPreferences] = useState(false)
-  const [preferences, setPreferences] = useState<CookiePreferences>({
-    essential: true,
-    analytics: true,
-    marketing: false,
-  })
+  const [analyticsEnabled, setAnalyticsEnabled] = useState(true)
 
   useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY)
       if (!stored) {
-        // Small delay so it feels natural and does not block page load
-        const timer = setTimeout(() => setIsVisible(true), 1000)
+        const timer = setTimeout(() => setIsVisible(true), 1200)
         return () => clearTimeout(timer)
       } else {
         const parsed = JSON.parse(stored)
-        setPreferences(parsed)
+        setAnalyticsEnabled(!!parsed.analytics)
       }
     } catch {
       setIsVisible(true)
@@ -46,222 +40,142 @@ export function CookieConsent() {
     return () => window.removeEventListener('open-cookie-settings', handleOpenSettings)
   }, [])
 
-  const savePreferences = (prefs: CookiePreferences) => {
+  const save = (analytics: boolean) => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ essential: true, analytics }))
     } catch {
       // ignore
     }
-    setPreferences(prefs)
+    setAnalyticsEnabled(analytics)
     setIsVisible(false)
     setShowPreferences(false)
-  }
-
-  const handleAcceptAll = () => {
-    savePreferences({
-      essential: true,
-      analytics: true,
-      marketing: true,
-    })
-  }
-
-  const handleEssentialOnly = () => {
-    savePreferences({
-      essential: true,
-      analytics: false,
-      marketing: false,
-    })
-  }
-
-  const handleSaveCustom = () => {
-    savePreferences(preferences)
   }
 
   if (!isVisible) return null
 
   return (
-    <aside
-      aria-label="Cookie and data preferences"
-      className="fixed inset-x-0 bottom-0 z-50 p-3 sm:p-5 pointer-events-none flex justify-center animate-in fade-in slide-in-from-bottom-6 duration-300"
+    <div
+      role="region"
+      aria-label="Cookie consent"
+      className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-sm z-50 animate-in fade-in slide-in-from-bottom-4 duration-300 pointer-events-auto"
     >
-      <div className="pointer-events-auto w-full max-w-6xl bg-[#071c0f]/95 text-white rounded-3xl border border-[#22C55E]/30 p-5 sm:p-6 shadow-2xl backdrop-blur-2xl">
+      <div className="bg-[#0b2416]/95 text-white rounded-2xl border border-[#22C55E]/30 p-4 shadow-2xl backdrop-blur-xl">
         {!showPreferences ? (
-          /* ─── Long / Wide Horizontal Bar Layout ─── */
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-            {/* Left Content Area */}
-            <div className="flex items-start gap-4 max-w-3xl">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#22C55E]/15 text-[#22C55E] border border-[#22C55E]/30 shrink-0 mt-0.5">
-                <Cookie className="h-5 w-5" />
-              </div>
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2.5 flex-wrap">
-                  <h3 className="font-display font-extrabold text-white text-base tracking-tight">
-                    Data &amp; Cookie Governance
-                  </h3>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#86efac] bg-[#22C55E]/15 px-2.5 py-0.5 rounded-full border border-[#22C55E]/30">
-                    <Shield className="h-3 w-3" />
-                    <span>Ghana Data Protection Act (Act 843) Compliant</span>
-                  </span>
+          <div className="space-y-3">
+            {/* Header with cookie icon & dismiss */}
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="h-8 w-8 rounded-xl bg-[#22C55E]/20 text-[#22C55E] flex items-center justify-center shrink-0">
+                  <Cookie className="h-4 w-4" />
                 </div>
-                <p className="text-xs sm:text-[13px] text-neutral-300 leading-relaxed font-sans">
-                  We use essential storage to preserve your cart items, remember regional depot selections (Kumasi, Kasoa, Sunyani, Goaso), and support secure Paystack transactions. You can manage non-essential preferences or accept all cookies.
-                </p>
-                <div className="flex items-center gap-3 text-[11px] text-neutral-400 pt-0.5">
-                  <Link to="/privacy" className="hover:text-[#86efac] underline underline-offset-2">
-                    Privacy Policy
-                  </Link>
-                  <span>•</span>
-                  <Link to="/cookies" className="hover:text-[#86efac] underline underline-offset-2">
-                    Cookie Policy
-                  </Link>
-                  <span>•</span>
-                  <Link to="/terms" className="hover:text-[#86efac] underline underline-offset-2">
-                    Terms of Supply
-                  </Link>
-                </div>
+                <h3 className="font-bold text-sm text-white">We use cookies</h3>
               </div>
+              <button
+                type="button"
+                onClick={() => save(false)}
+                className="text-neutral-400 hover:text-white p-1 transition-colors cursor-pointer"
+                aria-label="Close cookie banner"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
 
-            {/* Right Buttons Area */}
-            <div className="flex items-center gap-2.5 shrink-0 flex-wrap sm:flex-nowrap">
+            {/* Short concise text */}
+            <p className="text-xs text-neutral-300 leading-relaxed font-sans">
+              We use cookies to save your cart items and improve your experience.{' '}
+              <Link to="/cookies" className="text-[#86efac] hover:underline font-medium">
+                Learn more
+              </Link>
+            </p>
+
+            {/* Clean compact action buttons */}
+            <div className="flex items-center gap-2 pt-0.5">
+              <button
+                type="button"
+                onClick={() => save(false)}
+                className="flex-1 py-2 px-3 text-xs font-semibold text-neutral-300 hover:text-white bg-white/10 hover:bg-white/15 rounded-xl transition-colors cursor-pointer"
+              >
+                Essential only
+              </button>
+              <button
+                type="button"
+                onClick={() => save(true)}
+                className="flex-1 py-2 px-3 text-xs font-bold text-[#071c0f] bg-[#22C55E] hover:bg-[#4ade80] rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer"
+              >
+                Accept all
+              </button>
+            </div>
+
+            <div className="text-center">
               <button
                 type="button"
                 onClick={() => setShowPreferences(true)}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-bold text-neutral-300 hover:text-white rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                className="text-[11px] text-neutral-400 hover:text-neutral-200 transition-colors cursor-pointer"
               >
-                <SlidersHorizontal className="h-3.5 w-3.5 text-[#86efac]" />
-                <span>Customize</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={handleEssentialOnly}
-                className="flex-1 sm:flex-initial px-4 py-2.5 text-xs font-bold text-white bg-white/10 hover:bg-white/15 rounded-xl border border-white/15 transition-colors"
-              >
-                Essential Only
-              </button>
-
-              <button
-                type="button"
-                onClick={handleAcceptAll}
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1 px-5 py-2.5 text-xs font-black text-[#082011] bg-[#22C55E] hover:bg-[#4ADE80] rounded-xl transition-all shadow-md active:scale-95"
-              >
-                <Check className="h-4 w-4" />
-                <span>Accept All</span>
-              </button>
-
-              <button
-                onClick={handleEssentialOnly}
-                className="p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-white/5 transition-colors hidden sm:flex shrink-0"
-                title="Dismiss"
-                aria-label="Dismiss"
-              >
-                <X className="h-4 w-4" />
+                Preferences
               </button>
             </div>
           </div>
         ) : (
-          /* ─── Granular Wide Preferences Panel ─── */
-          <div className="space-y-5 animate-in fade-in duration-200">
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#22C55E]/15 text-[#22C55E] border border-[#22C55E]/30 shrink-0">
-                  <SlidersHorizontal className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-display font-extrabold text-white text-base tracking-tight">
-                    Custom Storage &amp; Cookie Preferences
-                  </h3>
-                  <p className="text-[11px] text-neutral-400">
-                    Adjust which data categories you allow ERNEJOYSON Company Limited to store on your device.
-                  </p>
-                </div>
-              </div>
-
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-bold text-sm text-white">Cookie Preferences</h3>
               <button
+                type="button"
                 onClick={() => setShowPreferences(false)}
-                className="p-1.5 rounded-lg text-neutral-400 hover:text-white transition-colors"
-                title="Close"
+                className="text-neutral-400 hover:text-white p-1 transition-colors cursor-pointer"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
-            {/* Wide 2-Column Options Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              {/* Category 1: Essential */}
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-white text-sm">Essential System Storage</span>
-                    <span className="text-[10px] font-mono bg-[#22C55E]/20 text-[#86efac] px-2 py-0.5 rounded-full font-bold">
-                      Always Required
-                    </span>
-                  </div>
-                  <input
-                    type="checkbox"
-                    checked={true}
-                    disabled={true}
-                    className="rounded text-[#22C55E] cursor-not-allowed opacity-75"
-                  />
+            <div className="space-y-2 text-xs">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <div>
+                  <p className="font-semibold text-white">Essential</p>
+                  <p className="text-[11px] text-neutral-400">Cart & session data</p>
                 </div>
-                <p className="text-neutral-400 leading-relaxed text-[11px]">
-                  Required for cart persistence across page transitions, regional depot order routing, security tokens, and Paystack Ghana checkout authorization. Cannot be disabled.
-                </p>
+                <span className="text-[10px] text-[#86efac] bg-[#22C55E]/20 px-2 py-0.5 rounded-md font-medium">
+                  Required
+                </span>
               </div>
 
-              {/* Category 2: Performance & Analytics */}
-              <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-white text-sm">Anonymous Analytics &amp; Latency</span>
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <div>
+                  <p className="font-semibold text-white">Analytics</p>
+                  <p className="text-[11px] text-neutral-400">Usage & performance</p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={preferences.analytics}
-                    onChange={(e) =>
-                      setPreferences({ ...preferences, analytics: e.target.checked })
-                    }
-                    className="h-4 w-4 rounded border-white/20 bg-black/40 text-[#22C55E] focus:ring-0 cursor-pointer"
+                    checked={analyticsEnabled}
+                    onChange={(e) => setAnalyticsEnabled(e.target.checked)}
+                    className="sr-only peer"
                   />
-                </div>
-                <p className="text-neutral-400 leading-relaxed text-[11px]">
-                  Helps our technical team measure catalog search response times, page load speed, and network latency across MTN, Telecel, and AT networks in Ghana.
-                </p>
+                  <div className="w-8 h-4.5 bg-neutral-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-[#22C55E]"></div>
+                </label>
               </div>
             </div>
 
-            {/* Bottom Actions Bar */}
-            <div className="flex items-center justify-between pt-2 border-t border-white/10">
+            <div className="flex items-center gap-2 pt-1">
               <button
                 type="button"
                 onClick={() => setShowPreferences(false)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-neutral-300 hover:text-white rounded-xl hover:bg-white/5 transition-colors"
+                className="flex-1 py-2 px-3 text-xs font-semibold text-neutral-300 hover:text-white bg-white/10 hover:bg-white/15 rounded-xl transition-colors cursor-pointer"
               >
-                <ArrowLeft className="h-3.5 w-3.5" />
-                <span>Back to Summary</span>
+                Back
               </button>
-
-              <div className="flex items-center gap-2.5">
-                <button
-                  type="button"
-                  onClick={handleEssentialOnly}
-                  className="px-4 py-2 text-xs font-bold text-white bg-white/10 hover:bg-white/15 rounded-xl transition-colors"
-                >
-                  Reject Non-Essential
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSaveCustom}
-                  className="inline-flex items-center gap-1.5 px-5 py-2 text-xs font-black text-[#082011] bg-[#22C55E] hover:bg-[#4ADE80] rounded-xl transition-all shadow-md"
-                >
-                  <Check className="h-4 w-4" />
-                  <span>Save Preferences</span>
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => save(analyticsEnabled)}
+                className="flex-1 py-2 px-3 text-xs font-bold text-[#071c0f] bg-[#22C55E] hover:bg-[#4ade80] rounded-xl transition-all shadow-sm active:scale-95 cursor-pointer"
+              >
+                Save
+              </button>
             </div>
           </div>
         )}
       </div>
-    </aside>
+    </div>
   )
 }
