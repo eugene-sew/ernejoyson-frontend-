@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Play, ArrowRight, ChevronLeft, ChevronRight, Video, CheckCircle2 } from 'lucide-react'
+import { veterinaryProductsImg, poultryEquipmentImg, farmConsultationImg, poultryCratesImg } from '@/assets'
 
 export function WhyAgroneSection() {
   const [openAccordion, setOpenAccordion] = useState<number | null>(0)
@@ -14,8 +15,8 @@ export function WhyAgroneSection() {
         'We focus on providing quality veterinary products and livestock equipment that farmers can rely on in their day-to-day operations.',
       tag: '01',
       mediaTitle: 'Certified veterinary formulations and durable equipment.',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
-      videoBg: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1800&q=90',
+      image: veterinaryProductsImg,
+      videoBg: veterinaryProductsImg,
     },
     {
       id: 1,
@@ -24,8 +25,8 @@ export function WhyAgroneSection() {
         'From animal health products to feeding, drinking, hatchery and processing equipment, our range is built around the practical needs of poultry and livestock producers.',
       tag: '02',
       mediaTitle: 'Practical poultry & livestock tools designed for daily farm life.',
-      image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
-      videoBg: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=1800&q=90',
+      image: poultryEquipmentImg,
+      videoBg: poultryEquipmentImg,
     },
     {
       id: 2,
@@ -34,8 +35,8 @@ export function WhyAgroneSection() {
         'Choosing the right product matters. Our technical team provides practical guidance to help customers understand and use products for their intended purpose.',
       tag: '03',
       mediaTitle: 'Guidance on dosage, administration, and equipment maintenance.',
-      image: 'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=600&q=80',
-      videoBg: 'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=1800&q=90',
+      image: farmConsultationImg,
+      videoBg: farmConsultationImg,
     },
     {
       id: 3,
@@ -44,8 +45,8 @@ export function WhyAgroneSection() {
         'Whether you are starting, expanding or managing an established operation, ERNEJOYSON is positioned to support your farm as its needs evolve.',
       tag: '04',
       mediaTitle: 'Supporting commercial scaling across all regions of Ghana.',
-      image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=600&q=80',
-      videoBg: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=1800&q=90',
+      image: poultryCratesImg,
+      videoBg: poultryCratesImg,
     },
   ]
 

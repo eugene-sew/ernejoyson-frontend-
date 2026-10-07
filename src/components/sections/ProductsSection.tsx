@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight, CheckCircle2, HeartPulse, Layers, TrendingUp } from 'lucide-react'
+import { veterinaryProductsImg, poultryEquipmentImg, farmConsultationImg } from '@/assets'
 
 export function ProductsSection() {
   const solutions = [
@@ -13,7 +14,7 @@ export function ProductsSection() {
       actionText: 'Browse Health Products',
       href: '/shop?category=antibiotics',
       icon: HeartPulse,
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=85',
+      image: veterinaryProductsImg,
     },
     {
       id: 2,
@@ -25,7 +26,7 @@ export function ProductsSection() {
       actionText: 'Explore Poultry Gear',
       href: '/shop?category=feeders',
       icon: Layers,
-      image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=800&q=85',
+      image: poultryEquipmentImg,
     },
     {
       id: 3,
@@ -37,7 +38,7 @@ export function ProductsSection() {
       actionText: 'Plan Expansion',
       href: '/solutions',
       icon: TrendingUp,
-      image: 'https://images.unsplash.com/photo-1563281577-a7be47e20db9?auto=format&fit=crop&w=800&q=85',
+      image: farmConsultationImg,
     },
   ]
 

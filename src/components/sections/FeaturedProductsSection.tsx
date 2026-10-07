@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ShoppingBag, FileText, Check, ShieldCheck, Layers, ArrowRight } from 'lucide-react'
 import logoWatermark from '@/assets/logo-watermark.png'
+import { veterinaryProductsImg, poultryEquipmentImg, poultryCratesImg } from '@/assets'
 
 interface Product {
   id: string
@@ -27,7 +28,7 @@ export function FeaturedProductsSection() {
       availability: 'In Stock (Kasoa & Kumasi)',
       hasBulkPricing: true,
       priceDisplay: 'Commercial Pack',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80',
+      image: veterinaryProductsImg,
     },
     {
       id: 'prod-2',
@@ -57,7 +58,7 @@ export function FeaturedProductsSection() {
       availability: 'Available for Farm Setup',
       hasBulkPricing: true,
       priceDisplay: 'Per Meter Run / Section',
-      image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=600&q=80',
+      image: poultryEquipmentImg,
     },
     {
       id: 'prod-5',
@@ -97,7 +98,7 @@ export function FeaturedProductsSection() {
       availability: 'In Stock in Bulk',
       hasBulkPricing: true,
       priceDisplay: 'Per Crate / Stack',
-      image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=600&q=80',
+      image: poultryCratesImg,
     },
   ]
 

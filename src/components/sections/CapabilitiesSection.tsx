@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Pill, Layers, Headphones } from 'lucide-react'
+import { veterinaryProductsImg, poultryEquipmentImg, farmConsultationImg } from '@/assets'
 
 export function CapabilitiesSection() {
   const [activeSlide, setActiveSlide] = useState(0)
@@ -14,7 +15,7 @@ export function CapabilitiesSection() {
       actionText: 'Browse Veterinary Products',
       href: '/shop?category=antibiotics',
       icon: Pill,
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=85',
+      image: veterinaryProductsImg,
     },
     {
       id: 2,
@@ -24,7 +25,7 @@ export function CapabilitiesSection() {
       actionText: 'Explore Equipment',
       href: '/shop?category=feeders',
       icon: Layers,
-      image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=85',
+      image: poultryEquipmentImg,
     },
     {
       id: 3,
@@ -34,7 +35,7 @@ export function CapabilitiesSection() {
       actionText: 'Talk to an Expert',
       href: '/technical-support',
       icon: Headphones,
-      image: 'https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=800&q=85',
+      image: farmConsultationImg,
     },
   ]
 

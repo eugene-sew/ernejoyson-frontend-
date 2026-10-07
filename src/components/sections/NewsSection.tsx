@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, BookOpen } from 'lucide-react'
+import { veterinaryProductsImg, poultryEquipmentImg, farmConsultationImg } from '@/assets'
 
 export function NewsSection() {
   const articles = [
@@ -9,7 +10,7 @@ export function NewsSection() {
       date: 'Field Guide',
       category: 'Animal Health',
       summary: 'Understanding treatment timing, active ingredients, and administration best practices.',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80',
+      image: veterinaryProductsImg,
     },
     {
       id: 2,
@@ -17,7 +18,7 @@ export function NewsSection() {
       date: 'Technical Manual',
       category: 'Farm Equipment',
       summary: 'Practical disinfection, pressure regulation, and leak prevention for commercial poultry houses.',
-      image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=800&q=80',
+      image: poultryEquipmentImg,
     },
     {
       id: 3,
@@ -25,7 +26,7 @@ export function NewsSection() {
       date: 'Operations Case',
       category: 'Farm Management',
       summary: 'Footbath management, visitor protocols, and quarantine setups for Ghanaian livestock farms.',
-      image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=800&q=80',
+      image: farmConsultationImg,
     },
   ]
 

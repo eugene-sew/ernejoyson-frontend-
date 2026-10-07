@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, ArrowRight } from 'lucide-react'
+import { veterinaryProductsImg, poultryEquipmentImg, poultryCratesImg } from '@/assets'
 
 export function FeaturesGridSection() {
   const categories = [
@@ -10,7 +11,7 @@ export function FeaturesGridSection() {
       badge: 'Core Supply',
       span: 'lg:col-span-6',
       minHeight: 'min-h-[340px] sm:min-h-[380px]',
-      image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=85',
+      image: veterinaryProductsImg,
       href: '/shop?category=antibiotics',
     },
     {
@@ -40,7 +41,7 @@ export function FeaturesGridSection() {
       badge: 'Essential',
       span: 'lg:col-span-3 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
-      image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=800&q=85',
+      image: poultryEquipmentImg,
       href: '/shop?category=feeders',
     },
     {
@@ -80,7 +81,7 @@ export function FeaturesGridSection() {
       badge: null,
       span: 'lg:col-span-6 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
-      image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=1000&q=85',
+      image: poultryCratesImg,
       href: '/shop?category=equipment',
     },
   ]
