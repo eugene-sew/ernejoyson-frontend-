@@ -2,17 +2,7 @@ export interface Product {
   id: string
   name: string
   category: string
-  categorySlug:
-    | 'feeders'
-    | 'drinkers'
-    | 'equipment'
-    | 'vitamins'
-    | 'antibiotics'
-    | 'anti-parasitics'
-    | 'feed-additives'
-    | 'injectables'
-    | 'disinfectants'
-    | 'pets'
+  categorySlug: string // a category slug managed in the admin (Products → Categories)
   price: number | null
   priceDisplay: string
   refCode?: string

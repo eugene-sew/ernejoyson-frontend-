@@ -61,7 +61,13 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
   return data
 }
 
+export interface ShopCategory { slug: string; name: string; sort_order: number; productCount: number }
+
 export const api = {
+  categories: {
+    list: () => request<{ success: boolean; categories: ShopCategory[] }>('/api/categories'),
+  },
+
   products: {
     list: () => request<{ success: boolean; products: BackendProduct[]; total: number }>('/api/products'),
   },

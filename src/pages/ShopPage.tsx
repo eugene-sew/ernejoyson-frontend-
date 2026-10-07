@@ -8,8 +8,8 @@ import {
   ArrowRight,
   ExternalLink,
 } from 'lucide-react'
-import { CATEGORY_FILTERS, type Product } from '@/data/products'
-import { useCatalog } from '@/store/useCatalogStore'
+import { type Product } from '@/data/products'
+import { useCatalog, useShopCategories } from '@/store/useCatalogStore'
 import { useCartStore } from '@/store/useCartStore'
 import logoWatermark from '@/assets/logo-watermark.png'
 
@@ -24,6 +24,7 @@ export const ShopPage: React.FC = () => {
 
   const { addItem, openCart } = useCartStore()
   const products = useCatalog()
+  const categoryFilters = useShopCategories()
 
   const handleCategoryChange = (slug: string) => {
     const newParams = new URLSearchParams(searchParams)
@@ -161,7 +162,7 @@ export const ShopPage: React.FC = () => {
 
         {/* Category Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          {CATEGORY_FILTERS.map((cat) => {
+          {categoryFilters.map((cat) => {
             const isActive = selectedCategory === cat.slug
             return (
               <button
@@ -183,7 +184,7 @@ export const ShopPage: React.FC = () => {
         <div className="flex items-center justify-between text-xs text-[#14532D]/70 font-semibold px-1">
           <span>
             Showing <strong className="text-[#14532D]">{filteredProducts.length}</strong> items
-            {selectedCategory !== 'all' && ` in ${CATEGORY_FILTERS.find((c) => c.slug === selectedCategory)?.label}`}
+            {selectedCategory !== 'all' && ` in ${categoryFilters.find((c) => c.slug === selectedCategory)?.label}`}
             {searchTerm && ` matching "${searchTerm}"`}
           </span>
           {(searchTerm || selectedCategory !== 'all' || inStockOnly) && (
