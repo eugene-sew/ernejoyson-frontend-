@@ -15,13 +15,21 @@ export class ApiError extends Error {
   }
 }
 
-const BASE_URL = import.meta.env.VITE_API_URL || '/api'
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5001').replace(/\/+$/, '')
 
 export async function request<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
-  const url = endpoint.startsWith('http') ? endpoint : `${BASE_URL}${endpoint}`
+  let url = endpoint
+  if (!endpoint.startsWith('http')) {
+    if (BASE_URL.endsWith('/api') && endpoint.startsWith('/api/')) {
+      url = `${BASE_URL}${endpoint.slice(4)}`
+    } else {
+      const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+      url = `${BASE_URL}${cleanEndpoint}`
+    }
+  }
 
   const headers = new Headers(options.headers || {})
   if (!headers.has('Content-Type') && !(options.body instanceof FormData)) {

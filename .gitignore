@@ -25,3 +25,7 @@ dist-ssr
 .commandcode/*
 *.zip
 src/Ernejoyson Limited Products/
+
+.env
+.env.*
+!.env.example

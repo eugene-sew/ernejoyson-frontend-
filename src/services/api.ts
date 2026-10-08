@@ -1,7 +1,17 @@
-// Storefront API client. Admin endpoints live in the separate admin app (../admin).
+// Storefront API client. Picks the API base URL from the VITE_API_URL environment variable.
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5001').replace(/\/+$/, '')
 
-// Empty in dev (Vite proxies /api); the API origin in staging/production builds.
-const API_URL = import.meta.env.VITE_API_URL ?? ''
+function buildApiUrl(endpoint: string): string {
+  if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) {
+    return endpoint
+  }
+  // If base URL ends with /api and endpoint starts with /api/, avoid duplicate /api
+  if (API_BASE_URL.endsWith('/api') && endpoint.startsWith('/api/')) {
+    return `${API_BASE_URL}${endpoint.slice(4)}`
+  }
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+  return `${API_BASE_URL}${cleanEndpoint}`
+}
 
 export interface BackendProduct {
   id: string
@@ -50,7 +60,8 @@ export interface BackendOrder {
 }
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(API_URL + endpoint, {
+  const url = buildApiUrl(endpoint)
+  const response = await fetch(url, {
     ...options,
     headers: { 'Content-Type': 'application/json', ...options.headers },
   })
