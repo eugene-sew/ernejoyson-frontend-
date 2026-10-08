@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, ArrowRight } from 'lucide-react'
-import { veterinaryProductsImg, poultryEquipmentImg, poultryCratesImg } from '@/assets'
+import { veterinaryProductsImg, poultryEquipmentImg, poultryCratesImg, poultryPluckerImg } from '@/assets'
 
 export function FeaturesGridSection() {
   const categories = [
@@ -71,7 +71,7 @@ export function FeaturesGridSection() {
       badge: null,
       span: 'lg:col-span-6 sm:col-span-6',
       minHeight: 'min-h-[300px] sm:min-h-[340px]',
-      image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=1000&q=85',
+      image: poultryPluckerImg,
       href: '/shop?category=equipment',
     },
     {

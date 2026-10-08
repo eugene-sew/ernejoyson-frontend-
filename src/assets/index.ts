@@ -4,6 +4,7 @@ import poultryEquipmentImg from './poultry_equipment.jpg'
 import veterinaryProductsImg from './veterinary_products.jpg'
 import farmConsultationImg from './farm_consultation.jpg'
 import poultryCratesImg from './poultry_crates.jpg'
+import poultryPluckerImg from './poultry_plucker.jpg'
 
 export {
   HeroBg,
@@ -12,5 +13,6 @@ export {
   veterinaryProductsImg,
   farmConsultationImg,
   poultryCratesImg,
+  poultryPluckerImg,
 }
 export default HeroBg

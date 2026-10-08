@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ShoppingBag, FileText, Check, ShieldCheck, Layers, ArrowRight } from 'lucide-react'
 import logoWatermark from '@/assets/logo-watermark.png'
-import { veterinaryProductsImg, poultryEquipmentImg, poultryCratesImg } from '@/assets'
+import { veterinaryProductsImg, poultryEquipmentImg, poultryCratesImg, poultryPluckerImg } from '@/assets'
 
 interface Product {
   id: string
@@ -88,7 +88,7 @@ export function FeaturedProductsSection() {
       availability: 'In Stock',
       hasBulkPricing: true,
       priceDisplay: 'Commercial Grade',
-      image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80',
+      image: poultryPluckerImg,
     },
     {
       id: 'prod-8',
