@@ -86,7 +86,8 @@ Django models: `apps/accounts` (User, email login), `apps/catalog` (Product), `a
 4. `order_items`:
    - `id`, `order_id`, `product_id`, `product_name`, `product_image`, `quantity`, `unit_price`, `total_price`.
 5. `customers`:
-   - `id`, `name`, `phone`, `email`, `location`, `orders_count`, `total_spent`, `last_order_at`.
+   - `id`, `name`, `phone`, `email`, `location`, `orders_count`, `total_spent`, `last_order_at`, plus optional shop account fields `password` (blank = guest), `account_created_at`, `last_login_at`.
+6. `leads` (Oct 8): storefront enquiries. `source` (bulk_enquiry, b2b_quote, account, contact, other), `status` (new → contacted → qualified → converted / closed), contact + business fields, `customer` link by phone, `assigned_to`, `staff_notes` (JSON list).
 
 ---
 
@@ -97,7 +98,8 @@ Django models: `apps/accounts` (User, email login), `apps/catalog` (Product), `a
    - Opens [`frontend/src/components/common/CartDrawer.tsx`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/frontend/src/components/common/CartDrawer.tsx).
    - Checkout sends payload to `POST /api/orders`.
    - The API re-prices every line from the catalog (client prices ignored), verifies the Paystack reference server-side, rejects reused references / unknown / out-of-stock products, upserts the customer, and emails customer + ops via Resend.
-   - **Known bug (open)**: `CartDrawer.completeOrder` swallows API errors and still shows a success receipt.
+   - Save errors are shown in the drawer; no receipt is shown unless the API saved the order (fixed Oct 8). The receipt shows the real order number.
+   - **Accounts are optional.** Guests just order. Signed-in customers (`Authorization: Customer <token>`) get their details prefilled and the order is linked to the account (`Order.account_linked`). The receipt offers "Create account" (pulls in that order) or "Track without an account".
 2. **Admin Verification & Fulfillment**:
    - Navigates to `/orders` in the admin app or views the urgent alert banner on the dashboard (`/`).
    - One-click phone dialing (`tel:`) to verify delivery address with the farmer.
@@ -237,9 +239,10 @@ EnerJoyson/
 9. **Catalog CMS (Oct 7)**: soft delete only (Deleted tab + restore + Undo toasts), batch actions with select-all-matching, xlsx/csv import with per-row preview (all-or-nothing) and export/template, server-side image upload when Cloudinary isn't connected (WebP, EXIF stripped, stored in `backend-django/data/media`). Batch category moves also update a default card label. Browser-verified (22 checks), 43 backend tests.
 10. **Oct 7 round**: soft delete is record keeping only (no Deleted tab / restore / undo). One `ImageDropzone` for every image field (drag & drop, paste, image fills the frame). Payment gateway log (Activity → Payments). Activity description is just "System audit logs." Customers filter/sort. **Categories are managed** (Products → Categories; storefront reads `/api/categories`). Product price/featured/image filters + sort. Orders refresh shows spinner, progress bar, "Updated …" stamp. **Branches are managed** in Settings by owners (region of 16, town, district, GhanaPost GPS, map pin via lazy MapLibre). Environment/Swagger card is owner-only. Staff sign-in history in the Team drawer. Backend 51 tests.
 11. **Frontend hosting moved to Vercel** (`vercel.json` in `frontend/` and `admin/`). The API stays on Docker behind Caddy/Nginx.
+12. **Customer portal + leads (Oct 8)**: optional shop accounts (`/api/account/*`: register, login by phone or email, me, change password, emailed reset, my orders, order detail, claim a past order with order number + phone). Customer tokens use the `Customer` scheme and can't reach the staff API. Guest orders are never shown in an account by phone alone; the customer claims them with the order number. Guests track at `/track` (order number + phone). Storefront pages: `/account` (sign in / create / forgot, then Orders · Profile · Password), `/account/orders/:number` (timeline, waybill, Order again), `/account/reset?token=`, `/track`; account icon in the header, links in the footer. `useAuthStore` is now the real session (the old fake `ej_user`/`ej_leads` localStorage login is gone). Homepage bulk form and `/b2b` RFQ now post to `POST /api/leads/submit` (honeypot `website`, 10/hour/IP) and alert staff by email. Admin **Leads** page (`leads.view`; `leads.manage` to change): status tabs with counts, source/owner/date filters, search, sort, drawer with call/WhatsApp, status, "Take it", notes, xlsx/csv export of the current filter. Customers page shows who has an account (+ filter). Browser-verified; backend 51 tests.
 
 ### Open Issues (priority order)
-1. **Checkout false success**: `CartDrawer.completeOrder` catches API errors and still shows a receipt. With live Paystack keys a customer can be charged with no order. Fix: validate the cart with the API before opening Paystack and surface save errors.
+1. **Checkout: validate before paying**: save errors now show (fixed Oct 8), but with live Paystack keys a customer could still pay and then hit a save error (they see the reference and a phone number). Fix properly by validating the cart with the API before opening Paystack.
 2. ~~Admin product images broken~~ **Fixed Oct 6**: `admin/src/lib/storefront.ts` prefixes storefront-relative images with `VITE_STOREFRONT_URL` (dev default `http://localhost:5174`). Note: `Product.image` is a `URLField`, so sending a relative image path through the API still fails validation.
 3. **Admin CSP missing on Vercel**: `admin/vercel.json` lacks the `Content-Security-Policy` that `admin/nginx/default.conf.template` sets. Add it with `connect-src 'self' https://api.ernejoyson.com` (staging: staging-api).
 4. **Leaked local admin password**: the original local dev password is in the public `ernejoyson-frontend-` history (commit 549e016). Never use it for staging or prod. Rewriting history needs a force-push, so only do it if the owner asks.

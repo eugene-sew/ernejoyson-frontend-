@@ -10,6 +10,12 @@ import {
   PhoneCall,
   Check,
 } from 'lucide-react'
+import { api } from '@/services/api'
+
+const INTEREST_LABEL: Record<string, string> = {
+  feeders: 'Feeders', drinkers: 'Drinkers', antibiotics: 'Antibiotics & therapeutics',
+  vitamins: 'Vitamins & boosters', equipment: 'Machinery', all: 'Mixed full farm package',
+}
 
 export const B2bPage: React.FC = () => {
   const [farmType, setFarmType] = useState('Commercial Poultry Farm')
@@ -20,17 +26,32 @@ export const B2bPage: React.FC = () => {
   const [farmLocation, setFarmLocation] = useState('')
   const [additionalNotes, setAdditionalNotes] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+  const [honeypot, setHoneypot] = useState('')
 
-  const handleSubmitRfq = (e: React.FormEvent) => {
+  const handleSubmitRfq = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitted(true)
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setContactName('')
-      setContactPhone('')
-      setFarmLocation('')
-      setAdditionalNotes('')
-    }, 4000)
+    setSending(true)
+    setError('')
+    try {
+      await api.leads.submit({
+        source: 'b2b_quote',
+        name: contactName.trim(),
+        phone: contactPhone.trim(),
+        location: farmLocation.trim(),
+        farm_type: farmType,
+        interest: INTEREST_LABEL[selectedProductCategory] ?? selectedProductCategory,
+        quantity: quantityTarget,
+        message: additionalNotes.trim(),
+        website: honeypot,
+      })
+      setIsSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not send. Please try again.')
+    } finally {
+      setSending(false)
+    }
   }
 
   const wholesaleTiers = [
@@ -389,12 +410,21 @@ export const B2bPage: React.FC = () => {
                   />
                 </div>
 
+                {/* Honeypot: hidden from people, filled by bots */}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)} className="absolute -left-[9999px] h-0 w-0 opacity-0" />
+
+                {error && (
+                  <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs font-medium text-red-700">{error}</p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white py-3 px-6 text-xs sm:text-sm font-black transition-all shadow-md active:scale-[0.99] cursor-pointer"
+                  disabled={sending}
+                  className="w-full flex items-center justify-center gap-2 rounded-full bg-[#166534] hover:bg-[#14532D] text-white py-3 px-6 text-xs sm:text-sm font-black transition-all shadow-md active:scale-[0.99] disabled:opacity-60 cursor-pointer"
                 >
                   <Send className="h-4 w-4" />
-                  <span>Submit RFQ to Commercial Sales Desk</span>
+                  <span>{sending ? 'Sending…' : 'Submit RFQ to Commercial Sales Desk'}</span>
                 </button>
               </form>
             )}

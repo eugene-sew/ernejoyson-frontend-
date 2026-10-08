@@ -68,7 +68,7 @@ export const CartDrawer: React.FC = () => {
   const totalPrice = getTotalPrice()
   const quoteItems = getQuoteItems()
 
-  const { user, login } = useAuthStore()
+  const { customer, isLoggedIn } = useAuthStore()
 
   // Navigation / View State: 'cart' | 'checkout' | 'success'
   const [viewState, setViewState] = useState<'cart' | 'checkout' | 'success'>('cart')
@@ -76,24 +76,25 @@ export const CartDrawer: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('')
 
   // Checkout Form State
-  const [customerName, setCustomerName] = useState(user?.name || '')
-  const [customerPhone, setCustomerPhone] = useState(user?.phone || '')
-  const [customerEmail, setCustomerEmail] = useState(user?.email || '')
-  const [deliveryLocation, setDeliveryLocation] = useState(user?.farmSize || '')
+  const [customerName, setCustomerName] = useState(customer?.name || '')
+  const [customerPhone, setCustomerPhone] = useState(customer?.phone || '')
+  const [customerEmail, setCustomerEmail] = useState(customer?.email || '')
+  const [deliveryLocation, setDeliveryLocation] = useState(customer?.location || '')
   const [orderNotes, setOrderNotes] = useState('')
   const [paymentMethod, setPaymentMethod] = useState<'paystack' | 'branch'>('paystack')
 
   // Confirmed Order Receipt State
   const [orderReceipt, setOrderReceipt] = useState<OrderReceipt | null>(null)
 
+  // Signed-in customers get their details prefilled (the phone is the account's, so orders link to it).
   useEffect(() => {
-    if (user) {
-      if (user.name && !customerName) setCustomerName(user.name)
-      if (user.phone && !customerPhone) setCustomerPhone(user.phone)
-      if (user.email && !customerEmail) setCustomerEmail(user.email)
-      if (user.farmSize && !deliveryLocation) setDeliveryLocation(user.farmSize)
+    if (customer) {
+      setCustomerName((v) => v || customer.name)
+      setCustomerPhone(customer.phone)
+      setCustomerEmail((v) => v || customer.email || '')
+      setDeliveryLocation((v) => v || customer.location || '')
     }
-  }, [user])
+  }, [customer])
 
   // Reset view state when drawer closes
   const handleClose = () => {
@@ -121,14 +122,6 @@ export const CartDrawer: React.FC = () => {
       setErrorMessage('Please provide your name, phone number, and delivery location.')
       return
     }
-
-    // Save/update user profile in auth store
-    login({
-      name: customerName.trim(),
-      phone: customerPhone.trim(),
-      email: customerEmail.trim() || `${customerPhone.trim()}@farmghana.com`,
-      farmSize: deliveryLocation.trim(),
-    })
 
     const referenceId = `ENJ-${Date.now().toString().slice(-6)}`
     const effectiveEmail = customerEmail.trim() || `order_${referenceId.toLowerCase()}@ernejoyson.com`
@@ -195,9 +188,10 @@ export const CartDrawer: React.FC = () => {
     method: string,
     status: 'PAID' | 'PENDING'
   ) => {
-    // Send order to backend database
+    // Send order to backend database. If it fails, say so — never show a receipt for an order we don't have.
+    let orderNumber = ref
     try {
-      await api.orders.create({
+      const { order } = await api.orders.create({
         customerName: customerName.trim(),
         customerPhone: customerPhone.trim(),
         customerEmail: customerEmail.trim() || undefined,
@@ -213,14 +207,21 @@ export const CartDrawer: React.FC = () => {
           price: i.product.price,
         })),
         totalAmount: totalPrice,
-        paystackReference: ref,
+        paystackReference: status === 'PAID' ? ref : undefined,
       })
+      orderNumber = order.order_number
     } catch (err) {
-      console.warn('Order could not be saved to remote backend immediately, saved locally:', err)
+      const reason = err instanceof Error ? err.message : 'Please try again.'
+      setErrorMessage(
+        status === 'PAID'
+          ? `Your payment went through (ref ${ref}) but we could not record the order: ${reason} Please call 059 670 9226 with this reference.`
+          : `We could not place your order: ${reason}`
+      )
+      return
     }
 
     const receipt: OrderReceipt = {
-      reference: ref,
+      reference: orderNumber,
       date: new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'short',
@@ -713,6 +714,41 @@ export const CartDrawer: React.FC = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Optional account: guests are fine, an account just keeps their orders together */}
+              {isLoggedIn ? (
+                <Link
+                  to={`/account/orders/${orderReceipt.reference}`}
+                  onClick={handleClose}
+                  className="flex items-center justify-between rounded-2xl bg-white border border-[#EAE6DC] p-4 text-xs font-bold text-[#14532D] hover:bg-[#F0FDF4] transition-colors"
+                >
+                  <span>Follow this order in your account</span>
+                  <ArrowRight className="h-4 w-4 text-[#166534]" />
+                </Link>
+              ) : (
+                <div className="rounded-2xl bg-white border border-[#EAE6DC] p-4 space-y-2.5 text-xs text-[#14532D]">
+                  <p className="font-bold">Order often? Save your details.</p>
+                  <p className="text-[11px] text-neutral-600 leading-relaxed">
+                    Create a free account with {orderReceipt.customerPhone} to track this order, reorder in one tap and skip typing your details next time.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <Link
+                      to={`/account?mode=register&name=${encodeURIComponent(orderReceipt.customerName)}&phone=${encodeURIComponent(orderReceipt.customerPhone)}&claim=${orderReceipt.reference}`}
+                      onClick={handleClose}
+                      className="rounded-full bg-[#166534] px-4 py-2 font-bold text-white hover:bg-[#14532D]"
+                    >
+                      Create account
+                    </Link>
+                    <Link
+                      to={`/track?order=${orderReceipt.reference}`}
+                      onClick={handleClose}
+                      className="rounded-full border border-[#EAE6DC] px-4 py-2 font-bold text-[#14532D] hover:bg-[#FAF9F5]"
+                    >
+                      Track without an account
+                    </Link>
+                  </div>
+                </div>
+              )}
 
               {/* Support & Logistics Inquiries */}
               <div className="rounded-2xl bg-[#FAF9F5] border border-[#EAE6DC] p-4 space-y-2 text-xs text-[#14532D]">

@@ -13,6 +13,7 @@ import {
   ShoppingBag,
   Home,
   Wrench,
+  UserRound,
 } from 'lucide-react'
 import logoImg from '@/assets/logo.jpeg'
 import { useCartStore } from '@/store/useCartStore'
@@ -28,7 +29,7 @@ export function Header() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const { getTotalItems, openCart } = useCartStore()
-  const { hasRespondedVaccination } = useAuthStore()
+  const { hasRespondedVaccination, isLoggedIn } = useAuthStore()
   const cartCount = getTotalItems()
   const isShopPage = location.pathname.startsWith('/shop')
 
@@ -408,6 +409,17 @@ export function Header() {
               </form>
             )}
 
+            {/* Account (optional — guests can always just order) */}
+            <Link
+              to="/account"
+              aria-label={isLoggedIn ? 'My account' : 'Sign in'}
+              title={isLoggedIn ? 'My account' : 'Sign in / track orders'}
+              className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF9F5] text-[#14532D] border border-[#EAE6DC] transition-all hover:bg-[#F4F1EA] active:scale-95"
+            >
+              <UserRound className="h-4 w-4" />
+              {isLoggedIn && <span className="absolute top-0.5 right-0.5 h-2 w-2 rounded-full bg-[#22C55E] ring-2 ring-white" />}
+            </Link>
+
             {/* Shopping Cart Button */}
             <button
               onClick={openCart}
@@ -449,6 +461,14 @@ export function Header() {
 
         {/* Mobile / Tablet Header Controls */}
         <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            to="/account"
+            aria-label={isLoggedIn ? 'My account' : 'Sign in'}
+            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-black/5 text-[#14532D]"
+          >
+            <UserRound className="h-4.5 w-4.5" />
+            {isLoggedIn && <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-[#22C55E] ring-2 ring-white" />}
+          </Link>
           <button
             onClick={openCart}
             type="button"

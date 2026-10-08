@@ -1,85 +1,64 @@
 import { create } from 'zustand'
+import { api, ApiError, CUSTOMER_TOKEN_KEY, getCustomerToken, type CustomerProfile } from '@/services/api'
 
-export interface UserProfile {
-  name: string
-  phone: string
-  farmSize?: string
-  email?: string
-}
-
+// Optional shop account. Guests never need one; signing in just links orders and prefills checkout.
 interface AuthState {
-  user: UserProfile | null
+  customer: CustomerProfile | null
   isLoggedIn: boolean
   hasRespondedVaccination: boolean
-  login: (profile: UserProfile) => void
+  setSession: (token: string, customer: CustomerProfile) => void
+  setCustomer: (customer: CustomerProfile) => void
   logout: () => void
-  recordVaccinationResponse: (profile: UserProfile) => void
+  refresh: () => Promise<void>
 }
 
-const loadInitialUser = (): UserProfile | null => {
-  try {
-    const raw = localStorage.getItem('ej_user')
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
+const PROFILE_KEY = 'ej_customer'
+
+const read = (key: string) => {
+  try { return localStorage.getItem(key) } catch { return null }
 }
 
-const loadInitialVaccination = (): boolean => {
-  try {
-    return localStorage.getItem('ej_chart_unlocked') === '1'
-  } catch {
-    return false
-  }
+const loadProfile = (): CustomerProfile | null => {
+  if (!getCustomerToken()) return null
+  try { return JSON.parse(read(PROFILE_KEY) || 'null') } catch { return null }
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: loadInitialUser(),
-  isLoggedIn: !!loadInitialUser(),
-  hasRespondedVaccination: loadInitialVaccination(),
+export const useAuthStore = create<AuthState>((set, get) => ({
+  customer: loadProfile(),
+  isLoggedIn: !!loadProfile(),
+  hasRespondedVaccination: read('ej_chart_unlocked') === '1',
 
-  login: (profile: UserProfile) => {
+  setSession: (token, customer) => {
     try {
-      localStorage.setItem('ej_user', JSON.stringify(profile))
-      // Also register as lead if not already
-      const leads = JSON.parse(localStorage.getItem('ej_leads') || '[]')
-      leads.push({
-        ...profile,
-        source: 'checkout_login',
-        timestamp: new Date().toISOString(),
-      })
-      localStorage.setItem('ej_leads', JSON.stringify(leads))
-    } catch (e) {
-      console.error(e)
-    }
-    set({ user: profile, isLoggedIn: true })
+      localStorage.setItem(CUSTOMER_TOKEN_KEY, token)
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(customer))
+      localStorage.removeItem('ej_user') // the old fake-login profile
+    } catch { /* storage blocked: session lasts this tab only */ }
+    set({ customer, isLoggedIn: true })
+  },
+
+  setCustomer: (customer) => {
+    try { localStorage.setItem(PROFILE_KEY, JSON.stringify(customer)) } catch { /* ignore */ }
+    set({ customer })
   },
 
   logout: () => {
     try {
-      localStorage.removeItem('ej_user')
-    } catch (e) {
-      console.error(e)
-    }
-    set({ user: null, isLoggedIn: false })
+      localStorage.removeItem(CUSTOMER_TOKEN_KEY)
+      localStorage.removeItem(PROFILE_KEY)
+    } catch { /* ignore */ }
+    set({ customer: null, isLoggedIn: false })
   },
 
-  recordVaccinationResponse: (profile: UserProfile) => {
+  // Re-read the profile; a 401 means the session ended (password changed elsewhere, expired).
+  refresh: async () => {
+    if (!getCustomerToken()) return
     try {
-      localStorage.setItem('ej_chart_unlocked', '1')
-      localStorage.setItem('ej_user', JSON.stringify(profile))
-
-      const leads = JSON.parse(localStorage.getItem('ej_leads') || '[]')
-      leads.push({
-        ...profile,
-        source: 'vaccination_chart',
-        timestamp: new Date().toISOString(),
-      })
-      localStorage.setItem('ej_leads', JSON.stringify(leads))
+      const { customer } = await api.account.me()
+      get().setCustomer(customer)
+      set({ isLoggedIn: true })
     } catch (e) {
-      console.error(e)
+      if (e instanceof ApiError && e.status === 401) get().logout()
     }
-
-    set({ user: profile, isLoggedIn: true, hasRespondedVaccination: true })
   },
 }))

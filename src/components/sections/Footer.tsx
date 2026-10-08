@@ -171,6 +171,16 @@ export function Footer() {
                   Nationwide Waybill Freight
                 </Link>
               </li>
+              <li>
+                <Link to="/track" className="hover:text-white transition-colors">
+                  Track an Order
+                </Link>
+              </li>
+              <li>
+                <Link to="/account" className="hover:text-white transition-colors">
+                  My Account
+                </Link>
+              </li>
             </ul>
           </div>
 

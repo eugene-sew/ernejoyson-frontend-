@@ -16,6 +16,7 @@ import { B2bPage } from '@/pages/B2bPage'
 import { KnowledgePage } from '@/pages/KnowledgePage'
 import { AboutPage } from '@/pages/AboutPage'
 import { LegalPrivacyPage } from '@/pages/LegalPrivacyPage'
+import { AccountPage, AccountOrderPage, AccountResetPage, TrackOrderPage } from '@/pages/AccountPage'
 
 /**
  * ScrollToTop helper:
@@ -82,6 +83,10 @@ export function App() {
           <Route path="/b2b" element={<B2bPage />} />
           <Route path="/knowledge" element={<KnowledgePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/account/orders/:number" element={<AccountOrderPage />} />
+          <Route path="/account/reset" element={<AccountResetPage />} />
+          <Route path="/track" element={<TrackOrderPage />} />
           
           {/* Legal, Privacy & Compliance Routes */}
           <Route path="/privacy" element={<LegalPrivacyPage />} />

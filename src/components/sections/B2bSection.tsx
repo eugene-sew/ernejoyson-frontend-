@@ -2,9 +2,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, PhoneCall, CheckCircle2, Building, Package, RefreshCw, FileCheck, Layers, Send, Download } from 'lucide-react'
 import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
+import { api } from '@/services/api'
 
 export function B2bSection() {
   const [quoteSubmitted, setQuoteSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [formData, setFormData] = useState({
     name: '',
     farmName: '',
@@ -22,10 +26,26 @@ export function B2bSection() {
     { name: 'Repeat Orders', desc: 'Reliable scheduled dispatches to prevent farm stockouts', icon: RefreshCw },
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setQuoteSubmitted(true)
-    setTimeout(() => setQuoteSubmitted(false), 4000)
+    setSending(true)
+    setError('')
+    try {
+      await api.leads.submit({
+        source: 'bulk_enquiry',
+        name: formData.name.trim(),
+        business_name: formData.farmName.trim(),
+        phone: formData.phone.trim(),
+        location: formData.location.trim(),
+        interest: formData.interest,
+        website: honeypot,
+      })
+      setQuoteSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not send. Please try again.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -191,11 +211,20 @@ export function B2bSection() {
                     </select>
                   </div>
 
+                  {/* Honeypot: hidden from people, filled by bots */}
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)} className="absolute -left-[9999px] h-0 w-0 opacity-0" />
+
+                  {error && (
+                    <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs font-medium text-red-700">{error}</p>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full rounded-full bg-[#166534] py-3.5 text-sm font-extrabold text-white shadow-md transition-all hover:bg-[#14532D] active:scale-[0.98] cursor-pointer"
+                    disabled={sending}
+                    className="w-full rounded-full bg-[#166534] py-3.5 text-sm font-extrabold text-white shadow-md transition-all hover:bg-[#14532D] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
                   >
-                    Get Free Vaccination Chart / Quote
+                    {sending ? 'Sending…' : 'Get Free Vaccination Chart / Quote'}
                   </button>
 
                   <p className="text-[11px] text-center text-[#14532D]/60 font-medium pt-1">
