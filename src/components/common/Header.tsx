@@ -15,7 +15,7 @@ import {
   Wrench,
   UserRound,
 } from 'lucide-react'
-import logoImg from '@/assets/logo.jpeg'
+import logoIcon from '@/assets/logo-icon.png'
 import { useCartStore } from '@/store/useCartStore'
 import { useAuthStore } from '@/store/useAuthStore'
 
@@ -101,18 +101,18 @@ export function Header() {
         {/* 1. Left Pill: Brand Logo */}
         <Link
           to="/"
-          className="flex h-12 lg:h-14 items-center gap-2.5 rounded-full bg-white px-4 sm:px-6 shadow-md border border-black/5 shrink-0 transition-all duration-200 hover:scale-[1.01] active:scale-95"
+          className="flex h-12 lg:h-14 items-center gap-2 sm:gap-2.5 rounded-full bg-white px-3 sm:px-4 shadow-md border border-black/5 shrink-0 transition-all duration-200 hover:scale-[1.01] active:scale-95"
         >
           <img
-            src={logoImg}
+            src={logoIcon}
             alt="ERNEJOYSON"
-            className="h-8 w-8 rounded-full object-cover shadow-sm shrink-0"
+            className="h-9 sm:h-10 lg:h-11 w-auto object-contain shrink-0"
           />
           <div className="flex flex-col">
-            <span className="font-display text-xs sm:text-sm font-black tracking-tight text-[#14532D] whitespace-nowrap">
+            <span className="font-display text-xs sm:text-sm lg:text-base font-black tracking-tight text-[#14532D] whitespace-nowrap leading-none">
               ERNEJOYSON
             </span>
-            <span className="text-[9px] font-bold text-[#166534] tracking-wider uppercase -mt-0.5 hidden sm:block">
+            <span className="text-[9px] sm:text-[10px] font-bold text-[#166534] tracking-wider uppercase pt-0.5 hidden sm:block">
               Veterinary & Livestock
             </span>
           </div>

@@ -6,7 +6,7 @@ import {
   Clock,
   MapPin
 } from 'lucide-react'
-import logoImg from '@/assets/logo.jpeg'
+import logoIcon from '@/assets/logo-icon.png'
 
 // Crisp, high-end SVG Social Icons
 function WhatsAppIcon({ className = 'h-4 w-4' }: { className?: string }) {
@@ -45,12 +45,14 @@ export function Footer() {
         {/* Top Header & Socials Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-white/10">
           <div className="space-y-1 max-w-lg">
-            <Link to="/" className="inline-flex items-center gap-2.5 font-display text-2xl font-black tracking-tight text-white group">
-              <img
-                src={logoImg}
-                alt="ERNEJOYSON"
-                className="h-9 w-9 rounded-xl object-cover shadow-md group-hover:scale-105 transition-transform shrink-0"
-              />
+            <Link to="/" className="inline-flex items-center gap-3 font-display text-2xl font-black tracking-tight text-white group">
+              <div className="h-10 w-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform shrink-0">
+                <img
+                  src={logoIcon}
+                  alt="ERNEJOYSON"
+                  className="h-full w-full object-contain"
+                />
+              </div>
               <span className="group-hover:text-[#86efac] transition-colors">ERNEJOYSON</span>
             </Link>
             <p className="text-xs text-neutral-300 font-medium">
