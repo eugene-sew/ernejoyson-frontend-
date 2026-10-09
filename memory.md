@@ -251,6 +251,8 @@ EnerJoyson/
 
 19. **Offline payments (Oct 9)**: "Record payment" in the order drawer for unpaid orders (owner, finance, branch managers on their branch): channel (cash / MoMo / bank / paid on collection / POS / other, guessed from the checkout choice), amount (full total required), transaction ID (required for MoMo/bank), note. Marks PAID, shows on the order + trail ("Payment received by …"), emails the customer a receipt, logs `payment.recorded`. Owner/finance can correct/undo (confirm dialog). Dashboard: "N delivered orders still unpaid" and "N orders awaiting payment" reminders. Part payments/deposits not supported yet (would need a payments ledger).
 
+20. **Admin config from env (Oct 9)**: admin reads `VITE_API_URL` / `VITE_STOREFRONT_URL` only via `src/lib/config.ts`; `vite.config.ts` loads the mode's env file and fails dev/build if either is missing. Dev proxy removed (admin calls the API directly; CORS allows :5175). Dev env: `admin/.env.development` (from `.env.development.example`; also optional `ADMIN_PORT`, `VITE_DEV_LOGIN_EMAIL/PASSWORD`, so the dev password is no longer in source). Vercel admin project needs both VITE_ vars set.
+
 ### Open Issues (priority order)
 1. **Checkout: validate before paying**: save errors now show (fixed Oct 8), but with live Paystack keys a customer could still pay and then hit a save error (they see the reference and a phone number). Fix properly by validating the cart with the API before opening Paystack.
 2. ~~Admin product images broken~~ **Fixed Oct 6**: `admin/src/lib/storefront.ts` prefixes storefront-relative images with `VITE_STOREFRONT_URL` (dev default `http://localhost:5174`). Note: `Product.image` is a `URLField`, so sending a relative image path through the API still fails validation.
