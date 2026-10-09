@@ -8,6 +8,7 @@ interface AuthState {
   hasRespondedVaccination: boolean
   setSession: (token: string, customer: CustomerProfile) => void
   setCustomer: (customer: CustomerProfile) => void
+  unlockVaccinationChart: () => void
   logout: () => void
   refresh: () => Promise<void>
 }
@@ -27,6 +28,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   customer: loadProfile(),
   isLoggedIn: !!loadProfile(),
   hasRespondedVaccination: read('ej_chart_unlocked') === '1',
+
+  unlockVaccinationChart: () => {
+    try {
+      localStorage.setItem('ej_chart_unlocked', '1')
+    } catch { /* ignore */ }
+    set({ hasRespondedVaccination: true })
+  },
 
   setSession: (token, customer) => {
     try {

@@ -125,7 +125,7 @@ export interface PublicOrder {
 }
 
 type Session = { success: boolean; token: string; customer: CustomerProfile }
-export type LeadSource = 'bulk_enquiry' | 'b2b_quote' | 'contact' | 'other'
+export type LeadSource = 'bulk_enquiry' | 'b2b_quote' | 'contact' | 'vaccination_chart' | 'other'
 
 export interface ShopCategory { slug: string; name: string; sort_order: number; productCount: number }
 

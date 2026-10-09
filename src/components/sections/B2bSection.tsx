@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, PhoneCall, CheckCircle2, Building, Package, RefreshCw, FileCheck, Layers, Send, Download } from 'lucide-react'
 import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
 import { api } from '@/services/api'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export function B2bSection() {
+  const { unlockVaccinationChart } = useAuthStore()
   const [quoteSubmitted, setQuoteSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
@@ -40,6 +42,7 @@ export function B2bSection() {
         interest: formData.interest,
         website: honeypot,
       })
+      unlockVaccinationChart()
       setQuoteSubmitted(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not send. Please try again.')

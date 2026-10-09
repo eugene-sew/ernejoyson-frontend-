@@ -10,10 +10,13 @@ import {
   Layers,
   HeartPulse,
   Download,
+  Lock,
 } from 'lucide-react'
 import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export const KnowledgePage: React.FC = () => {
+  const { hasRespondedVaccination } = useAuthStore()
   // Quick Dosage Calculator State
   const [selectedDrug, setSelectedDrug] = useState('joy-amino')
   const [tankLiters, setTankLiters] = useState(100)
@@ -178,16 +181,26 @@ export const KnowledgePage: React.FC = () => {
               <Calculator className="h-4 w-4" />
               <span>Interactive Dosage Calculator</span>
             </a>
-            <a
-              href={vaccinationChartPdf}
-              download="ERNEJOYSON_VACCINATION_CHART.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
-            >
-              <Download className="h-4 w-4 text-[#86efac]" />
-              <span>Download Official PDF Chart</span>
-            </a>
+            {hasRespondedVaccination ? (
+              <a
+                href={vaccinationChartPdf}
+                download="ERNEJOYSON_VACCINATION_CHART.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
+              >
+                <Download className="h-4 w-4 text-[#86efac]" />
+                <span>Download Official PDF Chart</span>
+              </a>
+            ) : (
+              <Link
+                to="/technical-support#vaccination-chart"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
+              >
+                <Lock className="h-4 w-4 text-[#86efac]" />
+                <span>Unlock Official Vaccination Chart</span>
+              </Link>
+            )}
           </div>
         </div>
       </div>
