@@ -247,7 +247,7 @@ EnerJoyson/
 3. **Admin CSP missing on Vercel**: `admin/vercel.json` lacks the `Content-Security-Policy` that `admin/nginx/default.conf.template` sets. Add it with `connect-src 'self' https://api.ernejoyson.com` (staging: staging-api).
 4. **Leaked local admin password**: the original local dev password is in the public `ernejoyson-frontend-` history (commit 549e016). Never use it for staging or prod. Rewriting history needs a force-push, so only do it if the owner asks.
 4d. **Storefront doesn't read the admin-saved Paystack public key yet**: `GET /api/public/config` exists; CartDrawer still uses `VITE_PAYSTACK_PUBLIC_KEY`.
-4c. **`featured` flag unused by storefront**: the admin can set it, but the homepage "Featured products" section is a hardcoded list. Wire it to `useCatalog().filter(p => p.featured)` if wanted.
+4c. ~~`featured` flag unused~~ **Fixed Oct 8**: the homepage "Quality Products. Practical Solutions." section shows real featured, in-stock products (up to 8; admin toggles `featured`). Add to cart works, the card opens the product, "Bulk quote" opens `/b2b?item=<name>#rfq-form` with the RFQ notes prefilled; unpriced items lead with "Request quote".
 4b. ~~Admin login page shows demo credentials~~ **Fixed Oct 6**: shown/pre-filled only in dev builds (verified absent from the production bundle).
 4e. **Stale storefront copy**: cookie banner mentions "Sunyani, Goaso" depots (not branches); storefront Locations page still has its own hardcoded branch data (could read `GET /api/branches`).
 5. **Stale legal copy**: `LegalPrivacyPage.tsx` says cookies keep "admin login sessions" on the storefront. That is no longer true.
