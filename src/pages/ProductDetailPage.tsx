@@ -17,11 +17,12 @@ import logoWatermark from '@/assets/logo-watermark.png'
 
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const { addItem } = useCartStore()
+  const { items, addItem } = useCartStore()
   const products = useCatalog()
 
   const [quantity, setQuantity] = useState(1)
-  const [isAdded, setIsAdded] = useState(false)
+  const [isJustAdded, setIsJustAdded] = useState(false)
+
 
   const product = products.find((p) => p.id === id)
 
@@ -45,10 +46,15 @@ export const ProductDetailPage: React.FC = () => {
     )
   }
 
+  const cartItem = items.find((item) => item.product.id === product?.id)
+  const cartQty = cartItem?.quantity || 0
+  const inCart = cartQty > 0
+
   const handleAddToCart = () => {
+    if (!product) return
     addItem(product, quantity)
-    setIsAdded(true)
-    setTimeout(() => setIsAdded(false), 1500)
+    setIsJustAdded(true)
+    setTimeout(() => setIsJustAdded(false), 1500)
   }
 
   // Related products from same category (excluding this one)
@@ -218,16 +224,16 @@ export const ProductDetailPage: React.FC = () => {
 
               <button
                 onClick={handleAddToCart}
-                className={`flex-1 flex items-center justify-center gap-2.5 h-12 rounded-full font-black text-sm transition-all shadow-md active:scale-95 ${
-                  isAdded
-                    ? 'bg-[#14532D] text-white'
+                className={`flex-1 flex items-center justify-center gap-2.5 h-12 rounded-full font-black text-sm transition-all shadow-md active:scale-95 cursor-pointer ${
+                  inCart
+                    ? 'bg-[#14532D] hover:bg-[#166534] text-white ring-2 ring-[#22C55E]/40'
                     : 'bg-[#166534] hover:bg-[#14532D] text-white'
                 }`}
               >
-                {isAdded ? (
+                {inCart ? (
                   <>
-                    <Check className="h-5 w-5" />
-                    <span>Added to Cart!</span>
+                    <Check className={`h-5 w-5 stroke-[2.5] text-[#4ADE80] transition-transform ${isJustAdded ? 'scale-125' : ''}`} />
+                    <span>In Cart ({cartQty}) • Add {quantity > 1 ? `${quantity} more` : 'more'}</span>
                   </>
                 ) : (
                   <>

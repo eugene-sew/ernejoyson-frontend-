@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import {
   PackageCheck,
   Truck,
@@ -24,7 +24,9 @@ export const B2bPage: React.FC = () => {
   const [contactName, setContactName] = useState('')
   const [contactPhone, setContactPhone] = useState('')
   const [farmLocation, setFarmLocation] = useState('')
-  const [additionalNotes, setAdditionalNotes] = useState('')
+  // "Bulk quote" on a product card arrives with ?item=<product name>
+  const [params] = useSearchParams()
+  const [additionalNotes, setAdditionalNotes] = useState(params.get('item') ? `Bulk quote for: ${params.get('item')}\nQuantity needed: ` : '')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')

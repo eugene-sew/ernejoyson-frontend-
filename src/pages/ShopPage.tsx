@@ -20,11 +20,20 @@ export const ShopPage: React.FC = () => {
 
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc' | 'name'>('default')
   const [inStockOnly, setInStockOnly] = useState(false)
-  const [addedItemMap, setAddedItemMap] = useState<Record<string, boolean>>({})
+  const [justAddedId, setJustAddedId] = useState<string | null>(null)
 
-  const { addItem, openCart } = useCartStore()
+  const { items, addItem, openCart } = useCartStore()
   const products = useCatalog()
   const categoryFilters = useShopCategories()
+
+  const cartItemMap = useMemo(() => {
+    const map: Record<string, number> = {}
+    for (const item of items) {
+      map[item.product.id] = (map[item.product.id] || 0) + item.quantity
+    }
+    return map
+  }, [items])
+
 
   const handleCategoryChange = (slug: string) => {
     const newParams = new URLSearchParams(searchParams)
@@ -90,9 +99,9 @@ export const ShopPage: React.FC = () => {
 
   const handleAddToCart = (product: Product) => {
     addItem(product, 1)
-    setAddedItemMap((prev) => ({ ...prev, [product.id]: true }))
+    setJustAddedId(product.id)
     setTimeout(() => {
-      setAddedItemMap((prev) => ({ ...prev, [product.id]: false }))
+      setJustAddedId((prev) => (prev === product.id ? null : prev))
     }, 1200)
   }
 
@@ -228,11 +237,18 @@ export const ShopPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
           {filteredProducts.map((product) => {
-            const isAdded = addedItemMap[product.id]
+            const cartQty = cartItemMap[product.id] || 0
+            const isAdded = cartQty > 0
+            const isJustAdded = justAddedId === product.id
+
             return (
               <div
                 key={product.id}
-                className="group flex flex-col justify-between rounded-3xl bg-white border border-[#EAE6DC] p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-[#166534]/30 transition-all duration-200"
+                className={`group flex flex-col justify-between rounded-3xl bg-white border p-4 sm:p-5 shadow-xs hover:shadow-md transition-all duration-200 ${
+                  isAdded
+                    ? 'border-[#166534]/50 bg-[#F0FDF4]/20 ring-1 ring-[#166534]/20'
+                    : 'border-[#EAE6DC] hover:border-[#166534]/30'
+                }`}
               >
                 <div>
                   {/* Image Container */}
@@ -245,6 +261,16 @@ export const ShopPage: React.FC = () => {
                       alt={product.name}
                       className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
+
+                    {/* In Cart Indicator Badge */}
+                    {isAdded && (
+                      <div className="absolute top-2.5 left-2.5 z-20">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-[#14532D] text-white px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider shadow-md">
+                          <Check className="h-3 w-3 stroke-[2.5] text-[#4ADE80]" />
+                          <span>Added {cartQty > 1 ? `(${cartQty})` : ''}</span>
+                        </span>
+                      </div>
+                    )}
 
                     {/* ERNEJOYSON Logo Watermark */}
                     <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 pointer-events-none select-none z-10">
@@ -312,16 +338,17 @@ export const ShopPage: React.FC = () => {
 
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className={`flex items-center gap-1.5 h-9 px-3.5 rounded-full text-xs font-bold transition-all shadow-xs ${
+                      className={`flex items-center gap-1.5 h-9 px-3.5 rounded-full text-xs font-bold transition-all shadow-xs cursor-pointer ${
                         isAdded
-                          ? 'bg-[#14532D] text-white'
+                          ? 'bg-[#14532D] hover:bg-[#166534] text-white active:scale-95 ring-2 ring-[#22C55E]/40'
                           : 'bg-[#166534] hover:bg-[#14532D] text-white active:scale-95'
                       }`}
+                      title={isAdded ? `${cartQty} in cart. Click to add another.` : 'Add to cart'}
                     >
                       {isAdded ? (
                         <>
-                          <Check className="h-3.5 w-3.5" />
-                          <span>Added</span>
+                          <Check className={`h-3.5 w-3.5 stroke-[2.5] text-[#4ADE80] transition-transform ${isJustAdded ? 'scale-125' : ''}`} />
+                          <span>Added {cartQty > 1 ? `(${cartQty})` : ''}</span>
                         </>
                       ) : (
                         <>
