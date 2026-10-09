@@ -14,6 +14,7 @@ import { TechnicalSupportPage } from '@/pages/TechnicalSupportPage'
 import { LocationsPage } from '@/pages/LocationsPage'
 import { B2bPage } from '@/pages/B2bPage'
 import { KnowledgePage } from '@/pages/KnowledgePage'
+import { ArticlePage } from '@/pages/ArticlePage'
 import { AboutPage } from '@/pages/AboutPage'
 import { LegalPrivacyPage } from '@/pages/LegalPrivacyPage'
 import { AccountPage, AccountOrderPage, AccountResetPage, TrackOrderPage } from '@/pages/AccountPage'
@@ -82,6 +83,7 @@ export function App() {
           <Route path="/locations" element={<LocationsPage />} />
           <Route path="/b2b" element={<B2bPage />} />
           <Route path="/knowledge" element={<KnowledgePage />} />
+          <Route path="/knowledge/:slug" element={<ArticlePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/account/orders/:number" element={<AccountOrderPage />} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   Calculator,
@@ -14,9 +14,18 @@ import {
 } from 'lucide-react'
 import vaccinationChartPdf from '@/assets/ERNEJOYSON VACCINATION CHART.pdf'
 import { useAuthStore } from '@/store/useAuthStore'
+import { api, type ShopArticle } from '@/services/api'
+import { ArticleCard } from '@/pages/ArticlePage'
 
 export const KnowledgePage: React.FC = () => {
   const { hasRespondedVaccination } = useAuthStore()
+  // ponytail: loads the newest 24 and filters in the browser; page through the API if there are ever more.
+  const [latest, setLatest] = useState<ShopArticle[]>([])
+  const [articleCategory, setArticleCategory] = useState('')
+  useEffect(() => {
+    api.content.articles({ limit: 24 }).then((r) => setLatest(r.articles), () => undefined)
+  }, [])
+  const articleCategories = [...new Map(latest.map((a) => [a.category, { value: a.category, label: a.categoryLabel }])).values()]
   // Quick Dosage Calculator State
   const [selectedDrug, setSelectedDrug] = useState('joy-amino')
   const [tankLiters, setTankLiters] = useState(100)
@@ -332,6 +341,29 @@ export const KnowledgePage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Latest articles published from the admin (Content → Articles); hidden until there are any */}
+      {latest.length > 0 && (
+        <div className="space-y-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl space-y-1">
+              <span className="text-xs font-black uppercase tracking-wider text-[#166534]">From our vets &amp; field team</span>
+              <h2 className="font-display text-2xl sm:text-3xl font-black text-[#14532D]">Latest Farm Guides</h2>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[{ value: '', label: 'All' }, ...articleCategories].map((c) => (
+                <button key={c.value} type="button" onClick={() => setArticleCategory(c.value)}
+                  className={`rounded-full px-4 py-1.5 text-xs font-bold transition-colors cursor-pointer ${articleCategory === c.value ? 'bg-[#166534] text-white' : 'bg-white border border-[#EAE6DC] text-[#14532D] hover:bg-[#F4F1EA]'}`}>
+                  {c.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {latest.filter((a) => !articleCategory || a.category === articleCategory).map((a) => <ArticleCard key={a.id} article={a} />)}
+          </div>
+        </div>
+      )}
 
       {/* 3. Deep-Dive Farm Guides */}
       <div className="space-y-6">

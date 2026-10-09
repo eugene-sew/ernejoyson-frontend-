@@ -1,11 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Play, ArrowRight, ChevronLeft, ChevronRight, Video, CheckCircle2 } from 'lucide-react'
+import { Play, ArrowRight, ChevronLeft, ChevronRight, Video, CheckCircle2, X } from 'lucide-react'
+import { api, type ShopVideo } from '@/services/api'
 import { veterinaryProductsImg, poultryEquipmentImg, farmConsultationImg, poultryCratesImg } from '@/assets'
 
 export function WhyAgroneSection() {
   const [openAccordion, setOpenAccordion] = useState<number | null>(0)
   const [activeMediaIndex, setActiveMediaIndex] = useState(0)
+  const [videos, setVideos] = useState<ShopVideo[]>([])
+  const [playing, setPlaying] = useState(false)
+
+  // Videos are managed in the admin (Content → Videos). Until there are any, the stage shows the photos below.
+  useEffect(() => {
+    api.content.videos().then((r) => setVideos(r.videos), () => undefined)
+  }, [])
 
   const accordions = [
     {
@@ -50,21 +58,28 @@ export function WhyAgroneSection() {
     },
   ]
 
+  const media = videos.length
+    ? videos.map((v, i) => ({ title: v.title, caption: v.caption, bg: v.thumbnail || accordions[i % accordions.length].image, video: v }))
+    : accordions.map((a) => ({ title: a.mediaTitle, caption: '', bg: a.videoBg, video: null as ShopVideo | null }))
+  const current = media[activeMediaIndex % media.length]
+
   const handleAccordionClick = (id: number) => {
     if (openAccordion === id) {
       setOpenAccordion(null)
     } else {
       setOpenAccordion(id)
-      setActiveMediaIndex(id)
+      if (!videos.length) setActiveMediaIndex(id)
     }
   }
 
   const nextMedia = () => {
-    setActiveMediaIndex((prev) => (prev + 1) % accordions.length)
+    setPlaying(false)
+    setActiveMediaIndex((prev) => (prev + 1) % media.length)
   }
 
   const prevMedia = () => {
-    setActiveMediaIndex((prev) => (prev - 1 + accordions.length) % accordions.length)
+    setPlaying(false)
+    setActiveMediaIndex((prev) => (prev - 1 + media.length) % media.length)
   }
 
   return (
@@ -148,7 +163,7 @@ export function WhyAgroneSection() {
                 Featured Field Demonstrations
               </span>
               <span className="text-xs sm:text-sm font-semibold text-[#14532D]/70 hidden sm:inline">
-                • {activeMediaIndex + 1} of {accordions.length} Farm Showcases
+                • {(activeMediaIndex % media.length) + 1} of {media.length} {videos.length ? 'Videos' : 'Farm Showcases'}
               </span>
             </div>
 
@@ -175,11 +190,33 @@ export function WhyAgroneSection() {
           <div className="relative min-h-[360px] sm:min-h-[460px] w-full rounded-[24px] sm:rounded-[40px] overflow-hidden shadow-md">
             {/* Background Livestock and Poultry Farming Footage */}
             <img
-              src={accordions[activeMediaIndex].videoBg}
-              alt={accordions[activeMediaIndex].mediaTitle}
+              src={current.bg}
+              alt=""
               className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0E3B20]/90 via-[#0E3B20]/40 to-transparent" />
+
+            {/* Inline player (YouTube fills the stage; TikTok is vertical, centred on black) */}
+            {playing && current.video && (
+              <div className="absolute inset-0 z-30 flex items-center justify-center bg-black">
+                <iframe
+                  key={current.video.id}
+                  src={current.video.embed_url}
+                  title={current.video.title}
+                  className={current.video.platform === 'tiktok' ? 'h-full aspect-[9/16] max-w-full' : 'h-full w-full'}
+                  allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                  allowFullScreen
+                />
+                <button
+                  type="button"
+                  onClick={() => setPlaying(false)}
+                  aria-label="Close video"
+                  className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#14532D] shadow-lg hover:bg-white cursor-pointer"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            )}
 
             {/* Bottom-Left Floating Custom Notched SVG Card with Docked Play Button */}
             <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto sm:w-[480px] z-10">
@@ -201,7 +238,8 @@ export function WhyAgroneSection() {
                 {/* Docked Green Play Button in Notch */}
                 <button
                   type="button"
-                  aria-label="Play Demonstration Video"
+                  aria-label={current.video ? `Play: ${current.video.title}` : 'Watch our demonstrations'}
+                  onClick={() => (current.video ? setPlaying(true) : window.open('https://tiktok.com/@ernejoyson', '_blank', 'noopener'))}
                   className="absolute top-3 -right-[5px] sm:top-4 sm:-right-[5px] flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#166534] text-white shadow-xl transition-transform duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20"
                 >
                   <Play className="h-5 w-5 fill-current ml-0.5" />
@@ -214,8 +252,9 @@ export function WhyAgroneSection() {
                   </span>
 
                   <h3 className="font-display text-sm sm:text-lg lg:text-xl font-extrabold text-[#14532D] leading-snug">
-                    {accordions[activeMediaIndex].mediaTitle}
+                    {current.title}
                   </h3>
+                  {current.caption && <p className="text-xs text-[#14532D]/70 line-clamp-2">{current.caption}</p>}
                 </div>
 
                 {/* Bottom Actions: EXPLORE SOLUTIONS pill + Circle Arrow */}

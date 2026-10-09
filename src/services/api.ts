@@ -127,6 +127,31 @@ export interface PublicOrder {
 type Session = { success: boolean; token: string; customer: CustomerProfile }
 export type LeadSource = 'bulk_enquiry' | 'b2b_quote' | 'contact' | 'vaccination_chart' | 'other'
 
+export interface ShopVideo {
+  id: number
+  title: string
+  caption: string
+  url: string
+  platform: 'youtube' | 'tiktok'
+  thumbnail: string
+  embed_url: string
+}
+
+export interface ShopArticle {
+  id: number
+  slug: string
+  title: string
+  category: string
+  categoryLabel: string
+  summary: string
+  body?: string
+  cover_image: string
+  published_at: string
+  featured: boolean
+  author: string | null
+  readingMinutes: number
+}
+
 export interface ShopCategory { slug: string; name: string; sort_order: number; productCount: number }
 
 export const api = {
@@ -173,6 +198,15 @@ export const api = {
       request<{ orders: PublicOrder[]; pagination: { total: number; page: number; limit: number; totalPages: number } }>(`/api/account/orders?page=${page}`),
     order: (number: string) => request<{ success: boolean; order: PublicOrder }>(`/api/account/orders/${encodeURIComponent(number)}`),
     claim: (orderNumber: string, phone: string) => post<{ success: boolean; order: PublicOrder }>('/api/account/orders/claim', { orderNumber, phone }),
+  },
+
+  content: {
+    videos: () => request<{ success: boolean; videos: ShopVideo[] }>('/api/content/videos'),
+    articles: (params: { category?: string; page?: number; limit?: number } = {}) => {
+      const q = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== undefined && v !== '').map(([k, v]) => [k, String(v)]))
+      return request<{ articles: ShopArticle[]; pagination: { total: number; page: number; totalPages: number }; categories: { value: string; label: string }[] }>(`/api/content/articles?${q}`)
+    },
+    article: (slug: string) => request<{ success: boolean; article: ShopArticle }>(`/api/content/articles/${encodeURIComponent(slug)}`),
   },
 
   leads: {

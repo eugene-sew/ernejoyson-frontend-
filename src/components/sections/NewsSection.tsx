@@ -1,8 +1,17 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, BookOpen } from 'lucide-react'
 import { veterinaryProductsImg, poultryEquipmentImg, farmConsultationImg } from '@/assets'
+import { api, type ShopArticle } from '@/services/api'
+import { ArticleCard } from '@/pages/ArticlePage'
 
 export function NewsSection() {
+  // Articles published in the admin (Content → Articles), featured first. The cards below are the fallback until then.
+  const [published, setPublished] = useState<ShopArticle[]>([])
+  useEffect(() => {
+    api.content.articles({ limit: 3 }).then((r) => setPublished(r.articles), () => undefined)
+  }, [])
+
   const articles = [
     {
       id: 1,
@@ -60,7 +69,8 @@ export function NewsSection() {
 
       {/* Article Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {articles.map((article) => (
+        {published.length > 0 && published.map((a) => <ArticleCard key={a.id} article={a} />)}
+        {published.length === 0 && articles.map((article) => (
           <article
             key={article.id}
             className="group flex flex-col justify-between rounded-[32px] bg-white p-5 shadow-sm border border-[#EAE6DC] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
