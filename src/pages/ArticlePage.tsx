@@ -10,14 +10,14 @@ const date = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: '
 /** Card used on the homepage and the Knowledge page. */
 export function ArticleCard({ article }: { article: ShopArticle }) {
   return (
-    <article className="group relative flex flex-col justify-between rounded-[32px] bg-white p-5 shadow-sm border border-[#EAE6DC] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
-      <div className="relative h-60 w-full overflow-hidden rounded-[24px] bg-[#FAF9F5]">
+    <article className="group relative flex flex-col justify-between rounded-2xl sm:rounded-[32px] bg-white p-3.5 sm:p-5 shadow-xs sm:shadow-sm border border-[#EAE6DC] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+      <div className="relative h-48 sm:h-60 w-full overflow-hidden rounded-xl sm:rounded-[24px] bg-[#FAF9F5]">
         <img src={article.cover_image || farmConsultationImg} alt="" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <div className="absolute top-3 left-3 rounded-full bg-[#14532D]/90 backdrop-blur-md px-3.5 py-1 text-xs font-bold text-white shadow-sm">
+        <div className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 rounded-full bg-[#14532D]/90 backdrop-blur-md px-3 sm:px-3.5 py-1 text-xs font-bold text-white shadow-sm">
           {article.categoryLabel}
         </div>
-        <div className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-[#166534] text-white shadow-md transition-transform duration-200 group-hover:scale-110">
-          <ArrowUpRight className="h-4.5 w-4.5 stroke-[2.2]" />
+        <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-[#166534] text-white shadow-md transition-transform duration-200 group-hover:scale-110">
+          <ArrowUpRight className="h-4 w-4 sm:h-4.5 sm:w-4.5 stroke-[2.2]" />
         </div>
       </div>
       <div className="pt-4 pb-2 space-y-2 flex-1 flex flex-col justify-between">

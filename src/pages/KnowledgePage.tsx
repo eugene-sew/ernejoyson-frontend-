@@ -169,23 +169,23 @@ export const KnowledgePage: React.FC = () => {
   ]
 
   return (
-    <div className="pt-24 pb-20 max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
+    <div className="pt-20 sm:pt-24 pb-20 max-w-[1560px] mx-auto px-2.5 sm:px-6 lg:px-8 space-y-8 sm:space-y-14">
       {/* 1. Hero Header */}
-      <div className="rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-8 sm:p-14 text-white relative overflow-hidden shadow-xl border border-white/10">
+      <div className="rounded-2xl sm:rounded-3xl bg-radial from-[#14532D] to-[#0A2614] p-5 sm:p-14 text-white relative overflow-hidden shadow-xl border border-white/10">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#22C55E]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-3xl space-y-4">
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.1]">
+          <h1 className="font-display text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.15]">
             Practical Veterinary Guides & Dosage Calculators
           </h1>
 
-          <p className="text-sm sm:text-base text-[#DCFCE7]/85 font-medium leading-relaxed">
+          <p className="text-xs sm:text-base text-[#DCFCE7]/85 font-medium leading-relaxed">
             Better farming starts with better knowledge. Access proven medication protocols, water tank dosage calculators, and practical husbandry articles written specifically for Ghanaian climatic conditions.
           </p>
 
-          <div className="pt-2 flex flex-wrap gap-3">
+          <div className="pt-2 flex flex-wrap gap-2.5 sm:gap-3">
             <a
               href="#dosage-calculator"
-              className="inline-flex items-center gap-2 rounded-full bg-[#22C55E] px-6 py-3 text-xs sm:text-sm font-black text-[#0A2614] hover:bg-[#4ADE80] transition-colors shadow-sm"
+              className="inline-flex items-center gap-2 rounded-full bg-[#22C55E] px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-black text-[#0A2614] hover:bg-[#4ADE80] transition-colors shadow-sm"
             >
               <Calculator className="h-4 w-4" />
               <span>Interactive Dosage Calculator</span>
@@ -196,7 +196,7 @@ export const KnowledgePage: React.FC = () => {
                 download="ERNEJOYSON_VACCINATION_CHART.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white transition-colors"
               >
                 <Download className="h-4 w-4 text-[#86efac]" />
                 <span>Download Official PDF Chart</span>
@@ -204,7 +204,7 @@ export const KnowledgePage: React.FC = () => {
             ) : (
               <Link
                 to="/technical-support#vaccination-chart"
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 text-xs sm:text-sm font-bold text-white transition-colors"
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white transition-colors"
               >
                 <Lock className="h-4 w-4 text-[#86efac]" />
                 <span>Unlock Official Vaccination Chart</span>
@@ -215,13 +215,13 @@ export const KnowledgePage: React.FC = () => {
       </div>
 
       {/* 2. Interactive Water Tank Dosage Calculator */}
-      <div id="dosage-calculator" className="scroll-mt-28 rounded-3xl bg-white border border-[#EAE6DC] p-6 sm:p-10 shadow-xs space-y-8">
+      <div id="dosage-calculator" className="scroll-mt-28 rounded-2xl sm:rounded-3xl bg-white border border-[#EAE6DC] p-4 sm:p-10 shadow-xs space-y-6 sm:space-y-8">
         <div className="max-w-2xl space-y-1">
           <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#166534]">
             <Calculator className="h-4 w-4" />
             <span>Farm Math Made Easy</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-black text-[#14532D]">
+          <h2 className="font-display text-xl sm:text-3xl font-black text-[#14532D]">
             Water Tank Medication & Vitamin Calculator
           </h2>
           <p className="text-xs sm:text-sm text-[#14532D]/75 font-medium">
@@ -376,18 +376,18 @@ export const KnowledgePage: React.FC = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {articles.map((art, idx) => {
             const Icon = art.icon
             return (
               <div
                 key={idx}
-                className="rounded-3xl bg-white border border-[#EAE6DC] p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-6 hover:border-[#166534]/30 hover:shadow-md transition-all"
+                className="rounded-2xl sm:rounded-3xl bg-white border border-[#EAE6DC] p-4 sm:p-8 shadow-xs flex flex-col justify-between space-y-5 sm:space-y-6 hover:border-[#166534]/30 hover:shadow-md transition-all"
               >
-                <div className="space-y-4">
+                <div className="space-y-3.5 sm:space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#DCFCE7] text-[#166534]">
+                      <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-xl bg-[#DCFCE7] text-[#166534]">
                         <Icon className="h-4 w-4 stroke-[2.2]" />
                       </div>
                       <span className="text-[10px] font-black uppercase tracking-wider text-[#166534] bg-[#DCFCE7]/60 px-2.5 py-1 rounded-full">
@@ -399,8 +399,8 @@ export const KnowledgePage: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="space-y-1.5">
-                    <h3 className="font-display text-xl font-black text-[#14532D]">
+                  <div className="space-y-1 sm:space-y-1.5">
+                    <h3 className="font-display text-lg sm:text-xl font-black text-[#14532D]">
                       {art.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-[#14532D]/75 font-medium leading-relaxed">
@@ -409,8 +409,8 @@ export const KnowledgePage: React.FC = () => {
                   </div>
 
                   {/* Key Takeaways */}
-                  <div className="rounded-2xl bg-[#FAF9F5] p-4 border border-[#EAE6DC] space-y-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#14532D]/80 block">
+                  <div className="rounded-xl sm:rounded-2xl bg-[#FAF9F5] p-3.5 sm:p-4 border border-[#EAE6DC] space-y-1.5 sm:space-y-2">
+                    <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#14532D]/80 block">
                       Core Field Rules:
                     </span>
                     <ul className="space-y-1.5 text-xs text-[#14532D]/85">
@@ -438,24 +438,24 @@ export const KnowledgePage: React.FC = () => {
       </div>
 
       {/* 4. Veterinary Medication FAQs */}
-      <div className="rounded-3xl bg-white border border-[#EAE6DC] p-6 sm:p-10 shadow-xs space-y-6">
+      <div className="rounded-2xl sm:rounded-3xl bg-white border border-[#EAE6DC] p-4 sm:p-10 shadow-xs space-y-5 sm:space-y-6">
         <div className="max-w-2xl space-y-1">
           <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-[#166534]">
             <HelpCircle className="h-4 w-4" />
             <span>Common Questions</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-black text-[#14532D]">
+          <h2 className="font-display text-xl sm:text-3xl font-black text-[#14532D]">
             Frequently Asked Veterinary & Product Questions
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="rounded-2xl bg-[#FAF9F5] p-5 border border-[#EAE6DC] space-y-2"
+              className="rounded-xl sm:rounded-2xl bg-[#FAF9F5] p-3.5 sm:p-5 border border-[#EAE6DC] space-y-1.5 sm:space-y-2"
             >
-              <h4 className="font-display text-sm font-bold text-[#14532D]">
+              <h4 className="font-display text-xs sm:text-sm font-bold text-[#14532D]">
                 {faq.q}
               </h4>
               <p className="text-xs text-[#14532D]/80 leading-relaxed font-medium">

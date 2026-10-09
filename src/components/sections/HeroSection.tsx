@@ -59,12 +59,12 @@ export function HeroSection() {
 
           {/* Right Floating Authentic Distribution Hubs Card */}
           <div className="lg:col-span-4 flex justify-start lg:justify-end">
-            <div className="relative w-full max-w-[320px]">
+            <div className="relative w-full max-w-full sm:max-w-[320px]">
               {/* Stacked Back Card Peeking Tab */}
-              <div className="absolute -top-2.5 inset-x-3.5 h-6 rounded-t-[28px] bg-[#FEF3C7] opacity-90 shadow-sm -z-0" />
+              <div className="absolute -top-2 inset-x-3.5 h-5 sm:h-6 rounded-t-[20px] sm:rounded-t-[28px] bg-[#FEF3C7] opacity-90 shadow-sm -z-0" />
 
               {/* Main Front Forest Green Card */}
-              <div className="relative z-10 rounded-[32px] sm:rounded-[36px] bg-[#14532D] p-6 sm:p-7 text-white shadow-2xl border border-white/15 transition-transform duration-300 hover:scale-[1.02]">
+              <div className="relative z-10 rounded-2xl sm:rounded-[36px] bg-[#14532D] p-4 sm:p-7 text-white shadow-xl sm:shadow-2xl border border-white/15 transition-transform duration-300 hover:scale-[1.02]">
                 <div className="flex items-center justify-between pb-3 border-b border-white/10">
                   <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#DCFCE7]">
                     Distribution Network

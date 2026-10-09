@@ -5,6 +5,8 @@
 // changes). We return the normal index.html with that page's title, description and image filled in, so
 // people get the usual app, which then renders the product or article as before.
 
+export const config = { runtime: 'edge' }
+
 const API = (process.env.API_URL || process.env.VITE_API_URL || '').replace(/\/+$/, '')
 
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

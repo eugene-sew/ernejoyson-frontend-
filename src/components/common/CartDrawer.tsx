@@ -257,7 +257,7 @@ export const CartDrawer: React.FC = () => {
       <div className="relative z-10 flex h-full w-full max-w-md flex-col bg-[#FAF9F5] shadow-2xl border-l border-[#EAE6DC] animate-in slide-in-from-right duration-300">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#EAE6DC] px-6 py-4 bg-white">
+        <div className="flex items-center justify-between border-b border-[#EAE6DC] px-4 sm:px-6 py-3.5 sm:py-4 bg-white">
           <div className="flex items-center gap-2.5">
             {viewState === 'checkout' ? (
               <button
@@ -300,7 +300,7 @@ export const CartDrawer: React.FC = () => {
         {viewState === 'cart' && (
           <>
             {/* Cart Items Scroll List */}
-            <div className="flex-1 overflow-y-auto px-6 py-4 divide-y divide-[#EAE6DC]/60">
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-3 sm:py-4 divide-y divide-[#EAE6DC]/60">
               {items.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center py-16 space-y-4">
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#DCFCE7]/60 text-[#166534]">
@@ -323,9 +323,9 @@ export const CartDrawer: React.FC = () => {
                 </div>
               ) : (
                 items.map((item) => (
-                  <div key={item.product.id} className="flex gap-4 py-4 group">
+                  <div key={item.product.id} className="flex gap-3 sm:gap-4 py-3.5 sm:py-4 group">
                     {/* Thumbnail */}
-                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-[#EAE6DC] bg-white p-1">
+                    <div className="h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-xl border border-[#EAE6DC] bg-white p-1">
                       <img
                         src={item.product.image}
                         alt={item.product.name}
@@ -400,7 +400,7 @@ export const CartDrawer: React.FC = () => {
 
             {/* Footer Summary & Proceed to Checkout */}
             {items.length > 0 && (
-              <div className="border-t border-[#EAE6DC] bg-white p-6 space-y-4 shadow-lg">
+              <div className="border-t border-[#EAE6DC] bg-white p-4 sm:p-6 space-y-3.5 sm:space-y-4 shadow-lg">
                 {/* Subtotal Calculation */}
                 <div className="space-y-1.5 text-xs text-[#14532D]/80">
                   <div className="flex justify-between items-center">

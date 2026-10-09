@@ -83,25 +83,25 @@ export function WhyAgroneSection() {
   }
 
   return (
-    <section id="why-ernejoyson" className="px-3 sm:px-8 lg:px-12 py-14 sm:py-20 max-w-[1380px] mx-auto w-full space-y-8 sm:space-y-12">
+    <section id="why-ernejoyson" className="px-2.5 sm:px-8 lg:px-12 py-10 sm:py-20 max-w-[1380px] mx-auto w-full space-y-6 sm:space-y-12">
       {/* Header with Eyebrow, Title and Supporting Copy */}
-      <div className="text-center max-w-3xl mx-auto space-y-3 px-2 sm:px-0">
+      <div className="text-center max-w-3xl mx-auto space-y-3 px-1 sm:px-0">
         {/* Heading */}
-        <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14532D] leading-[1.1]">
+        <h2 className="font-display text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14532D] leading-[1.15]">
           More Than a Supplier. <br className="hidden sm:inline" />
           A Partner in Better Farming.
         </h2>
 
         {/* Supporting copy */}
-        <p className="text-sm sm:text-base text-[#14532D]/80 leading-relaxed font-medium max-w-2xl mx-auto">
+        <p className="text-xs sm:text-base text-[#14532D]/80 leading-relaxed font-medium max-w-2xl mx-auto">
           We combine quality veterinary products, practical livestock equipment and technical knowledge to help farmers make better decisions and run more productive operations.
         </p>
       </div>
 
       {/* Main Container: Fluid on Mobile, Cream Card on Tablet/Desktop */}
-      <div className="rounded-none sm:rounded-[48px] bg-transparent sm:bg-[#FAF9F5] sm:border sm:border-[#EAE6DC] p-0 sm:p-10 lg:p-12 space-y-6 sm:space-y-10 shadow-none sm:shadow-sm">
+      <div className="rounded-none sm:rounded-[48px] bg-transparent sm:bg-[#FAF9F5] sm:border sm:border-[#EAE6DC] p-0 sm:p-10 lg:p-12 space-y-5 sm:space-y-10 shadow-none sm:shadow-sm">
         {/* Top Feature Rows */}
-        <div className="space-y-2.5 sm:space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {accordions.map((item) => {
             const isOpen = openAccordion === item.id
 
@@ -110,12 +110,12 @@ export function WhyAgroneSection() {
                 <div
                   key={item.id}
                   onClick={() => handleAccordionClick(item.id)}
-                  className="rounded-2xl sm:rounded-3xl bg-white p-4 sm:p-7 shadow-sm border border-black/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-5 transition-all duration-200 cursor-pointer ring-1.5 ring-[#166534]/20"
+                  className="rounded-xl sm:rounded-3xl bg-white p-3.5 sm:p-7 shadow-xs sm:shadow-sm border border-black/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-5 transition-all duration-200 cursor-pointer ring-1.5 ring-[#166534]/20"
                 >
-                  <div className="flex-1 space-y-1.5 sm:space-y-2">
+                  <div className="flex-1 space-y-1 sm:space-y-2">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4.5 w-4.5 sm:h-5 sm:w-5 text-[#166534] shrink-0" />
-                      <h3 className="font-display text-base sm:text-xl font-bold text-[#14532D]">
+                      <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#166534] shrink-0" />
+                      <h3 className="font-display text-sm sm:text-xl font-bold text-[#14532D]">
                         {item.title}
                       </h3>
                     </div>
@@ -125,7 +125,7 @@ export function WhyAgroneSection() {
                   </div>
 
                   {/* Thumbnail */}
-                  <div className="h-20 w-32 sm:h-24 sm:w-44 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF9F5] shadow-sm">
+                  <div className="h-16 w-28 sm:h-24 sm:w-44 shrink-0 rounded-lg sm:rounded-2xl overflow-hidden bg-[#FAF9F5] shadow-xs">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -140,9 +140,9 @@ export function WhyAgroneSection() {
               <div
                 key={item.id}
                 onClick={() => handleAccordionClick(item.id)}
-                className="rounded-xl sm:rounded-2xl bg-white px-4 sm:px-7 py-4 sm:py-5 shadow-sm border border-black/5 flex items-center justify-between transition-all duration-200 hover:bg-white/90 cursor-pointer"
+                className="rounded-lg sm:rounded-2xl bg-white px-3.5 sm:px-7 py-3 sm:py-5 shadow-xs sm:shadow-sm border border-black/5 flex items-center justify-between transition-all duration-200 hover:bg-white/90 cursor-pointer"
               >
-                <h3 className="font-display text-sm sm:text-base font-bold text-[#14532D]">
+                <h3 className="font-display text-xs sm:text-base font-bold text-[#14532D]">
                   {item.title}
                 </h3>
                 <span className="font-display text-xs sm:text-sm font-bold text-[#166534]">
@@ -154,12 +154,12 @@ export function WhyAgroneSection() {
         </div>
 
         {/* Bottom Featured Media Section with Video Carousel Tag */}
-        <div className="space-y-3 sm:space-y-4">
+        <div className="space-y-2.5 sm:space-y-4">
           {/* Header Bar for Featured Media Tag + Carousel Navigation */}
           <div className="flex items-center justify-between px-1 sm:px-2">
             <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#14532D] px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-bold text-[#DCFCE7] shadow-sm">
-                <Video className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#14532D] px-3 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold text-[#DCFCE7] shadow-sm">
+                <Video className="h-3 w-3 sm:h-4 sm:w-4" />
                 Featured Field Demonstrations
               </span>
               <span className="text-xs sm:text-sm font-semibold text-[#14532D]/70 hidden sm:inline">
@@ -168,26 +168,26 @@ export function WhyAgroneSection() {
             </div>
 
             {/* Media Carousel Controls */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <button
                 onClick={prevMedia}
                 aria-label="Previous showcase"
-                className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white border border-[#14532D]/20 text-[#14532D] shadow-sm hover:bg-[#166534] hover:text-white transition-all cursor-pointer"
+                className="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white border border-[#14532D]/20 text-[#14532D] shadow-sm hover:bg-[#166534] hover:text-white transition-all cursor-pointer"
               >
-                <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                <ChevronLeft className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
               </button>
               <button
                 onClick={nextMedia}
                 aria-label="Next showcase"
-                className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white border border-[#14532D]/20 text-[#14532D] shadow-sm hover:bg-[#166534] hover:text-white transition-all cursor-pointer"
+                className="flex h-7 w-7 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white border border-[#14532D]/20 text-[#14532D] shadow-sm hover:bg-[#166534] hover:text-white transition-all cursor-pointer"
               >
-                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                <ChevronRight className="h-3.5 w-3.5 sm:h-5 sm:w-5" />
               </button>
             </div>
           </div>
 
           {/* Large Video Display Stage */}
-          <div className="relative min-h-[360px] sm:min-h-[460px] w-full rounded-[24px] sm:rounded-[40px] overflow-hidden shadow-md">
+          <div className="relative min-h-[280px] sm:min-h-[460px] w-full rounded-2xl sm:rounded-[40px] overflow-hidden shadow-md">
             {/* Background Livestock and Poultry Farming Footage */}
             <img
               src={current.bg}

@@ -63,34 +63,34 @@ export const ProductDetailPage: React.FC = () => {
   ).slice(0, 4)
 
   return (
-    <div className="pt-24 pb-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="pt-20 sm:pt-24 pb-20 max-w-[1400px] mx-auto px-2.5 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
       {/* 1. Breadcrumbs */}
-      <nav className="flex items-center gap-2 text-xs font-semibold text-[#14532D]/60 flex-wrap">
+      <nav className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-semibold text-[#14532D]/60 flex-wrap px-1 sm:px-0">
         <Link to="/" className="hover:text-[#166534] transition-colors">
           Home
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" />
+        <ChevronRight className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
         <Link to="/shop" className="hover:text-[#166534] transition-colors">
           Shop
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" />
+        <ChevronRight className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
         <Link
           to={`/shop?category=${product.categorySlug}`}
           className="hover:text-[#166534] transition-colors capitalize"
         >
           {product.category}
         </Link>
-        <ChevronRight className="h-3.5 w-3.5" />
-        <span className="text-[#14532D] font-bold truncate max-w-[200px]">
+        <ChevronRight className="h-3 sm:h-3.5 w-3 sm:w-3.5" />
+        <span className="text-[#14532D] font-bold truncate max-w-[160px] sm:max-w-[200px]">
           {product.name}
         </span>
       </nav>
 
       {/* 2. Main Product Details View */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
         {/* Left Column: Product Visuals & Branch Availability */}
-        <div className="lg:col-span-6 space-y-6">
-          <div className="relative aspect-4/3 sm:aspect-square w-full rounded-3xl overflow-hidden bg-white border border-[#EAE6DC] shadow-sm">
+        <div className="lg:col-span-6 space-y-4 sm:space-y-6">
+          <div className="relative aspect-square sm:aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-[#EAE6DC] shadow-xs sm:shadow-sm">
             <img
               src={product.image}
               alt={product.name}
@@ -98,21 +98,21 @@ export const ProductDetailPage: React.FC = () => {
             />
 
             {/* ERNEJOYSON Logo Watermark */}
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none select-none z-10">
+            <div className="absolute bottom-2.5 sm:bottom-3 left-1/2 -translate-x-1/2 pointer-events-none select-none z-10">
               <img
                 src={logoWatermark}
                 alt="ERNEJOYSON"
-                className="h-14 sm:h-16 w-auto max-w-[160px] object-contain opacity-75 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+                className="h-8 sm:h-16 w-auto max-w-[100px] sm:max-w-[160px] object-contain opacity-75 drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
               />
             </div>
 
-            <div className="absolute top-4 right-4">
+            <div className="absolute top-2.5 sm:top-4 right-2.5 sm:right-4">
               {product.inStock ? (
-                <span className="rounded-full bg-[#DCFCE7] px-3 py-1 text-xs font-black text-[#14532D] shadow-xs">
+                <span className="rounded-full bg-[#DCFCE7] px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-black text-[#14532D] shadow-xs">
                   Available in Ghana
                 </span>
               ) : (
-                <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-black text-red-700 shadow-xs">
+                <span className="rounded-full bg-red-100 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-black text-red-700 shadow-xs">
                   Order by Quote
                 </span>
               )}
@@ -120,7 +120,7 @@ export const ProductDetailPage: React.FC = () => {
           </div>
 
           {/* Regional Hub Availability Matrix */}
-          <div className="rounded-3xl bg-white border border-[#EAE6DC] p-5 shadow-xs space-y-3">
+          <div className="rounded-2xl sm:rounded-3xl bg-white border border-[#EAE6DC] p-3.5 sm:p-5 shadow-xs space-y-3">
             <div className="flex items-center gap-2 text-xs font-black text-[#14532D] uppercase tracking-wider">
               <MapPin className="h-4 w-4 text-[#166534]" />
               <span>Branch Stock & Pickup Status</span>
@@ -310,30 +310,30 @@ export const ProductDetailPage: React.FC = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-5">
             {relatedProducts.map((rel) => (
               <Link
                 key={rel.id}
                 to={`/shop/${rel.id}`}
-                className="group rounded-3xl bg-white p-4 border border-[#EAE6DC] shadow-xs hover:shadow-md hover:border-[#166534]/30 transition-all flex flex-col justify-between"
+                className="group rounded-2xl sm:rounded-3xl bg-white p-2.5 sm:p-4 border border-[#EAE6DC] shadow-xs hover:shadow-md hover:border-[#166534]/30 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="aspect-4/3 w-full rounded-2xl overflow-hidden bg-[#FAF9F5] border border-[#EAE6DC]/60 mb-3">
+                  <div className="aspect-square sm:aspect-4/3 w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF9F5] border border-[#EAE6DC]/60 mb-2 sm:mb-3">
                     <img
                       src={rel.image}
                       alt={rel.name}
                       className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <h3 className="font-display text-sm font-bold text-[#14532D] group-hover:text-[#166534] transition-colors line-clamp-1 mt-1">
+                  <h3 className="font-display text-xs sm:text-sm font-bold text-[#14532D] group-hover:text-[#166534] transition-colors line-clamp-2 mt-1 leading-tight sm:leading-snug">
                     {rel.name}
                   </h3>
                 </div>
-                <div className="pt-3 mt-3 border-t border-[#FAF9F5] flex items-center justify-between">
-                  <span className="font-display text-sm font-extrabold text-[#14532D]">
+                <div className="pt-2 sm:pt-3 mt-2 sm:mt-3 border-t border-[#FAF9F5] flex items-center justify-between">
+                  <span className="font-display text-xs sm:text-sm font-extrabold text-[#14532D]">
                     {rel.priceDisplay}
                   </span>
-                  <span className="text-xs font-bold text-[#166534]">View &rarr;</span>
+                  <span className="text-[11px] sm:text-xs font-bold text-[#166534]">View &rarr;</span>
                 </div>
               </Link>
             ))}

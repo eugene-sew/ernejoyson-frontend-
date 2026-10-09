@@ -461,14 +461,6 @@ export function Header() {
 
         {/* Mobile / Tablet Header Controls */}
         <div className="flex items-center gap-2 lg:hidden">
-          <Link
-            to="/account"
-            aria-label={isLoggedIn ? 'My account' : 'Sign in'}
-            className="relative flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md border border-black/5 text-[#14532D]"
-          >
-            <UserRound className="h-4.5 w-4.5" />
-            {isLoggedIn && <span className="absolute top-1 right-1 h-2.5 w-2.5 rounded-full bg-[#22C55E] ring-2 ring-white" />}
-          </Link>
           <button
             onClick={openCart}
             type="button"
@@ -580,6 +572,28 @@ export function Header() {
                 <div>
                   <span className="block text-sm font-bold text-[#14532D]">About ERNEJOYSON</span>
                   <span className="text-[11px] text-[#14532D]/60 font-normal">Corporate profile, 4 branches &amp; leadership</span>
+                </div>
+              </Link>
+
+              {/* Profile / Account in Hamburger Menu */}
+              <Link
+                to="/account"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-2xl p-3 bg-[#FAF9F5] hover:bg-[#DCFCE7]/40 transition-colors"
+              >
+                <div className="h-9 w-9 rounded-xl bg-[#DCFCE7] flex items-center justify-center text-[#166534] shrink-0 relative">
+                  <UserRound className="h-4.5 w-4.5" />
+                  {isLoggedIn && (
+                    <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-[#22C55E] ring-2 ring-white" />
+                  )}
+                </div>
+                <div>
+                  <span className="block text-sm font-bold text-[#14532D]">
+                    {isLoggedIn ? 'My Account & Orders' : 'Sign In / Account'}
+                  </span>
+                  <span className="text-[11px] text-[#14532D]/60 font-normal">
+                    {isLoggedIn ? 'View your order history & status' : 'Track orders or sign in to account'}
+                  </span>
                 </div>
               </Link>
             </div>

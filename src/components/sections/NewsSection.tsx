@@ -40,17 +40,17 @@ export function NewsSection() {
   ]
 
   return (
-    <section id="knowledge" className="px-4 sm:px-8 lg:px-12 py-14 sm:py-20 max-w-[1380px] mx-auto w-full space-y-10 sm:space-y-12">
+    <section id="knowledge" className="px-2.5 sm:px-8 lg:px-12 py-10 sm:py-20 max-w-[1380px] mx-auto w-full space-y-8 sm:space-y-12">
       {/* Header Row */}
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 px-1 sm:px-0">
         <div className="space-y-3 max-w-3xl">
 
-          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14532D] leading-[1.1]">
+          <h2 className="font-display text-2xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#14532D] leading-[1.15]">
             Better Farming Starts <br className="hidden sm:inline" />
             With Better Information.
           </h2>
 
-          <p className="text-sm sm:text-base text-[#14532D]/80 leading-relaxed max-w-2xl font-medium pt-1">
+          <p className="text-xs sm:text-base text-[#14532D]/80 leading-relaxed max-w-2xl font-medium pt-1">
             Practical insights on animal health, poultry production, livestock management, equipment and farm operations.
           </p>
         </div>
@@ -59,7 +59,7 @@ export function NewsSection() {
         <div className="shrink-0">
           <Link
             to="/knowledge"
-            className="inline-flex items-center gap-2 rounded-full border border-[#166534] px-7 py-3 text-sm font-extrabold text-[#166534] transition-all hover:bg-[#166534] hover:text-white active:scale-95 shadow-sm"
+            className="inline-flex items-center gap-2 rounded-full border border-[#166534] px-6 sm:px-7 py-2.5 sm:py-3 text-xs sm:text-sm font-extrabold text-[#166534] transition-all hover:bg-[#166534] hover:text-white active:scale-95 shadow-sm"
           >
             <span>Explore Farm Knowledge</span>
             <BookOpen className="h-4 w-4" />
@@ -68,15 +68,15 @@ export function NewsSection() {
       </div>
 
       {/* Article Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {published.length > 0 && published.map((a) => <ArticleCard key={a.id} article={a} />)}
         {published.length === 0 && articles.map((article) => (
           <article
             key={article.id}
-            className="group flex flex-col justify-between rounded-[32px] bg-white p-5 shadow-sm border border-[#EAE6DC] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
+            className="group flex flex-col justify-between rounded-2xl sm:rounded-[32px] bg-white p-3.5 sm:p-5 shadow-xs sm:shadow-sm border border-[#EAE6DC] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
           >
             {/* Image Thumbnail with Overlay Category Badge */}
-            <Link to="/knowledge" className="relative h-60 w-full overflow-hidden rounded-[24px] bg-[#FAF9F5] block">
+            <Link to="/knowledge" className="relative h-48 sm:h-60 w-full overflow-hidden rounded-xl sm:rounded-[24px] bg-[#FAF9F5] block">
               <img
                 src={article.image}
                 alt={article.title}
