@@ -1,6 +1,6 @@
 # PROJECT MEMORY & ARCHITECTURAL KNOWLEDGE BASE
 **Project Name**: ERNEJOYSON Company Limited (Enterprise E-Commerce & Agricultural Distribution Platform)  
-**Last Updated**: October 1, 2026 (Django API port, Docker staging/prod, admin split into its own app)  
+**Last Updated**: October 26, 2026 (Domains, Hostinger DNS, Staging routing, Vercel SPA fix, CORS whitelisting, Super Admin account, Staff User Guide)  
 **Primary Repository**: `frontend/.git` (`origin/main`). Repos (all `eugene-sew`): `ernejoyson-frontend-` (public), `ernejoyson-admin` (private), `ernejoyson-backend` (private, from `backend-django/`). Legacy `backend/` is not in git.  
 **Workspace Root**: `/Users/eugenedev/Documents/Partners/EnerJoyson`
 
@@ -24,44 +24,63 @@
 
 ---
 
-## 2. System Architecture & Tech Stack
-
-Three deployables:
+## 2. System Architecture, Domains & Tech Stack
 
 ```mermaid
 graph TD
-    Shop[Storefront - frontend/ - :5174 / ernejoyson.com] -->|/api proxy in dev| API
-    Admin[Admin app - admin/ - :5175 / admin.ernejoyson.com] -->|/api proxy in dev, CORS in prod| API
-    API[Django + DRF - backend-django/ - :5001 / api.ernejoyson.com] -->|WAL| DB[(SQLite: backend-django/data/db.sqlite3)]
+    ShopProd[Storefront Prod - ernejoyson.com] -->|CORS| API[Django + DRF - api.ernejoyson.com - :8000]
+    ShopStaging[Storefront Staging - staging.ernejoyson.com] -->|CORS| API
+    AdminProd[Admin Prod - admin.ernejoyson.com] -->|CORS| API
+    AdminStaging[Admin Staging - staging-admin.ernejoyson.com] -->|CORS| API
+    API -->|WAL| DB[(SQLite: data/db.sqlite3)]
     API -->|verify + webhook| Paystack
     API -->|transactional email| Resend
-    Admin -.->|signed direct upload, planned| Cloudinary
-    Shop -->|Paystack Inline JS| Paystack
+    API -.->|SMS, optional| Arkesel
+    AdminStaging -.->|signed upload| Cloudinary
 ```
 
-| Layer | Technologies | Location / Port |
-|---|---|---|
-| **Storefront** | React 19, Vite 8, React Router 7, TS, Tailwind 4, Zustand, MapLibre, Paystack inline | `frontend/`, `:5174` |
-| **Admin** | Same stack minus maps/Paystack; routes at root (`/login`, `/orders`, ...) | `admin/`, `:5175` |
-| **API** | Django 6.1, DRF, SimpleJWT, drf-spectacular (Swagger `/api/docs`), Resend, Paystack, gunicorn, WhiteNoise; managed by `uv` (Python 3.12) | `backend-django/`, `:5001` |
-| **Database** | SQLite WAL (Postgres later if needed) | `backend-django/data/` |
-| **Deploy** | Docker: one compose per app, env chosen by `--env-file .env.staging|.env.production`; Caddy in front for TLS | see each app's README |
-| **Legacy** | Old Node/Express API, kept until Django is confirmed in prod. Do not develop on it. | `backend/` |
+### Domain & DNS Configuration (Hostinger Zone: `ernejoyson.com`)
+
+| Service / App | Environment | Domain / Subdomain | Target / Destination | Record Type & TTL |
+|---|---|---|---|---|
+| **Storefront** | Production | `ernejoyson.com` | `216.198.79.1` (Vercel Apex) | `A` (3000) |
+| **Storefront** | Production | `www.ernejoyson.com` | `34be1192cdd5f928.vercel-dns-017.com.` | `CNAME` (300) |
+| **Storefront** | Staging | `staging.ernejoyson.com` | `34be1192cdd5f928.vercel-dns-017.com.` | `CNAME` (300) |
+| **Storefront** | Testing | `testing.ernejoyson.com` | `cname.vercel-dns.com.` | `CNAME` (300) |
+| **Admin Portal** | Production | `admin.ernejoyson.com` | `72352fc73701e780.vercel-dns-017.com.` | `CNAME` (3000) |
+| **Admin Portal** | Staging | `staging-admin.ernejoyson.com` | `72352fc73701e780.vercel-dns-017.com.` | `CNAME` (300) |
+| **Admin Portal** | Staging (Alias) | `admin-staging.ernejoyson.com` | `72352fc73701e780.vercel-dns-017.com.` | `CNAME` (300) |
+| **Backend API** | Shared (Prod/Staging) | `api.ernejoyson.com` | `72.61.109.50` (Hostinger VPS) | `A` (3600) |
+
+### Deployables & Technology Layers
+
+| Layer | Technologies | Location / Port | Live Domains |
+|---|---|---|---|
+| **Storefront** | React 19, Vite 8, React Router 7, TS, Tailwind 4, Zustand, MapLibre, Paystack inline | `frontend/`, `:5174` | `ernejoyson.com`, `www.ernejoyson.com`, `staging.ernejoyson.com`, `testing.ernejoyson.com` |
+| **Admin** | Same stack minus maps/Paystack; routes at root (`/login`, `/orders`, ...) | `admin/`, `:5175` | `admin.ernejoyson.com`, `staging-admin.ernejoyson.com`, `admin-staging.ernejoyson.com` |
+| **API** | Django 6.1, DRF, SimpleJWT, drf-spectacular (Swagger `/api/docs`), Resend, Paystack, gunicorn, WhiteNoise; managed by `uv` (Python 3.12) | `backend-django/`, `:5001` (Hostinger VPS: Coolify Docker `72.61.109.50`) | `api.ernejoyson.com` |
+| **Database** | SQLite WAL (on VPS: Docker volume `fqxah2q7tklzrwmmcldpxv0u_data`) | `backend-django/data/` | Internal to Docker container |
+| **Deploy** | Frontend/Admin on Vercel (`vercel.json` rewrites); API on Hostinger VPS (Ubuntu 24.04 + Coolify + Traefik) | see each app's README | Traefik automates Let's Encrypt TLS |
+| **Legacy** | Old Node/Express API, kept until Django is confirmed in prod. Do not develop on it. | `backend/` | Deprecated |
 
 ---
 
 ## 3. Credentials & Core Services
 
-### Admin Portal Credentials (local dev):
-- **URL**: `http://localhost:5175/login` (prod: `https://admin.ernejoyson.com`)
+### Admin Portal Credentials (Staging Environment):
+- **URL**: `https://staging-admin.ernejoyson.com/login` (prod: `https://admin.ernejoyson.com`)
 - **Email**: `admin@ernejoyson.com`
-- **Password**: local dev password is kept out of this repo (it is public). Set real ones per env with `createsuperuser`.
-- **Role**: `superadmin`
+- **Password**: `Ernejoyson@2026!`
+- **Role**: `owner` (*Owner / Executive* — full platform access across all branches, catalog, orders, waybills, and settings)
+- **Database Status**: Seeded and verified against live API (`https://api.ernejoyson.com/api/auth/login`).
+- **Local Dev URL**: `http://localhost:5175/login`
 - **JWT Storage**: `localStorage` keys `ej_admin_token` / `ej_admin_user` on the **admin origin only** (7-day token).
 
-### Integration keys (all unset locally; features degrade gracefully):
-- `backend-django/.env`: `PAYSTACK_SECRET_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`, `ADMIN_NOTIFY_EMAILS`, `CLOUDINARY_*`.
-- `frontend`: `VITE_PAYSTACK_PUBLIC_KEY` (unset = sandbox fake-pay), `VITE_API_URL` (empty in dev).
+### Integration keys (configured in Admin Portal → Settings → External Accounts):
+- `PAYSTACK_SECRET_KEY`: Client-owned Ghana corporate account (mandatory).
+- `RESEND_API_KEY`: Transactional email delivery (`orders@mail.ernejoyson.com`). Agency-managed unless client self-manages.
+- `CLOUDINARY_*`: Cloud media storage and image optimization. Agency-managed unless client self-manages.
+- `ARKESEL_API_KEY`: SMS dispatch notifications (strictly no WhatsApp). Client decision.
 
 ### NPM Install Permissions Note (macOS Host):
 When installing packages in `frontend/` or `admin/`, always run with `--cache /tmp/.npm-cache` to avoid `EACCES` permission errors on `/Users/eugenedev/.npm`:
@@ -222,7 +241,8 @@ EnerJoyson/
 - Christopher's team picture updated to `christopher.jpeg` on the About page.
 
 ### Vercel Deployment & SPA Routing
-- Created `frontend/vercel.json` and `admin/vercel.json` with standard SPA rewrites (`"source": "/(.*)", "destination": "/index.html"`), clean URLs, asset caching (`/assets/*`, `/products/*`), and security headers. Resolves the Vercel `404 NOT_FOUND` on deep links/page reloads.
+- Created `frontend/vercel.json` and `admin/vercel.json` with standard SPA rewrites (`"source": "/(.*)", "destination": "/index.html"`), asset caching (`/assets/*`, `/products/*`), and security headers.
+- **CRITICAL ROUTING FIX (Oct 10)**: Removed `"cleanUrls": true` from both `vercel.json` files. `cleanUrls: true` conflicted directly with SPA catch-all rewrites, forcing Vercel's edge router to search for static `.html` files for deep links (e.g. `/login`, `/orders`, `/products`) and returning `404 NOT_FOUND` upon direct URL entry or page refresh. With `cleanUrls` removed, all deep routes cleanly return `HTTP 200` and serve `index.html`.
 
 ---
 
@@ -254,6 +274,23 @@ EnerJoyson/
 20. **Admin config from env (Oct 9)**: admin reads `VITE_API_URL` / `VITE_STOREFRONT_URL` only via `src/lib/config.ts`; `vite.config.ts` loads the mode's env file and fails dev/build if either is missing. Dev proxy removed (admin calls the API directly; CORS allows :5175). Dev env: `admin/.env.development` (from `.env.development.example`; also optional `ADMIN_PORT`, `VITE_DEV_LOGIN_EMAIL/PASSWORD`, so the dev password is no longer in source). Vercel admin project needs both VITE_ vars set.
 
 21. **Deployments (Oct 26)**: Vercel projects `ernejoyson-frontend` (ernejoyson.com) and `ernejoyson-admin` live in scope `eugenedevs-projects` and are deployed from the CLI (`vercel --prod` inside `frontend/` or `admin/`, folders linked via `.vercel/`), not from GitHub, so a push alone doesn't redeploy. The API (api.ernejoyson.com, gunicorn on VPS 72.61.109.50) already runs the latest backend. CORS allows admin.ernejoyson.com / staging-admin / ernejoyson.com, but **admin.ernejoyson.com is not attached to the admin Vercel project** (Vercel returns DEPLOYMENT_NOT_FOUND); attach it with `vercel domains add admin.ernejoyson.com` in `admin/`. Production `VITE_PAYSTACK_PUBLIC_KEY` is the **test** key: swap to `pk_live_…` at launch (and the backend secret in Admin → Settings). Checkout no longer fakes a PAID receipt when Paystack is missing or fails. Shop cards no longer show descriptions (only the product page does).
+
+22. **Domain Architecture, Hostinger DNS, Staging Routing, Vercel SPA Fix, & Backend CORS (Oct 10-26)**:
+    - **Hostinger DNS Zone (`ernejoyson.com`)**: Configured and verified DNS records via Hostinger DNS API:
+      - `staging` -> CNAME `34be1192cdd5f928.vercel-dns-017.com.` (TTL 300) [Vercel Storefront Staging]
+      - `staging-admin` -> CNAME `72352fc73701e780.vercel-dns-017.com.` (TTL 300) [Vercel Admin Staging]
+      - `admin-staging` -> CNAME `72352fc73701e780.vercel-dns-017.com.` (TTL 300) [Alternative Admin Staging]
+      - `testing` -> CNAME `cname.vercel-dns.com.` (TTL 300) [Alternative Storefront Testing]
+      - `www` -> CNAME `34be1192cdd5f928.vercel-dns-017.com.` (TTL 300) [Production Storefront]
+      - `@` -> A `216.198.79.1` (TTL 3000) [Apex domain redirect]
+      - `api` -> A `72.61.109.50` (TTL 3600) [Django API Backend on Hostinger VPS]
+      - `admin` -> CNAME `72352fc73701e780.vercel-dns-017.com.` (TTL 3000) [Production Admin Portal]
+    - **Vercel SPA Deep-Linking Fix**: Removed `"cleanUrls": true` in `admin/vercel.json` and `frontend/vercel.json`. Resolved edge-router conflict where direct GETs to `/login` returned Vercel 404 NOT_FOUND. Committed to `admin` (`44335e3`) and `frontend` (`d478e89`). Verified `HTTP 200` response on `https://staging-admin.ernejoyson.com/login` and `https://staging.ernejoyson.com/products`.
+    - **Backend CORS & CSRF Configuration**: Resolved `Unable to establish a connection to the server` on admin sign-in. Added `https://staging-admin.ernejoyson.com`, `https://admin-staging.ernejoyson.com`, `https://staging.ernejoyson.com`, and `https://testing.ernejoyson.com` to `CORS_ALLOWED_ORIGINS` and `CSRF_TRUSTED_ORIGINS`. Persisted configuration in `/data/coolify/applications/fqxah2q7tklzrwmmcldpxv0u/.env` and Coolify's PostgreSQL DB (`EnvironmentVariable::find(453)`). Recreated container and verified `access-control-allow-origin` headers.
+    - **Super Admin Account Provisioning**: Provisioned default Super Admin (`owner` role) on the live Django database via Python shell inside container `api-fqxah2q7tklzrwmmcldpxv0u-103026111074`. Email: `admin@ernejoyson.com`, Password: `Ernejoyson@2026!`. Tested and confirmed authentication against `POST https://api.ernejoyson.com/api/auth/login`.
+    - **Staff Operational Manual & Client Integration Deliverables**:
+      - Generated 16-page training guide with 15 real UI screenshots: [`docs/ERNEJOYSON_PLATFORM_USER_GUIDE.pdf`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/docs/ERNEJOYSON_PLATFORM_USER_GUIDE.pdf) and [`docs/ERNEJOYSON_PLATFORM_STAFF_MANUAL.md`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/docs/ERNEJOYSON_PLATFORM_STAFF_MANUAL.md) using staging endpoints (`staging-admin.ernejoyson.com`, `staging.ernejoyson.com`), hiding live production endpoints from staff.
+      - Generated 4-page executive account requirements guide: [`docs/ERNEJOYSON_THIRD_PARTY_ACCOUNTS_REQUIREMENTS.pdf`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/docs/ERNEJOYSON_THIRD_PARTY_ACCOUNTS_REQUIREMENTS.pdf) and [`docs/ERNEJOYSON_THIRD_PARTY_ACCOUNTS_REQUIREMENTS.md`](file:///Users/eugenedev/Documents/Partners/EnerJoyson/docs/ERNEJOYSON_THIRD_PARTY_ACCOUNTS_REQUIREMENTS.md) covering Paystack, Cloudinary, Resend, and Arkesel SMS.
 
 ### Open Issues (priority order)
 1. **Checkout: validate before paying**: save errors now show (fixed Oct 8), but with live Paystack keys a customer could still pay and then hit a save error (they see the reference and a phone number). Fix properly by validating the cart with the API before opening Paystack.
