@@ -313,10 +313,6 @@ export const ShopPage: React.FC = () => {
                       </p>
                     )}
 
-                    {/* Description - hidden on mobile 2x2 grid to preserve vertical rhythm */}
-                    <p className="hidden sm:block text-xs text-[#14532D]/70 line-clamp-2 leading-relaxed font-medium">
-                      {product.description}
-                    </p>
                   </div>
                 </div>
 
