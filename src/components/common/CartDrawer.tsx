@@ -126,52 +126,45 @@ export const CartDrawer: React.FC = () => {
     const referenceId = `ENJ-${Date.now().toString().slice(-6)}`
     const effectiveEmail = customerEmail.trim() || `order_${referenceId.toLowerCase()}@ernejoyson.com`
 
-    // Option 1: Paystack Gateway Payment
+    // Option 1: Paystack. A receipt is only ever shown after Paystack reports success (and the API then verifies it).
     if (paymentMethod === 'paystack') {
+      const paystackKey = (import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || '').trim()
+      if (!/^pk_(test|live)_/.test(paystackKey)) {
+        setErrorMessage('Online payment is unavailable right now. Choose "Branch Cash / Waybill Dispatch" or call 059 670 9226.')
+        return
+      }
       setIsProcessing(true)
-
-      const paystackKey =
-        import.meta.env.VITE_PAYSTACK_PUBLIC_KEY || 'pk_test_placeholder_key'
-
       try {
-        // If real key is available (starts with pk_), launch PaystackPop
-        if (paystackKey && !paystackKey.includes('placeholder')) {
-          const paystack = new PaystackPop()
-          paystack.newTransaction({
-            key: paystackKey,
-            email: effectiveEmail,
-            amount: Math.round(totalPrice * 100), // Pesewas
-            currency: 'GHS',
-            reference: referenceId,
-            metadata: {
-              custom_fields: [
-                { display_name: 'Customer Name', variable_name: 'customer_name', value: customerName },
-                { display_name: 'Phone Number', variable_name: 'phone_number', value: customerPhone },
-                { display_name: 'Delivery Town', variable_name: 'delivery_town', value: deliveryLocation },
-              ],
-            },
-            onSuccess: (transaction: { reference: string }) => {
-              setIsProcessing(false)
-              completeOrder(transaction.reference, 'Paystack Online (MoMo / Card)', 'PAID')
-            },
-            onCancel: () => {
-              setIsProcessing(false)
-            },
-          })
-        } else {
-          // Demo / Test Mode integration when API key is pending setup
-          setTimeout(() => {
+        const paystack = new PaystackPop()
+        paystack.newTransaction({
+          key: paystackKey,
+          email: effectiveEmail,
+          amount: Math.round(totalPrice * 100), // Pesewas
+          currency: 'GHS',
+          reference: referenceId,
+          metadata: {
+            custom_fields: [
+              { display_name: 'Customer Name', variable_name: 'customer_name', value: customerName },
+              { display_name: 'Phone Number', variable_name: 'phone_number', value: customerPhone },
+              { display_name: 'Delivery Town', variable_name: 'delivery_town', value: deliveryLocation },
+            ],
+          },
+          onSuccess: (transaction: { reference: string }) => {
             setIsProcessing(false)
-            completeOrder(referenceId, 'Paystack Gateway (Sandbox MoMo)', 'PAID')
-          }, 1200)
-        }
+            completeOrder(transaction.reference, 'Paystack Online (MoMo / Card)', 'PAID')
+          },
+          onCancel: () => {
+            setIsProcessing(false)
+          },
+          onError: (error: { message?: string }) => {
+            setIsProcessing(false)
+            setErrorMessage(`Payment could not start: ${error?.message || 'please try again'}. You have not been charged.`)
+          },
+        })
       } catch (err) {
         console.error('Paystack initialization error:', err)
-        // Fallback demo execution
-        setTimeout(() => {
-          setIsProcessing(false)
-          completeOrder(referenceId, 'Paystack Gateway (Test Mode)', 'PAID')
-        }, 1000)
+        setIsProcessing(false)
+        setErrorMessage('Payment could not start. You have not been charged. Please try again, or choose branch payment.')
       }
     } else {
       // Option 2: Branch Payment / Direct Wire
