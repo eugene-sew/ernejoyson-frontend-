@@ -70,7 +70,7 @@ graph TD
 ### Admin Portal Credentials (Staging Environment):
 - **URL**: `https://staging-admin.ernejoyson.com/login` (prod: `https://admin.ernejoyson.com`)
 - **Email**: `admin@ernejoyson.com`
-- **Password**: `Ernejoyson@2026!`
+- **Password**: not stored here (ask the owner; never commit passwords to this public repo)
 - **Role**: `owner` (*Owner / Executive* — full platform access across all branches, catalog, orders, waybills, and settings)
 - **Database Status**: Seeded and verified against live API (`https://api.ernejoyson.com/api/auth/login`).
 - **Local Dev URL**: `http://localhost:5175/login`
