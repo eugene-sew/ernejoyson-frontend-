@@ -3,6 +3,30 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "staging.ernejoyson.com"
+        }
+      ],
+      "destination": "https://ernejoyson.com/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "testing.ernejoyson.com"
+        }
+      ],
+      "destination": "https://ernejoyson.com/:path*",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/shop/:key",
