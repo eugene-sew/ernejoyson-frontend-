@@ -1,0 +1,5 @@
+# Local-only files the Vercel CLI must not upload (it ignores .gitignore when deploying from the CLI).
+*.zip
+.env
+.env.local
+memory.md
