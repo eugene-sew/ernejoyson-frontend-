@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-
 import { Header } from '@/components/common/Header'
 import { CartDrawer } from '@/components/common/CartDrawer'
 import { CookieConsent } from '@/components/common/CookieConsent'
+import { ChatWidget } from '@/components/common/ChatWidget'
 import { Footer } from '@/components/sections/Footer'
 
 // Dedicated Public Pages
@@ -64,6 +65,9 @@ function PublicLayout() {
 
       {/* Modern Forest Green Footer */}
       <Footer />
+
+      {/* Chat assistant (answers from the catalog, no LLM) */}
+      <ChatWidget />
     </div>
   )
 }

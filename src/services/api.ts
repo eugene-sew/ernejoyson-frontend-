@@ -154,6 +154,17 @@ export interface ShopArticle {
 
 export interface ShopCategory { slug: string; name: string; sort_order: number; productCount: number }
 
+/** The website chat assistant's answer (deterministic, from the catalog: backend apps/assistant). */
+export interface AssistantAnswer {
+  success: boolean
+  reply: string
+  products: { id: string; name: string; category: string; price: number | null; priceDisplay: string; inStock: boolean; image: string; spec: string }[]
+  links: { label: string; href: string }[]
+  suggestions: string[]
+  context: { productId: string | null }
+  matched: boolean
+}
+
 export const api = {
   categories: {
     list: () => request<{ success: boolean; categories: ShopCategory[] }>('/api/categories'),
@@ -207,6 +218,11 @@ export const api = {
       return request<{ articles: ShopArticle[]; pagination: { total: number; page: number; totalPages: number }; categories: { value: string; label: string }[] }>(`/api/content/articles?${q}`)
     },
     article: (slug: string) => request<{ success: boolean; article: ShopArticle }>(`/api/content/articles/${encodeURIComponent(slug)}`),
+  },
+
+  assistant: {
+    ask: (message: string, productId?: string | null) =>
+      post<AssistantAnswer>('/api/assistant/ask', { message, productId: productId ?? '' }),
   },
 
   leads: {
