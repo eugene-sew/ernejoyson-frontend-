@@ -295,6 +295,8 @@ export const LocationsPage: React.FC = () => {
             {/* Representative Spotlight Box */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 bg-[#FAF9F5] p-4 sm:p-5 rounded-2xl border border-[#EAE6DC]">
               <img
+                loading="lazy"
+                decoding="async"
                 src={selectedBranch.manager.photo}
                 alt={selectedBranch.manager.name}
                 className="h-20 w-20 rounded-2xl object-cover border-2 border-white shadow-sm shrink-0"
@@ -441,6 +443,8 @@ export const LocationsPage: React.FC = () => {
                 {/* Staff Contact Card */}
                 <div className="flex items-center gap-3.5 bg-[#FAF9F5] p-3.5 rounded-2xl border border-[#EAE6DC]">
                   <img
+                    loading="lazy"
+                    decoding="async"
                     src={b.manager.photo}
                     alt={b.manager.name}
                     className="h-14 w-14 rounded-xl object-cover border border-black/10 shrink-0"
@@ -547,6 +551,8 @@ export const LocationsPage: React.FC = () => {
           {/* Francis Otoo - Fleet Supervisor Card */}
           <div className="flex items-center gap-3.5 rounded-2xl bg-[#FAF9F5] p-4 border border-[#EAE6DC] shrink-0">
             <img
+              loading="lazy"
+              decoding="async"
               src={photoFrancis}
               alt="Francis Otoo – Chief Driver & Fleet Supervisor"
               className="h-16 w-16 rounded-2xl object-cover border border-black/10 shrink-0"

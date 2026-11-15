@@ -6,6 +6,7 @@ import { useCartStore } from '@/store/useCartStore'
 import { useCatalogStore } from '@/store/useCatalogStore'
 import { Markdown } from '@/lib/markdown'
 import type { Product } from '@/data/products'
+import { thumb } from '@/lib/img'
 
 /**
  * Website chat assistant. Answers come from the API's deterministic engine (catalog, branches, articles);
@@ -149,7 +150,7 @@ export function ChatWidget() {
                         <li key={p.id} className="flex items-center gap-2.5 rounded-xl bg-white border border-[#EAE6DC] p-2">
                           <Link to={`/shop/${p.id}`} onClick={closeOnMobile} className="shrink-0">
                             {p.image
-                              ? <img src={p.image} alt="" loading="lazy" className="h-12 w-12 rounded-lg object-cover bg-[#F1EFE8]" />
+                              ? <img src={thumb(p.image)} alt="" loading="lazy" className="h-12 w-12 rounded-lg object-cover bg-[#F1EFE8]" />
                               : <span className="block h-12 w-12 rounded-lg bg-[#F1EFE8]" />}
                           </Link>
                           <div className="flex-1 min-w-0">

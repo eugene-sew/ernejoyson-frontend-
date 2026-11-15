@@ -1,3 +1,4 @@
+import { thumb } from '@/lib/img'
 import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
@@ -92,6 +93,7 @@ export const ProductDetailPage: React.FC = () => {
         <div className="lg:col-span-6 space-y-4 sm:space-y-6">
           <div className="relative aspect-square sm:aspect-square w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-[#EAE6DC] shadow-xs sm:shadow-sm">
             <img
+              fetchPriority="high"
               src={product.image}
               alt={product.name}
               className="h-full w-full object-cover"
@@ -320,7 +322,9 @@ export const ProductDetailPage: React.FC = () => {
                 <div>
                   <div className="aspect-square sm:aspect-4/3 w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF9F5] border border-[#EAE6DC]/60 mb-2 sm:mb-3">
                     <img
-                      src={rel.image}
+                      loading="lazy"
+                      decoding="async"
+                      src={thumb(rel.image)}
                       alt={rel.name}
                       className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />

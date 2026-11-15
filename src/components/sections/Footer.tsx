@@ -48,6 +48,8 @@ export function Footer() {
             <Link to="/" className="inline-flex items-center gap-3 font-display text-2xl font-black tracking-tight text-white group">
               <div className="h-10 w-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md group-hover:scale-105 transition-transform shrink-0">
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={logoIcon}
                   alt="ERNEJOYSON"
                   className="h-full w-full object-contain"

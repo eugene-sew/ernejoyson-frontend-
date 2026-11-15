@@ -7,7 +7,9 @@ export function CtaBanner() {
       <div className="relative min-h-[380px] sm:min-h-[420px] w-full rounded-[40px] sm:rounded-[52px] overflow-hidden p-8 sm:p-14 lg:p-18 flex flex-col items-center justify-center text-center shadow-2xl">
         {/* Background photo: modern livestock / poultry setup */}
         <img
-          src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1600&q=85"
+          loading="lazy"
+          decoding="async"
+          src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1600&q=70"
           alt="Poultry and livestock farm operations in Ghana"
           className="absolute inset-0 h-full w-full object-cover object-center scale-105"
         />

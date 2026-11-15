@@ -163,6 +163,8 @@ export const AboutPage: React.FC = () => {
           <div className="relative">
             <div className="rounded-3xl overflow-hidden border border-[#EAE6DC] shadow-xl aspect-[4/5] bg-[#DCFCE7]">
               <img
+                loading="lazy"
+                decoding="async"
                 src={photoDirector}
                 alt="Ernest Boapeah – Founder & Director, ERNEJOYSON"
                 className="w-full h-full object-cover object-top"
@@ -384,6 +386,8 @@ export const AboutPage: React.FC = () => {
             >
               <div className="aspect-[4/4.5] overflow-hidden bg-[#DCFCE7]">
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={person.photo}
                   alt={person.alt}
                   className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
@@ -417,6 +421,8 @@ export const AboutPage: React.FC = () => {
                 <div className="aspect-square overflow-hidden bg-[#DCFCE7] relative">
                   {person.photo ? (
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={person.photo}
                       alt={`${person.name} – ${person.role}`}
                       className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"

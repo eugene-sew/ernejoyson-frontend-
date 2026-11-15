@@ -160,6 +160,8 @@ export function FeaturesGridSection() {
           >
             {/* Authentic Photography */}
             <img
+              loading="lazy"
+              decoding="async"
               src={cat.image}
               alt={cat.name}
               className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"

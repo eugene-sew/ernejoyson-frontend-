@@ -1,3 +1,4 @@
+import { thumb } from '@/lib/img'
 import React, { useState, useMemo } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import {
@@ -257,7 +258,9 @@ export const ShopPage: React.FC = () => {
                     className="block relative aspect-square sm:aspect-4/3 w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#FAF9F5] border border-[#EAE6DC]/60 mb-2 sm:mb-4 cursor-pointer"
                   >
                     <img
-                      src={product.image}
+                      loading="lazy"
+                      decoding="async"
+                      src={thumb(product.image)}
                       alt={product.name}
                       className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
@@ -275,6 +278,8 @@ export const ShopPage: React.FC = () => {
                     {/* ERNEJOYSON Logo Watermark */}
                     <div className="absolute bottom-1.5 sm:bottom-2.5 left-1/2 -translate-x-1/2 pointer-events-none select-none z-10">
                       <img
+                        loading="lazy"
+                        decoding="async"
                         src={logoWatermark}
                         alt="ERNEJOYSON"
                         className="h-6 sm:h-11 w-auto max-w-[80px] sm:max-w-[120px] object-contain opacity-70 drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)]"

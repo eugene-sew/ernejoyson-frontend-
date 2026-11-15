@@ -127,6 +127,8 @@ export function WhyAgroneSection() {
                   {/* Thumbnail */}
                   <div className="h-16 w-28 sm:h-24 sm:w-44 shrink-0 rounded-lg sm:rounded-2xl overflow-hidden bg-[#FAF9F5] shadow-xs">
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={item.image}
                       alt={item.title}
                       className="h-full w-full object-cover"
@@ -190,6 +192,8 @@ export function WhyAgroneSection() {
           <div className="relative min-h-[280px] sm:min-h-[460px] w-full rounded-2xl sm:rounded-[40px] overflow-hidden shadow-md">
             {/* Background Livestock and Poultry Farming Footage */}
             <img
+              loading="lazy"
+              decoding="async"
               src={current.bg}
               alt=""
               className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-700"

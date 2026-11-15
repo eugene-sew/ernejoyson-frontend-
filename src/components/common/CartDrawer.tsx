@@ -1,3 +1,4 @@
+import { thumb } from '@/lib/img'
 import React, { useEffect, useState } from 'react'
 import {
   X,
@@ -320,7 +321,9 @@ export const CartDrawer: React.FC = () => {
                     {/* Thumbnail */}
                     <div className="h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-xl border border-[#EAE6DC] bg-white p-1">
                       <img
-                        src={item.product.image}
+                        loading="lazy"
+                        decoding="async"
+                        src={thumb(item.product.image)}
                         alt={item.product.name}
                         className="h-full w-full object-contain"
                         onError={(e) => {

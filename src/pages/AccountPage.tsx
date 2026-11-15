@@ -1,3 +1,4 @@
+import { thumb } from '@/lib/img'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import {
@@ -175,7 +176,7 @@ function OrderView({ order }: { order: PublicOrder }) {
               <li key={i.product_id + i.product_name} className="flex items-center gap-3 py-3">
                 <div className="h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-[#EAE6DC] bg-white p-1">
                   {i.product_image ? (
-                    <img src={i.product_image} alt="" className="h-full w-full object-contain" />
+                    <img loading="lazy" decoding="async" src={thumb(i.product_image)} alt="" className="h-full w-full object-contain" />
                   ) : (
                     <Package className="m-auto mt-2.5 h-5 w-5 text-neutral-300" />
                   )}

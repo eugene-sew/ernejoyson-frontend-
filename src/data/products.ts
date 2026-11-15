@@ -248,7 +248,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'Contact for Price',
     spec: 'Arcus design',
     inStock: true,
-    image: '/products/67959989-2977-42AB-B165-208325B64A02.png',
+    image: '/products/67959989-2977-42AB-B165-208325B64A02.jpg',
     description: 'Advanced anti-spill Arcus poultry feeder for modern poultry management.',
   },
 
@@ -647,7 +647,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 18.00',
     spec: '100g powder',
     inStock: true,
-    image: '/products/332E6C81-DC76-4650-B401-239172E865F7.png',
+    image: '/products/332E6C81-DC76-4650-B401-239172E865F7.jpg',
     description: 'Concentrated Vitamins A, D3, and E for bone development, immunity, and fertility.',
   },
   {
@@ -728,7 +728,7 @@ export const PRODUCTS: Product[] = [
     priceDisplay: 'GHS 150.00',
     spec: '1 Litre bottle',
     inStock: true,
-    image: '/products/08CEAA8B-41C8-4EBD-AAF8-9EE8F6802938.png',
+    image: '/products/08CEAA8B-41C8-4EBD-AAF8-9EE8F6802938.jpg',
     description: 'Mucolytic and bronchodilator oral liquid for respiratory relief and clearing mucus in poultry.',
   },
   {

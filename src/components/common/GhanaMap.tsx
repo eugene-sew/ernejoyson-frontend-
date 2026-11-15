@@ -229,6 +229,8 @@ export const GhanaMap: React.FC<GhanaMapProps> = ({
                     <div className="flex items-center gap-2.5 bg-[#FAF9F5] p-2 rounded-xl border border-[#EAE6DC]">
                       {branch.managerPhoto && (
                         <img
+                          loading="lazy"
+                          decoding="async"
                           src={branch.managerPhoto}
                           alt={branch.manager}
                           className="h-11 w-11 rounded-lg object-cover border border-white shadow-xs shrink-0"

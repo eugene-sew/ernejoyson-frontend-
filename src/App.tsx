@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect, type ComponentType } from 'react'
 import { BrowserRouter, Routes, Route, useLocation, Outlet } from 'react-router-dom'
 import { Header } from '@/components/common/Header'
 import { CartDrawer } from '@/components/common/CartDrawer'
@@ -6,19 +6,25 @@ import { CookieConsent } from '@/components/common/CookieConsent'
 import { ChatWidget } from '@/components/common/ChatWidget'
 import { Footer } from '@/components/sections/Footer'
 
-// Dedicated Public Pages
+// Home loads with the app; every other page is its own chunk (the map library only loads on /locations).
 import { HomePage } from '@/pages/HomePage'
-import { ShopPage } from '@/pages/ShopPage'
-import { ProductDetailPage } from '@/pages/ProductDetailPage'
-import { SolutionsPage } from '@/pages/SolutionsPage'
-import { TechnicalSupportPage } from '@/pages/TechnicalSupportPage'
-import { LocationsPage } from '@/pages/LocationsPage'
-import { B2bPage } from '@/pages/B2bPage'
-import { KnowledgePage } from '@/pages/KnowledgePage'
-import { ArticlePage } from '@/pages/ArticlePage'
-import { AboutPage } from '@/pages/AboutPage'
-import { LegalPrivacyPage } from '@/pages/LegalPrivacyPage'
-import { AccountPage, AccountOrderPage, AccountResetPage, TrackOrderPage } from '@/pages/AccountPage'
+
+const page = <K extends string>(load: () => Promise<Record<K, ComponentType>>, name: K) =>
+  lazy(() => load().then((m) => ({ default: m[name] })))
+const ShopPage = page(() => import('@/pages/ShopPage'), 'ShopPage')
+const ProductDetailPage = page(() => import('@/pages/ProductDetailPage'), 'ProductDetailPage')
+const SolutionsPage = page(() => import('@/pages/SolutionsPage'), 'SolutionsPage')
+const TechnicalSupportPage = page(() => import('@/pages/TechnicalSupportPage'), 'TechnicalSupportPage')
+const LocationsPage = page(() => import('@/pages/LocationsPage'), 'LocationsPage')
+const B2bPage = page(() => import('@/pages/B2bPage'), 'B2bPage')
+const KnowledgePage = page(() => import('@/pages/KnowledgePage'), 'KnowledgePage')
+const ArticlePage = page(() => import('@/pages/ArticlePage'), 'ArticlePage')
+const AboutPage = page(() => import('@/pages/AboutPage'), 'AboutPage')
+const LegalPrivacyPage = page(() => import('@/pages/LegalPrivacyPage'), 'LegalPrivacyPage')
+const AccountPage = page(() => import('@/pages/AccountPage'), 'AccountPage')
+const AccountOrderPage = page(() => import('@/pages/AccountPage'), 'AccountOrderPage')
+const AccountResetPage = page(() => import('@/pages/AccountPage'), 'AccountResetPage')
+const TrackOrderPage = page(() => import('@/pages/AccountPage'), 'TrackOrderPage')
 
 /**
  * ScrollToTop helper:
@@ -60,7 +66,9 @@ function PublicLayout() {
 
       {/* Routed Platform Content */}
       <main className="flex-1 pt-12">
-        <Outlet />
+        <Suspense fallback={<div className="min-h-[60vh]" />}>
+          <Outlet />
+        </Suspense>
       </main>
 
       {/* Modern Forest Green Footer */}

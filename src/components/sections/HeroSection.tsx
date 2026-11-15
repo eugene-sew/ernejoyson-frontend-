@@ -13,7 +13,7 @@ export function HeroSection() {
             srcSet="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=800&q=80"
           />
           <img
-            src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1800&q=85"
+            src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=1800&q=70"
             alt="Poultry and livestock farming equipment in Ghana"
             className="h-full w-full object-cover object-center scale-105"
           />

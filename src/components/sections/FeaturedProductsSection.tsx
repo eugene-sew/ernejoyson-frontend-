@@ -5,6 +5,7 @@ import logoWatermark from '@/assets/logo-watermark.png'
 import { useCatalog } from '@/store/useCatalogStore'
 import { useCartStore } from '@/store/useCartStore'
 import type { Product } from '@/data/products'
+import { thumb } from '@/lib/img'
 
 // Filter pills group the admin-managed category slugs into the two lines we sell.
 const GROUPS: Record<string, string[]> = {
@@ -102,7 +103,9 @@ export function FeaturedProductsSection() {
             {/* Image Container with Badges */}
             <div className="relative h-52 w-full overflow-hidden rounded-[22px] bg-[#FAF9F5] mb-4">
               <img
-                src={product.image}
+                loading="lazy"
+                decoding="async"
+                src={thumb(product.image)}
                 alt=""
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
@@ -120,6 +123,8 @@ export function FeaturedProductsSection() {
               {/* ERNEJOYSON Logo Watermark */}
               <div className="absolute bottom-12 left-1/2 -translate-x-1/2 pointer-events-none select-none z-10">
                 <img
+                  loading="lazy"
+                  decoding="async"
                   src={logoWatermark}
                   alt=""
                   className="h-9 sm:h-10 w-auto max-w-[120px] object-contain opacity-70 drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)]"

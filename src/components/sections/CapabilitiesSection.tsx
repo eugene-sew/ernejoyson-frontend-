@@ -110,6 +110,8 @@ export function CapabilitiesSection() {
                     }`}
                   >
                     <img
+                      loading="lazy"
+                      decoding="async"
                       src={item.image}
                       alt={item.title}
                       className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"

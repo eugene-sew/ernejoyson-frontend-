@@ -78,6 +78,8 @@ export function NewsSection() {
             {/* Image Thumbnail with Overlay Category Badge */}
             <Link to="/knowledge" className="relative h-48 sm:h-60 w-full overflow-hidden rounded-xl sm:rounded-[24px] bg-[#FAF9F5] block">
               <img
+                loading="lazy"
+                decoding="async"
                 src={article.image}
                 alt={article.title}
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
