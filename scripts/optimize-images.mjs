@@ -59,6 +59,7 @@ for await (const f of walk(join(ROOT, 'public/products'))) {
         .jpeg({ quality: 78, mozjpeg: true, progressive: true }).toFile(jpg)
       console.log(`${relative(ROOT, jpg)}  (JPEG copy of PNG photo)`)
     }
+    continue // the JPEG copy is what the site uses; re-quantizing the PNG each build only degrades it
   }
   await shrink(f, 1200, 300)
   await thumb(f)

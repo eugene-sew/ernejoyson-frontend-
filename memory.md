@@ -50,7 +50,9 @@ graph TD
 | **Admin Portal** | Production | `admin.ernejoyson.com` | `72352fc73701e780.vercel-dns-017.com.` | `CNAME` (3000) |
 | **Admin Portal** | Staging | `staging-admin.ernejoyson.com` | `72352fc73701e780.vercel-dns-017.com.` | `CNAME` (300) |
 | **Admin Portal** | Staging (Alias) | `admin-staging.ernejoyson.com` | `72352fc73701e780.vercel-dns-017.com.` | `CNAME` (300) |
-| **Backend API** | Shared (Prod/Staging) | `api.ernejoyson.com` | `72.61.109.50` (Hostinger VPS) | `A` (3600) |
+| **Backend API** | Shared (Prod/Staging) | `api.ernejoyson.com` | `62.171.173.51` (client VPS, Coolify) | `A` (300) |
+| **Coolify / monitoring** | Ops | `coolify.`, `status.`, `errors.ernejoyson.com` | `62.171.173.51` | `A` (300) |
+| **Mail (Resend)** | Prod | `mail.ernejoyson.com` (DKIM `resend._domainkey.mail`, SPF/MX `send.mail`, `rsend.mail`), `_dmarc` p=none | Resend eu-west-1 | `TXT`/`MX`/`CNAME` |
 
 ### Deployables & Technology Layers
 
@@ -58,9 +60,9 @@ graph TD
 |---|---|---|---|
 | **Storefront** | React 19, Vite 8, React Router 7, TS, Tailwind 4, Zustand, MapLibre, Paystack inline | `frontend/`, `:5174` | `ernejoyson.com`, `www.ernejoyson.com`, `staging.ernejoyson.com`, `testing.ernejoyson.com` |
 | **Admin** | Same stack minus maps/Paystack; routes at root (`/login`, `/orders`, ...) | `admin/`, `:5175` | `admin.ernejoyson.com`, `staging-admin.ernejoyson.com`, `admin-staging.ernejoyson.com` |
-| **API** | Django 6.1, DRF, SimpleJWT, drf-spectacular (Swagger `/api/docs`), Resend, Paystack, gunicorn, WhiteNoise; managed by `uv` (Python 3.12) | `backend-django/`, `:5001` (Hostinger VPS: Coolify Docker `72.61.109.50`) | `api.ernejoyson.com` |
-| **Database** | SQLite WAL (on VPS: Docker volume `fqxah2q7tklzrwmmcldpxv0u_data`) | `backend-django/data/` | Internal to Docker container |
-| **Deploy** | Frontend/Admin on Vercel (`vercel.json` rewrites); API on Hostinger VPS (Ubuntu 24.04 + Coolify + Traefik) | see each app's README | Traefik automates Let's Encrypt TLS |
+| **API** | Django 6.1, DRF, SimpleJWT, drf-spectacular (Swagger `/api/docs`), Resend, Paystack, gunicorn, WhiteNoise; managed by `uv` (Python 3.12) | `backend-django/`, `:5001` (client VPS `62.171.173.51`: Coolify app `m0a4jabq7ryiqhxw4vizroyy`, volume `ernejoyson-api-data`) | `api.ernejoyson.com` |
+| **Database** | SQLite WAL (on VPS: Docker volume `ernejoyson-api-data`; daily backup 02:30 to `/root/backups`, 14 days) | `backend-django/data/` | Internal to Docker container |
+| **Deploy** | Frontend/Admin on Vercel (`vercel.json` rewrites); API on the client's Contabo VPS (Ubuntu 24.04 + Coolify + Traefik) | see each app's README | Traefik automates Let's Encrypt TLS |
 | **Legacy** | Old Node/Express API, kept until Django is confirmed in prod. Do not develop on it. | `backend/` | Deprecated |
 
 ---
@@ -294,6 +296,10 @@ EnerJoyson/
 
 23. **Go-live prep (Oct 29)**: production addresses are live: `admin.ernejoyson.com` attached to the admin Vercel project; staging retired via host redirects in both `vercel.json` files (staging/testing → ernejoyson.com, staging-admin/admin-staging → admin.ernejoyson.com, same path, 307). Backend go-live commands: `purge_test_data`, `move_images_to_cloudinary` (both dry-run by default), plus Django's `createsuperuser` for the first owner (see backend README "Go-live commands"); they must be run in the API container by someone with Coolify access. `frontend/.vercelignore` stops the CLI uploading the 121 MB product-photo zip in `src/`. Handover guide: `docs/ERNEJOYSON_PLATFORM_HANDOVER_GUIDE.md` + `.pdf` (production links up front, staging marked retired); old staff manual files moved to `docs/archive/` (they contain an old login screenshot with the dev password; don't share). The owner password that was in this file is removed, but it remains in git history: rotate it.
 
+24. **API moved to client VPS (Nov 15)**: old Hostinger VPS `72.61.109.50` went dark (API was down). Restored the Nov 13 backup bundle onto the client's Contabo VPS `62.171.173.51` (Ubuntu 24.04, key-only SSH, ufw 22/80/443, fail2ban, unattended upgrades, 4 GB swap) running Coolify at `https://coolify.ernejoyson.com`; raw ports 8000/6001/6002 blocked in DOCKER-USER (persisted in `/etc/ufw/after.rules`). API = Coolify Dockerfile app from `ernejoyson-backend` `main` (read-only deploy key); Coolify healthcheck off (image has no curl; Dockerfile HEALTHCHECK is used). Same env as before, so saved Paystack keys still decrypt. Resend domain `mail.ernejoyson.com` verified; API uses a sending-only key scoped to that domain; Coolify alerts go out via Resend. Observability: Coolify Sentinel metrics (30 days, disk alert at 80%), Uptime Kuma (`status.`: API keyword check, shop, www, admin, Coolify, GlitchTip, plus a push monitor the nightly backup must hit within 26 h; email via Resend), GlitchTip (`errors.`, org `ernejoyson`, project `api`; Django reports when `SENTRY_DSN` is set, backend commit `4af449e`). Backups: `/usr/local/bin/ernejoyson-backup` (cron 02:30) → `/root/backups` (14 days) + Cloudflare R2 bucket `ernejoyson/api/` (30 days; restore from R2 tested Nov 15). **Frontends stay on Vercel** (decision Nov 15); only the `api` DNS record moved.
+
+25. **Image + load-time optimization (Nov 15)**: `frontend/scripts/optimize-images.mjs` (`npm run images`, uses sharp): product photos max 1200px mozjpeg in place (names kept), 480px WebP card thumbnails in `public/products/sm/`, site art/logos/staff resized; 86MB → 11MB. Cards use `thumb()` from `src/lib/img.ts`; below-fold images lazy-load; non-home routes are lazy chunks (main JS 1.76MB → 451KB, MapLibre only on /locations). The 3 PNG product photos now point at JPEG copies (bundled data + live DB). API serves `/media` as `image/webp` with 1-year immutable cache. Optimization is automatic: `npm run build` (so every Vercel deploy) runs the optimizer first (PNG product photos are skipped once their JPEG copy exists), and the API makes `X_sm.webp` 480px thumbnails of admin uploads on first request (`ensure_thumbnail`, backend `db5c589`, storefront `ca64191`). Storefront commit `abbe365`, backend `921cc62`.
+
 ### Open Issues (priority order)
 1. **Checkout: validate before paying**: save errors now show (fixed Oct 8), but with live Paystack keys a customer could still pay and then hit a save error (they see the reference and a phone number). Fix properly by validating the cart with the API before opening Paystack.
 2. ~~Admin product images broken~~ **Fixed Oct 6**: `admin/src/lib/storefront.ts` prefixes storefront-relative images with `VITE_STOREFRONT_URL` (dev default `http://localhost:5174`). Note: `Product.image` is a `URLField`, so sending a relative image path through the API still fails validation.
@@ -304,7 +310,7 @@ EnerJoyson/
 4b. ~~Admin login page shows demo credentials~~ **Fixed Oct 6**: shown/pre-filled only in dev builds (verified absent from the production bundle).
 4e. **Stale storefront copy**: cookie banner mentions "Sunyani, Goaso" depots (not branches); storefront Locations page still has its own hardcoded branch data (could read `GET /api/branches`).
 5. **Stale legal copy**: `LegalPrivacyPage.tsx` says cookies keep "admin login sessions" on the storefront. That is no longer true.
-6. **Not built yet**: Cloudinary upload UI in the admin (also add `https://api.cloudinary.com` to the admin CSP), per-depot staff roles, Paystack initialize endpoint, Postgres, background email queue, backups cron.
+6. **Not built yet**: Cloudinary upload UI in the admin (also add `https://api.cloudinary.com` to the admin CSP), per-depot staff roles, Paystack initialize endpoint, Postgres, background email queue.
 7. **Legacy `backend/`** (Express) can be deleted once Django is live.
 
 ### Local dev gotcha
